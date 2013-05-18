@@ -286,7 +286,7 @@ function save(){
     i = 12;
     j = ['turn-angle-select','ms-per-move','obstacles-per-point','obstacles-at-start','oncollision-select','audio-volume','max-frames','wrap-select','y-margin','game-mode-select','max-points','move-keys','start-key'];
     do{
-        if(get(j[i]).value===[0,125,1,0,1,1,0,0,0,1,0,'WASD','H'][i]){
+        if(get(j[i]).value==[0,125,1,0,1,1,0,0,0,1,0,'WASD','H'][i]){
             ls.removeItem('snakish'+i)
         }else{
             ls.setItem('snakish'+i,get(j[i]).value)
