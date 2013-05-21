@@ -1,21 +1,21 @@
 function eat_purple_creature(){
-    get('score').innerHTML = parseInt(get('score').innerHTML,10)+1;
+    get('score').innerHTML = parseInt(get('score').innerHTML,10) + 1;
 
     /*if there will be additional spaces available for more obstacles*/
-    if(get('score').innerHTML<Math.floor(398/(parseInt(get('obstacles-per-point').value)+1))+1){
+    if(get('score').innerHTML < Math.floor(398 / (parseInt(get('obstacles-per-point').value) + 1)) + 1){
 
         /*pick a button with color_empty and make it the new purple creature*/
         do{
             a = random_number(400)
-        }while(get(a).style.backgroundColor!=color_empty);
+        }while(get(a).style.backgroundColor != color_empty);
         get(a).style.backgroundColor = color_purple;
 
-        var i = get('obstacles-per-point').value-1;
+        var i = get('obstacles-per-point').value - 1;
         /*if more than 0 obstacles should be created*/
         if(i>=0){
             /*add new obstacles*/
             do{
-                while(get(a).style.backgroundColor!=color_empty){
+                while(get(a).style.backgroundColor != color_empty){
                     a = random_number(400)
                 }
                 get(a).style.backgroundColor = color_obstacle
@@ -25,30 +25,36 @@ function eat_purple_creature(){
         stop()
     }
 }
+
 function get(i){
     return document.getElementById(i)
 }
+
 function move_player(){
     /*check if game is still running, based on game mode and if frames/score are over max*/
-    i = get('game-mode-select').value===1 ? parseFloat(get('frames').innerHTML)<=0 && get('max-frames').value>0 : get('max-points').value!=0 && parseInt(get('score').innerHTML)>=get('max-points').value;
+    i = get('game-mode-select').value === 1 ? parseFloat(get('frames').innerHTML) <= 0 && get('max-frames').value > 0 : get('max-points').value != 0 && parseInt(get('score').innerHTML) >= get('max-points').value;
 
     /*if game running continue, else stop()*/
     if(!i){
         /*add or subtract 1 from frames depending on game mode*/
-        get('frames').innerHTML = ((parseFloat(get('frames').innerHTML)+((get('game-mode-select').value===1 && get('max-frames').value>0) ? -1 : 1)));
+        get('frames').innerHTML = ((parseFloat(get('frames').innerHTML) +
+            ((get('game-mode-select').value === 1 && get('max-frames').value > 0) ? -1 : 1)));
 
-        var dx=dy=check_color = 0;
+        var dx = 0;
+        var dy = 0;
+        var check_color = 0;
+
         /*is player is moving up*/
-        if(player[2]===0){
+        if(player[2] === 0){
             /*if player is not at the top of the screen*/
-            if(player[1]-1>=0){
+            if(player[1] - 1 >= 0){
                 /*fetch color of space directly above the player*/
-                check_color = get((player[1]-1)*20+player[0]).style.backgroundColor;
+                check_color = get((player[1] - 1) * 20 + player[0]).style.backgroundColor;
 
                 /*if the space is not an obstacle continue, else i=1 to know of collision*/
-                if(check_color!==color_obstacle){
+                if(check_color !== color_obstacle){
                     /*if color of space is purple, eat the creature*/
-                    if(check_color===color_purple){
+                    if(check_color === color_purple){
                         eat_purple_creature()
                     }
 
@@ -62,14 +68,14 @@ function move_player(){
                 }
 
             /*if player is at the top of the screen and can wrap in the y-direction*/
-            }else if(get('wrap-select').value==2 || get('wrap-select').value==3){
+            }else if(get('wrap-select').value == 2 || get('wrap-select').value == 3){
                 /*fetch color of space at the bottom of the screen*/
-                check_color = get((player[1]+19)*20+player[0]).style.backgroundColor;
+                check_color = get((player[1] + 19) * 20 + player[0]).style.backgroundColor;
 
                 /*if the space is not an obstacle continue*/
-                if(check_color!==color_obstacle){
+                if(check_color !== color_obstacle){
                     /*if color of space is purple, eat the creature*/
-                    if(check_color===color_purple){
+                    if(check_color === color_purple){
                         eat_purple_creature()
                     }
 
@@ -88,21 +94,21 @@ function move_player(){
             }
 
         /*if player is moving right*/
-        }else if(player[2]===1){
+        }else if(player[2] === 1){
             /*if player is not at the right edge of the screen*/
-            if(player[0]+1<=19){
+            if(player[0] + 1 <= 19){
                 /*fetch color of space to the right of the player*/
-                check_color = get(player[1]*20+player[0]+1).style.backgroundColor;
+                check_color = get(player[1] * 20 + player[0] + 1).style.backgroundColor;
 
                 /*if the space is not an obstacle continue*/
-                if(check_color!==color_obstacle){
+                if(check_color !== color_obstacle){
                     /*if color of space is purple, eat the creature*/
-                    if(check_color===color_purple){
+                    if(check_color === color_purple){
                         eat_purple_creature()
                     }
 
                     /*increase player x position*/
-                    player[0]+=1;
+                    player[0] += 1;
                     dx -= 1
 
                 /*collision!*/
@@ -111,14 +117,14 @@ function move_player(){
                 }
 
             /*if player is at the right edge of the screen and can wrap in the x-direction*/
-            }else if(get('wrap-select').value==1 || get('wrap-select').value==2){
+            }else if(get('wrap-select').value == 1 || get('wrap-select').value == 2){
                 /*fetch color of space at the left of the screen*/
-                check_color = get(player[1]*20+player[0]-19).style.backgroundColor;
+                check_color = get(player[1] * 20 + player[0] - 19).style.backgroundColor;
 
                 /*if the space is not an obstacle continue*/
-                if(check_color!==color_obstacle){
+                if(check_color !== color_obstacle){
                     /*if color of space is purple, eat the creature*/
-                    if(check_color===color_purple){
+                    if(check_color === color_purple){
                         eat_purple_creature()
                     }
 
@@ -137,16 +143,16 @@ function move_player(){
             }
 
         /*if player is moving down*/
-        }else if(player[2]===2){
+        }else if(player[2] === 2){
             /*if player is not at the bottom of the screen*/
-            if(player[1]+1<=19){
+            if(player[1] + 1 <= 19){
                 /*fetch color of space directory below the player*/
-                check_color = get((player[1]+1)*20+player[0]).style.backgroundColor;
+                check_color = get((player[1] + 1) * 20 + player[0]).style.backgroundColor;
 
                 /*if the space is not an obstacle continue*/
-                if(check_color!==color_obstacle){
+                if(check_color !== color_obstacle){
                     /*if color of space is purple, eat the creature*/
-                    if(check_color===color_purple){
+                    if(check_color === color_purple){
                         eat_purple_creature()
                     }
 
@@ -160,14 +166,14 @@ function move_player(){
                 }
 
             /*if player is at the bottom edge of the screen and can wrap in the y-direction*/
-            }else if(get('wrap-select').value==2 || get('wrap-select').value==3){
+            }else if(get('wrap-select').value == 2 || get('wrap-select').value == 3){
                 /*fetch color of space at the top of the screen*/
-                check_color = get((player[1]-19)*20+player[0]).style.backgroundColor;
+                check_color = get((player[1] - 19) * 20 + player[0]).style.backgroundColor;
 
                 /*if the space is not an obstacle continue*/
-                if(check_color!==color_obstacle){
+                if(check_color !== color_obstacle){
                     /*if color of space is purple, eat the creature*/
-                    if(check_color===color_purple){
+                    if(check_color === color_purple){
                         eat_purple_creature()
                     }
 
@@ -186,15 +192,15 @@ function move_player(){
             }
 
         /*if player is moving left*/
-        }else if(player[2]===3){
-            if(player[0]-1>=0){
+        }else if(player[2] === 3){
+            if(player[0] - 1 >= 0){
                 /*fetch color of space to the left of the player*/
-                check_color = get(player[1]*20+player[0]-1).style.backgroundColor;
+                check_color = get(player[1] * 20 + player[0] - 1).style.backgroundColor;
 
                 /*if the space is not an obstacle continue*/
-                if(check_color!==color_obstacle){
+                if(check_color !== color_obstacle){
                     /*if color of space is purple, eat the creature*/
-                    if(check_color===color_purple){
+                    if(check_color === color_purple){
                         eat_purple_creature()
                     }
 
@@ -208,14 +214,14 @@ function move_player(){
                 }
 
             /*if player is at the left edge of the screen and can wrap in the x-direction*/
-            }else if(get('wrap-select').value==1 || get('wrap-select').value==2){
+            }else if(get('wrap-select').value == 1 || get('wrap-select').value == 2){
                 /*fetch color of space at the right side of the screen*/
-                check_color = get(player[1]*20+player[0]+19).style.backgroundColor;
+                check_color = get(player[1] * 20 + player[0] + 19).style.backgroundColor;
 
                 /*if the space is not an obstacle continue*/
-                if(check_color!==color_obstacle){
+                if(check_color !== color_obstacle){
                     /*if color of space is purple, eat the creature*/
-                    if(check_color===color_purple){
+                    if(check_color === color_purple){
                         eat_purple_creature()
                     }
 
@@ -237,89 +243,126 @@ function move_player(){
         /*if a collision with an obstacle or edge was detected*/
         if(i){
             /*if game ends oncollision*/
-            if(get('oncollision-select').value==1){
+            if(get('oncollision-select').value == 1){
                 stop()
             /*else if score decreases*/
-            }else if(get('oncollision-select').value===2){
-                get('score').innerHTML = parseInt(get('score').innerHTML,10)-1
+            }else if(get('oncollision-select').value === 2){
+                get('score').innerHTML = parseInt(get('score').innerHTML,10) - 1
             }
         }
 
         /*if player x or y position has changed*/
         if(dx!==0 || dy!==0){
             /*reset old player position to an empty space*/
-            get((player[1]+dy)*20+player[0]+dx).style.backgroundColor = color_empty
+            get((player[1] + dy) * 20 + player[0] + dx).style.backgroundColor = color_empty
         }
 
         /*set color of new player position to color_player*/
-        get(player[1]*20+player[0]).style.backgroundColor = color_player
+        get(player[1] * 20 + player[0]).style.backgroundColor = color_player
     }else{
         stop()
     }
 }
+
 function play_audio(i){
-    if(get('audio-volume').value>0){
+    if(get('audio-volume').value > 0){
         get(i).volume = get('audio-volume').value;
         get(i).currentTime = 0;
         get(i).play()
     }
 }
+
 function random_number(i){
-    return Math.floor(Math.random()*i)
+    return Math.floor(Math.random() * i)
 }
+
 function reset(){
     if(confirm('Reset settings?')){
         stop();
 
-        get('game-mode-select').value = get('oncollision-select').value = get('obstacles-per-point').value = get('audio-volume').value = 1;
-        get('move-keys').value = 'WASD';
-        get('start-key').value = 'H';
+        get('audio-volume').value = 1;
+        get('game-mode-select').value = 1;
+        get('max-frames').value = 0;
         get('max-points').value = 50;
-        get('obstacles-at-start').value = get('turn-angle-select').value = get('max-frames').value = get('wrap-select').value = get('y-margin').value = 0;
+        get('move-keys').value = 'WASD';
         get('ms-per-move').value = 125;
+        get('obstacles-at-start').value = 0;
+        get('obstacles-per-point').value = 1;
+        get('oncollision-select').value = 1;
+        get('start-key').value = 'H';
+        get('turn-angle-select').value = 0;
+        get('wrap-select').value = 0;
+        get('y-margin').value = 0;
 
         save()
     }
 }
+
 function save(){
     /*save settings into localStorage, if differ from default*/
     i = 12;
-    j = ['turn-angle-select','ms-per-move','obstacles-per-point','obstacles-at-start','oncollision-select','audio-volume','max-frames','wrap-select','y-margin','game-mode-select','max-points','move-keys','start-key'];
+    j = [
+        'turn-angle-select',
+        'ms-per-move',
+        'obstacles-per-point',
+        'obstacles-at-start',
+        'oncollision-select',
+        'audio-volume',
+        'max-frames',
+        'wrap-select',
+        'y-margin',
+        'game-mode-select',
+        'max-points',
+        'move-keys',
+        'start-key'
+    ];
     do{
-        if(get(j[i]).value==[0,125,1,0,1,1,0,0,0,1,0,'WASD','H'][i]){
-            ls.removeItem('snakish'+i)
+        if(get(j[i]).value == [0,125,1,0,1,1,0,0,0,1,0,'WASD','H'][i]){
+            ls.removeItem('snakish' + i)
         }else{
-            ls.setItem('snakish'+i,get(j[i]).value)
+            ls.setItem('snakish' + i,get(j[i]).value)
         }
     }while(i--);
     j = 0
 }
+
 function set_settings_disable(i){
-    get('game-mode-select').disabled = get('oncollision-select').disabled = get('obstacles-per-point').disabled = get('max-points').disabled = get('reset-button').disabled = get('turn-angle-select').disabled = get('ms-per-move').disabled = get('max-frames').disabled = get('wrap-select').disabled = i
+    get('game-mode-select').disabled = i;
+    get('oncollision-select').disabled = i;
+    get('obstacles-per-point').disabled = i;
+    get('max-points').disabled = i;
+    get('reset-button').disabled = i;
+    get('turn-angle-select').disabled = i;
+    get('ms-per-move').disabled = i;
+    get('max-frames').disabled = i;
+    get('wrap-select').disabled = i
 }
+
 function showhide_hack(){
-    get('hack-span').style.display = get('hack-span').style.display==='none' ? 'inline' : 'none'
+    get('hack-span').style.display = get('hack-span').style.display === 'none' ? 'inline' : 'none'
 }
+
 function showhide_settings(){
-    i = get('showhide-button').value==='-' ? 1 : 0;
+    i = get('showhide-button').value === '-' ? 1 : 0;
     get('settings-span').style.display = ['inline','none'][i];
     get('showhide-button').value = ['-','+'][i]
 }
+
 function start(){
     /*validate settings*/
     i = 5;
     j = ['obstacles-per-point','max-points','obstacles-at-start','audio-volume','ms-per-move','max-frames','y-margin'];
     do{
-        if(isNaN(get(j[i]).value) || get(j[i]).value<0){
+        if(isNaN(get(j[i]).value) || get(j[i]).value < 0){
             get(j[i]).value = [1,0,0,1,125,0,0][i]
         }
     }while(i--);
-    if(get('obstacles-per-point').value>396){
+    if(get('obstacles-per-point').value > 396){
         get('obstacles-per-point').value = 396
     }
 
     /*adjust margin-top of entire game*/
-    get('lol-a-table').style.marginTop = get('y-margin').value+'px';
+    get('lol-a-table').style.marginTop = get('y-margin').value + 'px';
 
     set_settings_disable(1);
 
@@ -339,41 +382,43 @@ function start(){
     player = [1,1,1];
 
     /*create initial obstacles, if any*/
-    if(get('obstacles-at-start').value>0){
-        if(get('obstacles-at-start').value>398){
+    if(get('obstacles-at-start').value > 0){
+        if(get('obstacles-at-start').value > 398){
             get('obstacles-at-start').value = 398
         }
-        i = get('obstacles-at-start').value-1;
+        i = get('obstacles-at-start').value - 1;
         a = -1;
         do{
             do{
                 a = random_number(400)
-            }while(get(a).style.backgroundColor!==color_empty);
+            }while(get(a).style.backgroundColor !== color_empty);
             get(a).style.backgroundColor = color_obstacle
         }while(i--)
     }
 
     /*setup display or not display of max frames or max points*/
-    if(get('game-mode-select').value===1){
+    if(get('game-mode-select').value === 1){
         get('frames').innerHTML = get('frames-max').innerHTML = get('max-frames').value;
         get('score-max').innerHTML = '';
-        get('frames-max-span').style.display = get('max-frames').value>0 ? 'inline' : 'none'
+        get('frames-max-span').style.display = get('max-frames').value > 0 ? 'inline' : 'none'
     }else{
         get('frames').innerHTML = 0;
         get('frames-max-span').style.display = 'none';
-        get('score-max').innerHTML = get('max-points').value>0 ? ' out of <b>'+get('max-points').value+'</b>' : ''
+        get('score-max').innerHTML = get('max-points').value > 0 ? ' out of <b>' + get('max-points').value + '</b>' : ''
     }
 
     /*validate milliseconds per player movement and create interval*/
-    interval = setInterval('move_player()',(get('ms-per-move').value>0)?get('ms-per-move').value:125);
+    interval = setInterval('move_player()',(get('ms-per-move').value > 0) ? get('ms-per-move').value : 125);
     save()
 }
+
 function stop(){
     clearInterval(interval);
-    get('start-button').value = 'Start ('+get('start-key').value+')';
+    get('start-button').value = 'Start (' + get('start-key').value + ')';
     get('start-button').onclick = function(){start()};
     set_settings_disable(0)
 }
+
 var color_empty = 'rgb(99, 99, 99)';
 var color_obstacle = 'rgb(255, 255, 255)';
 var color_player = 'rgb(0, 225, 0)';
@@ -385,59 +430,59 @@ var ls = window.localStorage;
 var player = [1,1,1];
 
 /*create buttons for game-area*/
-for(i=0;i<400;i++){
-    if(i%20===0 && i!==0){
+for(i = 0; i < 400; i++){
+    if(i%20 === 0 && i !== 0){
         j.push('<br>')
     }
-    j.push('<input class=buttons disabled id='+i+' style="background:'+color_empty+'" type=button>')
+    j.push('<input class=buttons disabled id=' + i + ' style="background:' + color_empty + '" type=button>')
 }
-j[23] = '<input class=buttons disabled id=21 style="background:'+color_player+'" type=button>';
-j[397] = '<input class=buttons disabled id=378 style="background:'+color_purple+'" type=button>';
+j[23] = '<input class=buttons disabled id=21 style="background:' + color_player + '" type=button>';
+j[397] = '<input class=buttons disabled id=378 style="background:' + color_purple + '" type=button>';
 get('game-area').innerHTML = j.join('');
 j = 0;
 
 /*fetch settings from localStorage and update settings inputs*/
-get('audio-volume').value = ls.getItem('snakish5')===null ? 1 : parseFloat(ls.getItem('snakish5'));
-get('game-mode-select').value = ls.getItem('snakish9')===null ? 1 : 0;
-get('max-frames').value = ls.getItem('snakish6')===null ? 0 : parseInt(ls.getItem('snakish6'));
-get('max-points').value = ls.getItem('snakish10')===null ? 0 : parseInt(ls.getItem('snakish10'));
-get('move-keys').value = ls.getItem('snakish11')===null ? 'WASD' : ls.getItem('snakish10');
-get('ms-per-move').value = ls.getItem('snakish1')===null ? 125 : parseInt(ls.getItem('snakish1'));
-get('obstacles-per-point').value = ls.getItem('snakish2')===null ? 1 : parseInt(ls.getItem('snakish2'));
-get('oncollision-select').value = ls.getItem('snakish4')===null ? 1 : parseInt(ls.getItem('snakish4'));
-get('obstacles-at-start').value = ls.getItem('snakish3')===null ? 0 : parseInt(ls.getItem('snakish3'));
-get('turn-angle-select').value = ls.getItem('snakish0')===null ? 0 : parseInt(ls.getItem('snakish0'));
-get('wrap-select').value = ls.getItem('snakish7')===null ? 0 : parseInt(ls.getItem('snakish7'));
-get('y-margin').value = ls.getItem('snakish8')===null ? 0 : parseInt(ls.getItem('snakish8'));
-if(ls.getItem('snakish12')===null){
+get('audio-volume').value = ls.getItem('snakish5') === null ? 1 : parseFloat(ls.getItem('snakish5'));
+get('game-mode-select').value = ls.getItem('snakish9') === null ? 1 : 0;
+get('max-frames').value = ls.getItem('snakish6') === null ? 0 : parseInt(ls.getItem('snakish6'));
+get('max-points').value = ls.getItem('snakish10') === null ? 0 : parseInt(ls.getItem('snakish10'));
+get('move-keys').value = ls.getItem('snakish11') === null ? 'WASD' : ls.getItem('snakish10');
+get('ms-per-move').value = ls.getItem('snakish1') === null ? 125 : parseInt(ls.getItem('snakish1'));
+get('obstacles-per-point').value = ls.getItem('snakish2') === null ? 1 : parseInt(ls.getItem('snakish2'));
+get('oncollision-select').value = ls.getItem('snakish4') === null ? 1 : parseInt(ls.getItem('snakish4'));
+get('obstacles-at-start').value = ls.getItem('snakish3') === null ? 0 : parseInt(ls.getItem('snakish3'));
+get('turn-angle-select').value = ls.getItem('snakish0') === null ? 0 : parseInt(ls.getItem('snakish0'));
+get('wrap-select').value = ls.getItem('snakish7') === null ? 0 : parseInt(ls.getItem('snakish7'));
+get('y-margin').value = ls.getItem('snakish8') === null ? 0 : parseInt(ls.getItem('snakish8'));
+if(ls.getItem('snakish12') === null){
     get('start-key').value = 'H'
 }else{
     get('start-key').value = ls.getItem('snakish12');
-    get('start-button').value = 'Start ('+ls.getItem('snakish12')+')'
+    get('start-button').value = 'Start (' + ls.getItem('snakish12') + ')'
 }
 
 /*adjust margin-top of entire game*/
-get('lol-a-table').style.marginTop = get('y-margin').value+'px';
+get('lol-a-table').style.marginTop = get('y-margin').value + 'px';
 
-window.onkeydown=function(e){
+window.onkeydown = function(e){
     i = window.event ? event : e;
     i = i.charCode ? i.charCode : i.keyCode;
-    if(String.fromCharCode(i)===get('move-keys').value[0]&&(player[2]!==2||get('turn-angle-select').value==1)){
+    if(String.fromCharCode(i) === get('move-keys').value[0] && (player[2] !== 2 || get('turn-angle-select').value == 1)){
         /*player move direction = up*/
         player[2] = 0
-    }else if(String.fromCharCode(i)===get('move-keys').value[1]&&(player[2]!==1||get('turn-angle-select').value==1)){
+    }else if(String.fromCharCode(i) === get('move-keys').value[1] && (player[2] !== 1 || get('turn-angle-select').value == 1)){
         /*player move direction = left*/
         player[2] = 3
-    }else if(String.fromCharCode(i)===get('move-keys').value[2]&&(player[2]!==0||get('turn-angle-select').value==1)){
+    }else if(String.fromCharCode(i) === get('move-keys').value[2] && (player[2] !== 0 || get('turn-angle-select').value == 1)){
         /*player move direction = down*/
         player[2] = 2
-    }else if(String.fromCharCode(i)===get('move-keys').value[3]&&(player[2]!==3||get('turn-angle-select').value==1)){
+    }else if(String.fromCharCode(i) === get('move-keys').value[3] && (player[2] !== 3 || get('turn-angle-select').value == 1)){
         /*player move direction = right*/
         player[2] = 1
-    }else if(String.fromCharCode(i)===get('start-key').value){
+    }else if(String.fromCharCode(i) === get('start-key').value){
         stop();
         start()
-    }else if(i===27){/*ESC*/
+    }else if(i === 27){/*ESC*/
         stop()
     }
 }
