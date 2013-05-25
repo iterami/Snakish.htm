@@ -12,7 +12,7 @@ function eat_purple_creature(){
 
         var i = get('obstacles-per-point').value - 1;
         /*if more than 0 obstacles should be created*/
-        if(i>=0){
+        if(i >= 0){
             /*add new obstacles*/
             do{
                 while(get(a).style.backgroundColor != color_empty){
@@ -40,9 +40,9 @@ function move_player(){
         get('frames').innerHTML = ((parseFloat(get('frames').innerHTML) +
             ((get('game-mode-select').value === 1 && get('max-frames').value > 0) ? -1 : 1)));
 
+        var check_color = 0;
         var dx = 0;
         var dy = 0;
-        var check_color = 0;
 
         /*is player is moving up*/
         if(player[2] === 0){
@@ -252,7 +252,7 @@ function move_player(){
         }
 
         /*if player x or y position has changed*/
-        if(dx!==0 || dy!==0){
+        if(dx !== 0 || dy !== 0){
             /*reset old player position to an empty space*/
             get((player[1] + dy) * 20 + player[0] + dx).style.backgroundColor = color_empty
         }
@@ -351,7 +351,15 @@ function showhide_settings(){
 function start(){
     /*validate settings*/
     i = 5;
-    j = ['obstacles-per-point','max-points','obstacles-at-start','audio-volume','ms-per-move','max-frames','y-margin'];
+    j = [
+        'obstacles-per-point',
+        'max-points',
+        'obstacles-at-start',
+        'audio-volume',
+        'ms-per-move',
+        'max-frames',
+        'y-margin'
+    ];
     do{
         if(isNaN(get(j[i]).value) || get(j[i]).value < 0){
             get(j[i]).value = [1,0,0,1,125,0,0][i]
