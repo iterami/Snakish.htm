@@ -439,7 +439,7 @@ var player = [1,1,1];
 
 /*create buttons for game-area*/
 for(i = 0; i < 400; i++){
-    if(i%20 === 0 && i !== 0){
+    if(i % 20 === 0 && i !== 0){
         j.push('<br>')
     }
     j.push('<input class=buttons disabled id=' + i + ' style="background:' + color_empty + '" type=button>')
@@ -475,6 +475,7 @@ get('lol-a-table').style.marginTop = get('y-margin').value + 'px';
 window.onkeydown = function(e){
     i = window.event ? event : e;
     i = i.charCode ? i.charCode : i.keyCode;
+
     if(String.fromCharCode(i) === get('move-keys').value[0] && (player[2] !== 2 || get('turn-angle-select').value == 1)){
         /*player move direction = up*/
         player[2] = 0
