@@ -2,7 +2,7 @@ function eat_purple_creature(){
     get('score').innerHTML = parseInt(get('score').innerHTML, 10) + 1;
 
     /* if there will be additional spaces available for more obstacles */
-    if(get('score').innerHTML < Math.floor(398 / (parseInt(get('obstacles-per-point').value) + 1)) + 1){
+    if(get('score').innerHTML < Math.floor(398 / (parseInt(get('obstacles-per-point').value, 10) + 1)) + 1){
 
         /* pick a button with color_empty and make it the new purple creature */
         do{
@@ -32,7 +32,7 @@ function get(i){
 
 function move_player(){
     /* check if game is still running, based on game mode and if frames/score are over max */
-    i = get('game-mode-select').value === 1 ? parseFloat(get('frames').innerHTML) <= 0 && get('max-frames').value > 0 : get('max-points').value != 0 && parseInt(get('score').innerHTML) >= get('max-points').value;
+    i = get('game-mode-select').value === 1 ? parseFloat(get('frames').innerHTML) <= 0 && get('max-frames').value > 0 : get('max-points').value != 0 && parseInt(get('score').innerHTML, 10) >= get('max-points').value;
 
     /* if game running continue, else stop() */
     if(!i){
@@ -248,7 +248,7 @@ function move_player(){
 
             /* else if score decreases */
             }else if(get('oncollision-select').value === 2){
-                get('score').innerHTML = parseInt(get('score').innerHTML,10) - 1;
+                get('score').innerHTML = parseInt(get('score').innerHTML, 10) - 1;
             }
         }
 
@@ -401,8 +401,12 @@ function start(){
     };
     get('score').innerHTML = '0';
 
-    /* reset player x position, y position, and movement direction */
-    player = [1,1,1];
+    /* reset player */
+    player = [
+        1,/* x */
+        1,/* y */
+        1/* movement direction (0N, 1E, 2S, 3W) */
+    ];
 
     /* create initial obstacles, if any */
     if(get('obstacles-at-start').value > 0){
@@ -431,7 +435,7 @@ function start(){
     }
 
     /* validate milliseconds per player movement and create interval */
-    interval = setInterval('move_player()',(get('ms-per-move').value > 0) ? get('ms-per-move').value : 125);
+    interval = setInterval('move_player()', (get('ms-per-move').value > 0) ? get('ms-per-move').value : 125);
     save();
 }
 
@@ -473,16 +477,16 @@ j = 0;
 /* fetch settings from localStorage and update settings inputs */
 get('audio-volume').value = ls.getItem('snakish-5') === null ? 1 : parseFloat(ls.getItem('snakish-5'));
 get('game-mode-select').value = ls.getItem('snakish-9') === null ? 1 : 0;
-get('max-frames').value = ls.getItem('snakish-6') === null ? 0 : parseInt(ls.getItem('snakish-6'));
-get('max-points').value = ls.getItem('snakish-10') === null ? 0 : parseInt(ls.getItem('snakish-10'));
+get('max-frames').value = ls.getItem('snakish-6') === null ? 0 : parseInt(ls.getItem('snakish-6'), 10);
+get('max-points').value = ls.getItem('snakish-10') === null ? 0 : parseInt(ls.getItem('snakish-10'), 10);
 get('move-keys').value = ls.getItem('snakish-11') === null ? 'WASD' : ls.getItem('snakish-10');
-get('ms-per-move').value = ls.getItem('snakish-1') === null ? 125 : parseInt(ls.getItem('snakish-1'));
-get('obstacles-per-point').value = ls.getItem('snakish-2') === null ? 1 : parseInt(ls.getItem('snakish-2'));
-get('oncollision-select').value = ls.getItem('snakish-4') === null ? 1 : parseInt(ls.getItem('snakish-4'));
-get('obstacles-at-start').value = ls.getItem('snakish-3') === null ? 0 : parseInt(ls.getItem('snakish-3'));
-get('turn-angle-select').value = ls.getItem('snakish-0') === null ? 0 : parseInt(ls.getItem('snakish-0'));
-get('wrap-select').value = ls.getItem('snakish-7') === null ? 0 : parseInt(ls.getItem('snakish-7'));
-get('y-margin').value = ls.getItem('snakish-8') === null ? 0 : parseInt(ls.getItem('snakish-8'));
+get('ms-per-move').value = ls.getItem('snakish-1') === null ? 125 : parseInt(ls.getItem('snakish-1'), 10);
+get('obstacles-per-point').value = ls.getItem('snakish-2') === null ? 1 : parseInt(ls.getItem('snakish-2'), 10);
+get('oncollision-select').value = ls.getItem('snakish-4') === null ? 1 : parseInt(ls.getItem('snakish-4'), 10);
+get('obstacles-at-start').value = ls.getItem('snakish-3') === null ? 0 : parseInt(ls.getItem('snakish-3'), 10);
+get('turn-angle-select').value = ls.getItem('snakish-0') === null ? 0 : parseInt(ls.getItem('snakish-0'), 10);
+get('wrap-select').value = ls.getItem('snakish-7') === null ? 0 : parseInt(ls.getItem('snakish-7'), 10);
+get('y-margin').value = ls.getItem('snakish-8') === null ? 0 : parseInt(ls.getItem('snakish-8'), 10);
 if(ls.getItem('snakish-12') === null){
     get('start-key').value = 'H';
 }else{
