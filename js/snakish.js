@@ -21,6 +21,8 @@ function eat_purple_creature(){
                 get(a).style.backgroundColor = color_obstacle;
             }while(i--);
         }
+
+    // no space left for holes, end game
     }else{
         stop();
     }
@@ -320,9 +322,11 @@ function save(){
         'move-keys',
         'start-key'
     ];
+
     do{
         if(get(j[i]).value == [0, 125, 1, 0, 1, 1, 0, 0, 0, 1, 0, 'WASD', 'H'][i]){
             ls.removeItem('snakish-' + i);
+
         }else{
             ls.setItem(
                 'snakish-' + i,
@@ -330,6 +334,7 @@ function save(){
             );
         }
     }while(i--);
+
     j = 0;
 }
 
@@ -351,8 +356,14 @@ function showhide_hack(){
 
 function showhide_settings(){
     i = get('showhide-button').value === '-' ? 1 : 0;
-    get('settings-span').style.display = ['inline', 'none'][i];
-    get('showhide-button').value = ['-', '+'][i];
+    get('settings-span').style.display = [
+        'inline',
+        'none'
+    ][i];
+    get('showhide-button').value = [
+        '-',
+        '+'
+    ][i];
 }
 
 function start(){
@@ -367,6 +378,7 @@ function start(){
         'max-frames',
         'y-margin'
     ];
+
     do{
         if(isNaN(get(j[i]).value) || get(j[i]).value < 0){
             get(j[i]).value = [
@@ -380,6 +392,7 @@ function start(){
             ][i];
         }
     }while(i--);
+
     if(get('holes-per-point').value > 396){
         get('holes-per-point').value = 396;
     }
@@ -407,7 +420,7 @@ function start(){
     player = [
         1,// x
         1,// y
-        1// movement direction (0N, 1E, 2S, 3W)
+        1// movement direction (0==Up, 1==Right, 2==Down, 3==Left)
     ];
 
     // create initial holes, if any
@@ -430,6 +443,7 @@ function start(){
         get('frames').innerHTML = get('frames-max').innerHTML = get('max-frames').value;
         get('score-max').innerHTML = '';
         get('frames-max-span').style.display = get('max-frames').value > 0 ? 'inline' : 'none';
+
     }else{
         get('frames').innerHTML = 0;
         get('frames-max-span').style.display = 'none';
@@ -438,6 +452,8 @@ function start(){
 
     // validate milliseconds per player movement and create interval
     interval = setInterval('move_player()', (get('ms-per-move').value > 0) ? get('ms-per-move').value : 125);
+
+    // save settings
     save();
 }
 
@@ -459,9 +475,9 @@ var interval = 0;
 var j = [''];
 var ls = window.localStorage;
 var player = [
-    1,
-    1,
-    1
+    1,// x
+    1,// y
+    1// movement direction (0==Up, 1==Right, 2==Down, 3==Left)
 ];
 
 // create buttons for game-area
@@ -489,8 +505,10 @@ get('oncollision-select').value = ls.getItem('snakish-4') === null ? 1 : parseIn
 get('turn-angle-select').value = ls.getItem('snakish-0') === null ? 0 : parseInt(ls.getItem('snakish-0'), 10);
 get('wrap-select').value = ls.getItem('snakish-7') === null ? 0 : parseInt(ls.getItem('snakish-7'), 10);
 get('y-margin').value = ls.getItem('snakish-8') === null ? 0 : parseInt(ls.getItem('snakish-8'), 10);
+
 if(ls.getItem('snakish-12') === null){
     get('start-key').value = 'H';
+
 }else{
     get('start-key').value = ls.getItem('snakish-12');
     get('start-button').value = 'Start (' + ls.getItem('snakish-12') + ')';
@@ -503,19 +521,27 @@ window.onkeydown = function(e){
     i = window.event ? event : e;
     i = i.charCode ? i.charCode : i.keyCode;
 
-    if(String.fromCharCode(i) === get('move-keys').value[0] && (player[2] !== 2 || get('turn-angle-select').value == 1)){
+    // if player wants to move up (if player is moving down then check if 180 degree turns are legal)
+    if(String.fromCharCode(i) === get('move-keys').value[0]
+      && (player[2] !== 2 || get('turn-angle-select').value == 1)){
         // player move direction = up
         player[2] = 0;
 
-    }else if(String.fromCharCode(i) === get('move-keys').value[1] && (player[2] !== 1 || get('turn-angle-select').value == 1)){
+    // if player wants to move right (if player is moving left then check if 180 degree turns are legal)
+    }else if(String.fromCharCode(i) === get('move-keys').value[1]
+      && (player[2] !== 1 || get('turn-angle-select').value == 1)){
         // player move direction = left
         player[2] = 3;
 
-    }else if(String.fromCharCode(i) === get('move-keys').value[2] && (player[2] !== 0 || get('turn-angle-select').value == 1)){
+    // if player wants to move down (if player is moving up then check if 180 degree turns are legal)
+    }else if(String.fromCharCode(i) === get('move-keys').value[2]
+      && (player[2] !== 0 || get('turn-angle-select').value == 1)){
         // player move direction = down
         player[2] = 2;
 
-    }else if(String.fromCharCode(i) === get('move-keys').value[3] && (player[2] !== 3 || get('turn-angle-select').value == 1)){
+    // if player wants to move left (if player is moving right then check if 180 degree turns are legal)
+    }else if(String.fromCharCode(i) === get('move-keys').value[3]
+      && (player[2] !== 3 || get('turn-angle-select').value == 1)){
         // player move direction = right
         player[2] = 1;
 
