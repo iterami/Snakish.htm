@@ -1,24 +1,24 @@
 function eat_purple_creature(){
-    get('score').innerHTML = parseInt(get('score').innerHTML, 10) + 1;
+    document.getElementById('score').innerHTML = parseInt(document.getElementById('score').innerHTML, 10) + 1;
 
     // if there will be additional spaces available for more holes
-    if(get('score').innerHTML < Math.floor(398 / (parseInt(get('holes-per-point').value, 10) + 1)) + 1){
+    if(document.getElementById('score').innerHTML < Math.floor(398 / (parseInt(document.getElementById('holes-per-point').value, 10) + 1)) + 1){
 
         // pick a button with color_empty and make it the new purple creature
         do{
             a = random_number(400);
-        }while(get(a).style.backgroundColor != color_empty);
-        get(a).style.backgroundColor = color_purple;
+        }while(document.getElementById(a).style.backgroundColor != color_empty);
+        document.getElementById(a).style.backgroundColor = color_purple;
 
-        var i = get('holes-per-point').value - 1;
+        var i = document.getElementById('holes-per-point').value - 1;
         // if more than 0 holes should be created
         if(i >= 0){
             // add new holes
             do{
-                while(get(a).style.backgroundColor != color_empty){
+                while(document.getElementById(a).style.backgroundColor != color_empty){
                     a = random_number(400);
                 }
-                get(a).style.backgroundColor = color_obstacle;
+                document.getElementById(a).style.backgroundColor = color_obstacle;
             }while(i--);
         }
 
@@ -28,21 +28,20 @@ function eat_purple_creature(){
     }
 }
 
-function get(i){
-    return document.getElementById(i);
-}
-
 function move_player(){
     // check if game is still running, based on game mode and if frames/score are over max
-    i = get('game-mode-select').value === 1
-      ? parseFloat(get('frames').innerHTML) <= 0 && get('max-frames').value > 0
-      : get('max-points').value != 0 && parseInt(get('score').innerHTML, 10) >= get('max-points').value;
+    i = document.getElementById('game-mode-select').value === 1
+      ? parseFloat(document.getElementById('frames').innerHTML) <= 0
+        && document.getElementById('max-frames').value > 0
+      : document.getElementById('max-points').value != 0
+        && parseInt(document.getElementById('score').innerHTML, 10) >= document.getElementById('max-points').value;
 
     // if game running continue, else stop()
     if(!i){
         // add or subtract 1 from frames depending on game mode
-        get('frames').innerHTML = ((parseFloat(get('frames').innerHTML) +
-            ((get('game-mode-select').value === 1 && get('max-frames').value > 0) ? -1 : 1)));
+        document.getElementById('frames').innerHTML = ((parseFloat(document.getElementById('frames').innerHTML) +
+            ((document.getElementById('game-mode-select').value === 1
+          && document.getElementById('max-frames').value > 0) ? -1 : 1)));
 
         var check_color = 0;
         var dx = 0;
@@ -53,7 +52,7 @@ function move_player(){
             // if player is not at the top of the screen
             if(player[1] - 1 >= 0){
                 // fetch color of space directly above the player
-                check_color = get((player[1] - 1) * 20 + player[0]).style.backgroundColor;
+                check_color = document.getElementById((player[1] - 1) * 20 + player[0]).style.backgroundColor;
 
                 // if the space is not an obstacle continue, else i=1 to know of collision
                 if(check_color !== color_obstacle){
@@ -72,9 +71,10 @@ function move_player(){
                 }
 
             // if player is at the top of the screen and can wrap in the y-direction
-            }else if(get('wrap-select').value == 2 || get('wrap-select').value == 3){
+            }else if(document.getElementById('wrap-select').value == 2
+              || document.getElementById('wrap-select').value == 3){
                 // fetch color of space at the bottom of the screen
-                check_color = get((player[1] + 19) * 20 + player[0]).style.backgroundColor;
+                check_color = document.getElementById((player[1] + 19) * 20 + player[0]).style.backgroundColor;
 
                 // if the space is not an obstacle continue
                 if(check_color !== color_obstacle){
@@ -102,7 +102,7 @@ function move_player(){
             // if player is not at the right edge of the screen
             if(player[0] + 1 <= 19){
                 // fetch color of space to the right of the player
-                check_color = get(player[1] * 20 + player[0] + 1).style.backgroundColor;
+                check_color = document.getElementById(player[1] * 20 + player[0] + 1).style.backgroundColor;
 
                 // if the space is not an obstacle continue
                 if(check_color !== color_obstacle){
@@ -121,9 +121,10 @@ function move_player(){
                 }
 
             // if player is at the right edge of the screen and can wrap in the x-direction
-            }else if(get('wrap-select').value == 1 || get('wrap-select').value == 2){
+            }else if(document.getElementById('wrap-select').value == 1
+              || document.getElementById('wrap-select').value == 2){
                 // fetch color of space at the left of the screen
-                check_color = get(player[1] * 20 + player[0] - 19).style.backgroundColor;
+                check_color = document.getElementById(player[1] * 20 + player[0] - 19).style.backgroundColor;
 
                 // if the space is not an obstacle continue
                 if(check_color !== color_obstacle){
@@ -151,7 +152,7 @@ function move_player(){
             // if player is not at the bottom of the screen
             if(player[1] + 1 <= 19){
                 // fetch color of space directory below the player
-                check_color = get((player[1] + 1) * 20 + player[0]).style.backgroundColor;
+                check_color = document.getElementById((player[1] + 1) * 20 + player[0]).style.backgroundColor;
 
                 // if the space is not an obstacle continue
                 if(check_color !== color_obstacle){
@@ -170,9 +171,10 @@ function move_player(){
                 }
 
             // if player is at the bottom edge of the screen and can wrap in the y-direction
-            }else if(get('wrap-select').value == 2 || get('wrap-select').value == 3){
+            }else if(document.getElementById('wrap-select').value == 2
+              || document.getElementById('wrap-select').value == 3){
                 // fetch color of space at the top of the screen
-                check_color = get((player[1] - 19) * 20 + player[0]).style.backgroundColor;
+                check_color = document.getElementById((player[1] - 19) * 20 + player[0]).style.backgroundColor;
 
                 // if the space is not an obstacle continue
                 if(check_color !== color_obstacle){
@@ -199,7 +201,7 @@ function move_player(){
         }else if(player[2] === 3){
             if(player[0] - 1 >= 0){
                 // fetch color of space to the left of the player
-                check_color = get(player[1] * 20 + player[0] - 1).style.backgroundColor;
+                check_color = document.getElementById(player[1] * 20 + player[0] - 1).style.backgroundColor;
 
                 // if the space is not an obstacle continue
                 if(check_color !== color_obstacle){
@@ -218,9 +220,10 @@ function move_player(){
                 }
 
             // if player is at the left edge of the screen and can wrap in the x-direction
-            }else if(get('wrap-select').value == 1 || get('wrap-select').value == 2){
+            }else if(document.getElementById('wrap-select').value == 1
+              || document.getElementById('wrap-select').value == 2){
                 // fetch color of space at the right side of the screen
-                check_color = get(player[1] * 20 + player[0] + 19).style.backgroundColor;
+                check_color = document.getElementById(player[1] * 20 + player[0] + 19).style.backgroundColor;
 
                 // if the space is not an obstacle continue
                 if(check_color !== color_obstacle){
@@ -247,23 +250,28 @@ function move_player(){
         // if a collision with an obstacle or edge was detected
         if(i){
             // if game ends oncollision
-            if(get('oncollision-select').value == 1){
+            if(document.getElementById('oncollision-select').value == 1){
                 stop();
 
             // else if score decreases
-            }else if(get('oncollision-select').value === 2){
-                get('score').innerHTML = parseInt(get('score').innerHTML, 10) - 1;
+            }else if(document.getElementById('oncollision-select').value === 2){
+                document.getElementById('score').innerHTML = 
+                  parseInt(
+                    document.getElementById('score').innerHTML,
+                    10
+                  ) - 1;
             }
         }
 
         // if player x or y position has changed
-        if(dx !== 0 || dy !== 0){
+        if(dx !== 0
+          || dy !== 0){
             // reset old player position to an empty space
-            get((player[1] + dy) * 20 + player[0] + dx).style.backgroundColor = color_empty;
+            document.getElementById((player[1] + dy) * 20 + player[0] + dx).style.backgroundColor = color_empty;
         }
 
         // set color of new player position to color_player
-        get(player[1] * 20 + player[0]).style.backgroundColor = color_player;
+        document.getElementById(player[1] * 20 + player[0]).style.backgroundColor = color_player;
 
     }else{
         stop();
@@ -271,10 +279,10 @@ function move_player(){
 }
 
 function play_audio(i){
-    if(get('audio-volume').value > 0){
-        get(i).volume = get('audio-volume').value;
-        get(i).currentTime = 0;
-        get(i).play();
+    if(document.getElementById('audio-volume').value > 0){
+        document.getElementById(i).volume = document.getElementById('audio-volume').value;
+        document.getElementById(i).currentTime = 0;
+        document.getElementById(i).play();
     }
 }
 
@@ -286,19 +294,19 @@ function reset(){
     if(confirm('Reset settings?')){
         stop();
 
-        get('audio-volume').value = 1;
-        get('game-mode-select').value = 1;
-        get('holes-at-start').value = 0;
-        get('holes-per-point').value = 1;
-        get('max-frames').value = 0;
-        get('max-points').value = 50;
-        get('move-keys').value = 'WASD';
-        get('ms-per-move').value = 125;
-        get('oncollision-select').value = 1;
-        get('start-key').value = 'H';
-        get('turn-angle-select').value = 0;
-        get('wrap-select').value = 0;
-        get('y-margin').value = 0;
+        document.getElementById('audio-volume').value = 1;
+        document.getElementById('game-mode-select').value = 1;
+        document.getElementById('holes-at-start').value = 0;
+        document.getElementById('holes-per-point').value = 1;
+        document.getElementById('max-frames').value = 0;
+        document.getElementById('max-points').value = 50;
+        document.getElementById('move-keys').value = 'WASD';
+        document.getElementById('ms-per-move').value = 125;
+        document.getElementById('oncollision-select').value = 1;
+        document.getElementById('start-key').value = 'H';
+        document.getElementById('turn-angle-select').value = 0;
+        document.getElementById('wrap-select').value = 0;
+        document.getElementById('y-margin').value = 0;
 
         save();
     }
@@ -308,29 +316,29 @@ function save(){
     // save settings into localStorage, if differ from default
     i = 12;
     j = [
-        'turn-angle-select',
-        'ms-per-move',
-        'holes-per-point',
-        'holes-at-start',
-        'oncollision-select',
-        'audio-volume',
-        'max-frames',
-        'wrap-select',
-        'y-margin',
-        'game-mode-select',
-        'max-points',
-        'move-keys',
-        'start-key'
+      'turn-angle-select',
+      'ms-per-move',
+      'holes-per-point',
+      'holes-at-start',
+      'oncollision-select',
+      'audio-volume',
+      'max-frames',
+      'wrap-select',
+      'y-margin',
+      'game-mode-select',
+      'max-points',
+      'move-keys',
+      'start-key'
     ];
 
     do{
-        if(get(j[i]).value == [0, 125, 1, 0, 1, 1, 0, 0, 0, 1, 0, 'WASD', 'H'][i]){
-            ls.removeItem('snakish-' + i);
+        if(document.getElementById(j[i]).value == [0, 125, 1, 0, 1, 1, 0, 0, 0, 1, 0, 'WASD', 'H'][i]){
+            window.localStorage.removeItem('snakish-' + i);
 
         }else{
-            ls.setItem(
-                'snakish-' + i,
-                get(j[i]).value
+            window.localStorage.setItem(
+              'snakish-' + i,
+              document.getElementById(j[i]).value
             );
         }
     }while(i--);
@@ -339,30 +347,32 @@ function save(){
 }
 
 function set_settings_disable(i){
-    get('game-mode-select').disabled = i;
-    get('holes-per-point').disabled = i;
-    get('oncollision-select').disabled = i;
-    get('max-points').disabled = i;
-    get('reset-button').disabled = i;
-    get('turn-angle-select').disabled = i;
-    get('ms-per-move').disabled = i;
-    get('max-frames').disabled = i;
-    get('wrap-select').disabled = i;
+    document.getElementById('game-mode-select').disabled = i;
+    document.getElementById('holes-per-point').disabled = i;
+    document.getElementById('oncollision-select').disabled = i;
+    document.getElementById('max-points').disabled = i;
+    document.getElementById('reset-button').disabled = i;
+    document.getElementById('turn-angle-select').disabled = i;
+    document.getElementById('ms-per-move').disabled = i;
+    document.getElementById('max-frames').disabled = i;
+    document.getElementById('wrap-select').disabled = i;
 }
 
 function showhide_hack(){
-    get('hack-span').style.display = get('hack-span').style.display === 'none' ? 'inline' : 'none';
+    document.getElementById('hack-span').style.display = document.getElementById('hack-span').style.display === 'none'
+      ? 'inline'
+      : 'none';
 }
 
 function showhide_settings(){
-    i = get('showhide-button').value === '-' ? 1 : 0;
-    get('settings-span').style.display = [
-        'inline',
-        'none'
+    i = document.getElementById('showhide-button').value === '-' ? 1 : 0;
+    document.getElementById('settings-span').style.display = [
+      'inline',
+      'none'
     ][i];
-    get('showhide-button').value = [
-        '-',
-        '+'
+    document.getElementById('showhide-button').value = [
+      '-',
+      '+'
     ][i];
 }
 
@@ -370,88 +380,96 @@ function start(){
     // validate settings
     i = 5;
     j = [
-        'holes-per-point',
-        'max-points',
-        'holes-at-start',
-        'audio-volume',
-        'ms-per-move',
-        'max-frames',
-        'y-margin'
+      'holes-per-point',
+      'max-points',
+      'holes-at-start',
+      'audio-volume',
+      'ms-per-move',
+      'max-frames',
+      'y-margin'
     ];
 
     do{
-        if(isNaN(get(j[i]).value) || get(j[i]).value < 0){
-            get(j[i]).value = [
-                1,
-                0,
-                0,
-                1,
-                125,
-                0,
-                0
+        if(isNaN(document.getElementById(j[i]).value)
+          || document.getElementById(j[i]).value < 0){
+            document.getElementById(j[i]).value = [
+              1,
+              0,
+              0,
+              1,
+              125,
+              0,
+              0
             ][i];
         }
     }while(i--);
 
-    if(get('holes-per-point').value > 396){
-        get('holes-per-point').value = 396;
+    if(document.getElementById('holes-per-point').value > 396){
+        document.getElementById('holes-per-point').value = 396;
     }
 
     // adjust margin-top of entire game
-    get('lol-a-table').style.marginTop = get('y-margin').value + 'px';
+    document.getElementById('lol-a-table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     set_settings_disable(1);
 
     // reset buttons to empty with player and purple creature in initial positions
     var a = 399;
     do{
-        get(a).style.backgroundColor = color_empty;
+        document.getElementById(a).style.backgroundColor = color_empty;
     }while(a--);
-    get(21).style.backgroundColor = color_player;
-    get(378).style.backgroundColor = color_purple;
+    document.getElementById(21).style.backgroundColor = color_player;
+    document.getElementById(378).style.backgroundColor = color_purple;
 
-    get('start-button').value = 'End (ESC)';
-    get('start-button').onclick = function(){
+    document.getElementById('start-button').value = 'End (ESC)';
+    document.getElementById('start-button').onclick = function(){
         stop(0);
     };
-    get('score').innerHTML = '0';
+    document.getElementById('score').innerHTML = '0';
 
     // reset player
     player = [
-        1,// x
-        1,// y
-        1// movement direction (0==Up, 1==Right, 2==Down, 3==Left)
+      1,// x
+      1,// y
+      1// movement direction (0==Up, 1==Right, 2==Down, 3==Left)
     ];
 
     // create initial holes, if any
-    if(get('holes-at-start').value > 0){
-        if(get('holes-at-start').value > 398){
-            get('holes-at-start').value = 398;
+    if(document.getElementById('holes-at-start').value > 0){
+        if(document.getElementById('holes-at-start').value > 398){
+            document.getElementById('holes-at-start').value = 398;
         }
-        i = get('holes-at-start').value - 1;
+        i = document.getElementById('holes-at-start').value - 1;
         a = -1;
         do{
             do{
                 a = random_number(400);
-            }while(get(a).style.backgroundColor !== color_empty);
-            get(a).style.backgroundColor = color_obstacle;
+            }while(document.getElementById(a).style.backgroundColor !== color_empty);
+            document.getElementById(a).style.backgroundColor = color_obstacle;
         }while(i--);
     }
 
     // setup display or not display of max frames or max points
-    if(get('game-mode-select').value === 1){
-        get('frames').innerHTML = get('frames-max').innerHTML = get('max-frames').value;
-        get('score-max').innerHTML = '';
-        get('frames-max-span').style.display = get('max-frames').value > 0 ? 'inline' : 'none';
+    if(document.getElementById('game-mode-select').value === 1){
+        document.getElementById('frames').innerHTML = document.getElementById('max-frames').value;
+        document.getElementById('frames-max').innerHTML = document.getElementById('max-frames').value;
+        document.getElementById('score-max').innerHTML = '';
+        document.getElementById('frames-max-span').style.display = document.getElementById('max-frames').value > 0
+          ? 'inline'
+          : 'none';
 
     }else{
-        get('frames').innerHTML = 0;
-        get('frames-max-span').style.display = 'none';
-        get('score-max').innerHTML = get('max-points').value > 0 ? ' out of <b>' + get('max-points').value + '</b>' : '';
+        document.getElementById('frames').innerHTML = 0;
+        document.getElementById('frames-max-span').style.display = 'none';
+        document.getElementById('score-max').innerHTML = document.getElementById('max-points').value > 0
+          ? ' out of <b>' + document.getElementById('max-points').value + '</b>'
+          : '';
     }
 
     // validate milliseconds per player movement and create interval
-    interval = setInterval('move_player()', (get('ms-per-move').value > 0) ? get('ms-per-move').value : 125);
+    interval = setInterval('move_player()', (document.getElementById('ms-per-move').value > 0)
+      ? document.getElementById('ms-per-move').value
+      : 125);
 
     // save settings
     save();
@@ -459,8 +477,8 @@ function start(){
 
 function stop(){
     clearInterval(interval);
-    get('start-button').value = 'Start (' + get('start-key').value + ')';
-    get('start-button').onclick = function(){
+    document.getElementById('start-button').value = 'Start (' + document.getElementById('start-key').value + ')';
+    document.getElementById('start-button').onclick = function(){
         start();
     };
     set_settings_disable(0);
@@ -473,11 +491,10 @@ var color_purple = 'rgb(255, 0, 255)';
 var i = 0;
 var interval = 0;
 var j = [''];
-var ls = window.localStorage;
 var player = [
-    1,// x
-    1,// y
-    1// movement direction (0==Up, 1==Right, 2==Down, 3==Left)
+  1,// x
+  1,// y
+  1// movement direction (0==Up, 1==Right, 2==Down, 3==Left)
 ];
 
 // create buttons for game-area
@@ -489,63 +506,87 @@ for(i = 0; i < 400; i++){
 }
 j[23] = '<input class=buttons disabled id=21 style="background:' + color_player + '" type=button>';
 j[397] = '<input class=buttons disabled id=378 style="background:' + color_purple + '" type=button>';
-get('game-area').innerHTML = j.join('');
+document.getElementById('game-area').innerHTML = j.join('');
 j = 0;
 
 // fetch settings from localStorage and update settings inputs
-get('audio-volume').value = ls.getItem('snakish-5') === null ? 1 : parseFloat(ls.getItem('snakish-5'));
-get('game-mode-select').value = ls.getItem('snakish-9') === null ? 1 : 0;
-get('holes-at-start').value = ls.getItem('snakish-3') === null ? 0 : parseInt(ls.getItem('snakish-3'), 10);
-get('holes-per-point').value = ls.getItem('snakish-2') === null ? 1 : parseInt(ls.getItem('snakish-2'), 10);
-get('max-frames').value = ls.getItem('snakish-6') === null ? 0 : parseInt(ls.getItem('snakish-6'), 10);
-get('max-points').value = ls.getItem('snakish-10') === null ? 0 : parseInt(ls.getItem('snakish-10'), 10);
-get('move-keys').value = ls.getItem('snakish-11') === null ? 'WASD' : ls.getItem('snakish-10');
-get('ms-per-move').value = ls.getItem('snakish-1') === null ? 125 : parseInt(ls.getItem('snakish-1'), 10);
-get('oncollision-select').value = ls.getItem('snakish-4') === null ? 1 : parseInt(ls.getItem('snakish-4'), 10);
-get('turn-angle-select').value = ls.getItem('snakish-0') === null ? 0 : parseInt(ls.getItem('snakish-0'), 10);
-get('wrap-select').value = ls.getItem('snakish-7') === null ? 0 : parseInt(ls.getItem('snakish-7'), 10);
-get('y-margin').value = ls.getItem('snakish-8') === null ? 0 : parseInt(ls.getItem('snakish-8'), 10);
+document.getElementById('audio-volume').value = window.localStorage.getItem('snakish-5') === null
+  ? 1
+  : parseFloat(window.localStorage.getItem('snakish-5'));
+document.getElementById('game-mode-select').value = window.localStorage.getItem('snakish-9') === null
+  ? 1
+  : 0;
+document.getElementById('holes-at-start').value = window.localStorage.getItem('snakish-3') === null
+  ? 0
+  : parseInt(window.localStorage.getItem('snakish-3'), 10);
+document.getElementById('holes-per-point').value = window.localStorage.getItem('snakish-2') === null
+  ? 1
+  : parseInt(window.localStorage.getItem('snakish-2'), 10);
+document.getElementById('max-frames').value = window.localStorage.getItem('snakish-6') === null
+  ? 0
+  : parseInt(window.localStorage.getItem('snakish-6'), 10);
+document.getElementById('max-points').value = window.localStorage.getItem('snakish-10') === null
+  ? 0
+  : parseInt(window.localStorage.getItem('snakish-10'), 10);
+document.getElementById('move-keys').value = window.localStorage.getItem('snakish-11') === null
+  ? 'WASD'
+  : window.localStorage.getItem('snakish-10');
+document.getElementById('ms-per-move').value = window.localStorage.getItem('snakish-1') === null
+  ? 125
+  : parseInt(window.localStorage.getItem('snakish-1'), 10);
+document.getElementById('oncollision-select').value = window.localStorage.getItem('snakish-4') === null
+  ? 1
+  : parseInt(window.localStorage.getItem('snakish-4'), 10);
+document.getElementById('turn-angle-select').value = window.localStorage.getItem('snakish-0') === null
+  ? 0
+  : parseInt(window.localStorage.getItem('snakish-0'), 10);
+document.getElementById('wrap-select').value = window.localStorage.getItem('snakish-7') === null
+  ? 0
+  : parseInt(window.localStorage.getItem('snakish-7'), 10);
+document.getElementById('y-margin').value = window.localStorage.getItem('snakish-8') === null
+  ? 0
+  : parseInt(window.localStorage.getItem('snakish-8'), 10);
 
-if(ls.getItem('snakish-12') === null){
-    get('start-key').value = 'H';
+if(window.localStorage.getItem('snakish-12') === null){
+    document.getElementById('start-key').value = 'H';
 
 }else{
-    get('start-key').value = ls.getItem('snakish-12');
-    get('start-button').value = 'Start (' + ls.getItem('snakish-12') + ')';
+    document.getElementById('start-key').value = window.localStorage.getItem('snakish-12');
+    document.getElementById('start-button').value = 'Start (' + window.localStorage.getItem('snakish-12') + ')';
 }
 
 // adjust margin-top of entire game
-get('lol-a-table').style.marginTop = get('y-margin').value + 'px';
+document.getElementById('lol-a-table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
 window.onkeydown = function(e){
     i = window.event ? event : e;
     i = i.charCode ? i.charCode : i.keyCode;
 
     // if player wants to move up (if player is moving down then check if 180 degree turns are legal)
-    if(String.fromCharCode(i) === get('move-keys').value[0]
-      && (player[2] !== 2 || get('turn-angle-select').value == 1)){
+    if(String.fromCharCode(i) === document.getElementById('move-keys').value[0]
+      && (player[2] !== 2 || document.getElementById('turn-angle-select').value == 1)){
         // player move direction = up
         player[2] = 0;
 
     // if player wants to move right (if player is moving left then check if 180 degree turns are legal)
-    }else if(String.fromCharCode(i) === get('move-keys').value[1]
-      && (player[2] !== 1 || get('turn-angle-select').value == 1)){
+    }else if(String.fromCharCode(i) === document.getElementById('move-keys').value[1]
+      && (player[2] !== 1 || document.getElementById('turn-angle-select').value == 1)){
         // player move direction = left
         player[2] = 3;
 
     // if player wants to move down (if player is moving up then check if 180 degree turns are legal)
-    }else if(String.fromCharCode(i) === get('move-keys').value[2]
-      && (player[2] !== 0 || get('turn-angle-select').value == 1)){
+    }else if(String.fromCharCode(i) === document.getElementById('move-keys').value[2]
+      && (player[2] !== 0 || document.getElementById('turn-angle-select').value == 1)){
         // player move direction = down
         player[2] = 2;
 
     // if player wants to move left (if player is moving right then check if 180 degree turns are legal)
-    }else if(String.fromCharCode(i) === get('move-keys').value[3]
-      && (player[2] !== 3 || get('turn-angle-select').value == 1)){
+    }else if(String.fromCharCode(i) === document.getElementById('move-keys').value[3]
+      && (player[2] !== 3 || document.getElementById('turn-angle-select').value == 1)){
         // player move direction = right
         player[2] = 1;
 
-    }else if(String.fromCharCode(i) === get('start-key').value){
+    }else if(String.fromCharCode(i) === document.getElementById('start-key').value){
         stop();
         start();
 
