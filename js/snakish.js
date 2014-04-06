@@ -421,7 +421,7 @@ function start(){
     document.getElementById(21).style.backgroundColor = color_player;
     document.getElementById(378).style.backgroundColor = color_purple;
 
-    document.getElementById('start-button').value = 'End (ESC)';
+    document.getElementById('start-button').value = 'End [ESC]';
     document.getElementById('start-button').onclick = function(){
         stop(0);
     };
@@ -477,7 +477,7 @@ function start(){
 
 function stop(){
     clearInterval(interval);
-    document.getElementById('start-button').value = 'Start (' + document.getElementById('start-key').value + ')';
+    document.getElementById('start-button').value = 'Start [' + document.getElementById('start-key').value + ']';
     document.getElementById('start-button').onclick = function(){
         start();
     };
@@ -552,7 +552,7 @@ if(window.localStorage.getItem('snakish-12') === null){
 
 }else{
     document.getElementById('start-key').value = window.localStorage.getItem('snakish-12');
-    document.getElementById('start-button').value = 'Start (' + window.localStorage.getItem('snakish-12') + ')';
+    document.getElementById('start-button').value = 'Start [' + window.localStorage.getItem('snakish-12') + ']';
 }
 
 // adjust margin-top of entire game
