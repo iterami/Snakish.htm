@@ -484,9 +484,9 @@ function stop(){
     set_settings_disable(0);
 }
 
-var color_empty = 'rgb(99, 99, 99)';
+var color_empty = 'rgb(200, 200, 200)';
 var color_obstacle = 'rgb(255, 255, 255)';
-var color_player = 'rgb(0, 225, 0)';
+var color_player = 'rgb(0, 100, 0)';
 var color_purple = 'rgb(255, 0, 255)';
 var i = 0;
 var interval = 0;
@@ -559,38 +559,42 @@ if(window.localStorage.getItem('snakish-12') === null){
 document.getElementById('lol-a-table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
 window.onkeydown = function(e){
-    i = window.event ? event : e;
-    i = i.charCode ? i.charCode : i.keyCode;
+    var key = window.event ? event : e;
+    key = key.charCode ? key.charCode : key.keyCode;
 
-    // if player wants to move up (if player is moving down then check if 180 degree turns are legal)
-    if(String.fromCharCode(i) === document.getElementById('move-keys').value[0]
-      && (player[2] !== 2 || document.getElementById('turn-angle-select').value == 1)){
-        // player move direction = up
-        player[2] = 0;
-
-    // if player wants to move right (if player is moving left then check if 180 degree turns are legal)
-    }else if(String.fromCharCode(i) === document.getElementById('move-keys').value[1]
-      && (player[2] !== 1 || document.getElementById('turn-angle-select').value == 1)){
-        // player move direction = left
-        player[2] = 3;
-
-    // if player wants to move down (if player is moving up then check if 180 degree turns are legal)
-    }else if(String.fromCharCode(i) === document.getElementById('move-keys').value[2]
-      && (player[2] !== 0 || document.getElementById('turn-angle-select').value == 1)){
-        // player move direction = down
-        player[2] = 2;
-
-    // if player wants to move left (if player is moving right then check if 180 degree turns are legal)
-    }else if(String.fromCharCode(i) === document.getElementById('move-keys').value[3]
-      && (player[2] !== 3 || document.getElementById('turn-angle-select').value == 1)){
-        // player move direction = right
-        player[2] = 1;
-
-    }else if(String.fromCharCode(i) === document.getElementById('start-key').value){
+    if(key === 27){// ESC
         stop();
-        start();
 
-    }else if(i === 27){// ESC
-        stop();
+    }else{
+        key = String.fromCharCode(key);
+
+        // if player wants to move up (if player is moving down then check if 180 degree turns are legal)
+        if(key === document.getElementById('move-keys').value[0]
+          && (player[2] !== 2 || document.getElementById('turn-angle-select').value == 1)){
+            // player move direction = up
+            player[2] = 0;
+
+        // if player wants to move right (if player is moving left then check if 180 degree turns are legal)
+        }else if(key === document.getElementById('move-keys').value[1]
+          && (player[2] !== 1 || document.getElementById('turn-angle-select').value == 1)){
+            // player move direction = left
+            player[2] = 3;
+
+        // if player wants to move down (if player is moving up then check if 180 degree turns are legal)
+        }else if(key === document.getElementById('move-keys').value[2]
+          && (player[2] !== 0 || document.getElementById('turn-angle-select').value == 1)){
+            // player move direction = down
+            player[2] = 2;
+
+        // if player wants to move left (if player is moving right then check if 180 degree turns are legal)
+        }else if(key === document.getElementById('move-keys').value[3]
+          && (player[2] !== 3 || document.getElementById('turn-angle-select').value == 1)){
+            // player move direction = right
+            player[2] = 1;
+
+        }else if(key === document.getElementById('start-key').value){
+            stop();
+            start();
+        }
     }
 }
