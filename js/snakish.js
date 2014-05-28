@@ -10,16 +10,16 @@ function eat_purple_creature(){
         }while(document.getElementById(a).style.backgroundColor != color_empty);
         document.getElementById(a).style.backgroundColor = color_purple;
 
-        var i = document.getElementById('holes-per-point').value - 1;
+        var loop_counter = document.getElementById('holes-per-point').value - 1;
         // if more than 0 holes should be created
-        if(i >= 0){
+        if(loop_counter >= 0){
             // add new holes
             do{
                 while(document.getElementById(a).style.backgroundColor != color_empty){
                     a = random_number(400);
                 }
                 document.getElementById(a).style.backgroundColor = color_obstacle;
-            }while(i--);
+            }while(loop_counter--);
         }
 
     // no space left for holes, end game
@@ -30,14 +30,14 @@ function eat_purple_creature(){
 
 function move_player(){
     // check if game is still running, based on game mode and if frames/score are over max
-    i = document.getElementById('game-mode-select').value === 1
+    var end_game = document.getElementById('game-mode-select').value === 1
       ? parseFloat(document.getElementById('frames').innerHTML) <= 0
         && document.getElementById('max-frames').value > 0
       : document.getElementById('max-points').value != 0
         && parseInt(document.getElementById('score').innerHTML, 10) >= document.getElementById('max-points').value;
 
     // if game running continue, else stop()
-    if(!i){
+    if(!end_game){
         // add or subtract 1 from frames depending on game mode
         document.getElementById('frames').innerHTML = ((parseFloat(document.getElementById('frames').innerHTML) +
             ((document.getElementById('game-mode-select').value === 1
@@ -47,14 +47,14 @@ function move_player(){
         var dx = 0;
         var dy = 0;
 
-        // is player is moving up
+        // if player is moving up
         if(player[2] === 0){
             // if player is not at the top of the screen
             if(player[1] - 1 >= 0){
                 // fetch color of space directly above the player
                 check_color = document.getElementById((player[1] - 1) * 20 + player[0]).style.backgroundColor;
 
-                // if the space is not an obstacle continue, else i=1 to know of collision
+                // if the space is not an obstacle continue, else collision
                 if(check_color !== color_obstacle){
                     // if color of space is purple, eat the creature
                     if(check_color === color_purple){
@@ -67,7 +67,7 @@ function move_player(){
 
                 // collision!
                 }else{
-                    i = 1;
+                    end_game = 1;
                 }
 
             // if player is at the top of the screen and can wrap in the y-direction
@@ -89,12 +89,12 @@ function move_player(){
 
                 // collision!
                 }else{
-                    i = 1;
+                    end_game = 1;
                 }
 
             // collision!
             }else{
-                i = 1;
+                end_game = 1;
             }
 
         // if player is moving right
@@ -117,7 +117,7 @@ function move_player(){
 
                 // collision!
                 }else{
-                    i = 1;
+                    end_game = 1;
                 }
 
             // if player is at the right edge of the screen and can wrap in the x-direction
@@ -139,12 +139,12 @@ function move_player(){
 
                 // collision!
                 }else{
-                    i = 1;
+                    end_game = 1;
                 }
 
             // collision!
             }else{
-                i = 1;
+                end_game = 1;
             }
 
         // if player is moving down
@@ -167,7 +167,7 @@ function move_player(){
 
                 // collision!
                 }else{
-                    i = 1;
+                    end_game = 1;
                 }
 
             // if player is at the bottom edge of the screen and can wrap in the y-direction
@@ -189,12 +189,12 @@ function move_player(){
 
                 // collision!
                 }else{
-                    i = 1;
+                    end_game = 1;
                 }
 
             // collision!
             }else{
-                i = 1;
+                end_game = 1;
             }
 
         // if player is moving left
@@ -216,7 +216,7 @@ function move_player(){
 
                 // collision!
                 }else{
-                    i = 1;
+                    end_game = 1;
                 }
 
             // if player is at the left edge of the screen and can wrap in the x-direction
@@ -238,17 +238,17 @@ function move_player(){
 
                 // collision!
                 }else{
-                    i = 1;
+                    end_game = 1;
                 }
 
             // collision!
             }else{
-                i = 1;
+                end_game = 1;
             }
         }
 
         // if a collision with an obstacle or edge was detected
-        if(i){
+        if(end_game){
             // if game ends oncollision
             if(document.getElementById('oncollision-select').value == 1){
                 stop();
@@ -278,11 +278,11 @@ function move_player(){
     }
 }
 
-function play_audio(i){
+function play_audio(id){
     if(document.getElementById('audio-volume').value > 0){
-        document.getElementById(i).volume = document.getElementById('audio-volume').value;
-        document.getElementById(i).currentTime = 0;
-        document.getElementById(i).play();
+        document.getElementById(id).volume = document.getElementById('audio-volume').value;
+        document.getElementById(id).currentTime = 0;
+        document.getElementById(id).play();
     }
 }
 
@@ -314,7 +314,6 @@ function reset(){
 
 function save(){
     // save settings into localStorage, if differ from default
-    i = 12;
     j = [
       'turn-angle-select',
       'ms-per-move',
@@ -331,17 +330,18 @@ function save(){
       'start-key'
     ];
 
+    var loop_counter = 12;
     do{
-        if(document.getElementById(j[i]).value == [0, 125, 1, 0, 1, 1, 0, 0, 0, 1, 0, 'WASD', 'H'][i]){
-            window.localStorage.removeItem('snakish-' + i);
+        if(document.getElementById(j[loop_counter]).value == [0, 125, 1, 0, 1, 1, 0, 0, 0, 1, 0, 'WASD', 'H'][loop_counter]){
+            window.localStorage.removeItem('snakish-' + loop_counter);
 
         }else{
             window.localStorage.setItem(
-              'snakish-' + i,
-              document.getElementById(j[i]).value
+              'snakish-' + loop_counter,
+              document.getElementById(j[loop_counter]).value
             );
         }
-    }while(i--);
+    }while(loop_counter--);
 
     j = 0;
 }
@@ -365,20 +365,18 @@ function showhide_hack(){
 }
 
 function showhide_settings(){
-    i = document.getElementById('showhide-button').value === '-' ? 1 : 0;
-    document.getElementById('settings-span').style.display = [
-      'inline',
-      'none'
-    ][i];
-    document.getElementById('showhide-button').value = [
-      '-',
-      '+'
-    ][i];
+    if(document.getElementById('showhide-button').value === '-'){
+        document.getElementById('settings-span').style.display = 'none';
+        document.getElementById('showhide-button').value = '+';
+
+    }else{
+        document.getElementById('settings-span').style.display = 'inline';
+        document.getElementById('showhide-button').value = '-';
+    }
 }
 
 function start(){
     // validate settings
-    i = 5;
     j = [
       'holes-per-point',
       'max-points',
@@ -389,10 +387,11 @@ function start(){
       'y-margin'
     ];
 
+    var loop_counter = 5;
     do{
-        if(isNaN(document.getElementById(j[i]).value)
-          || document.getElementById(j[i]).value < 0){
-            document.getElementById(j[i]).value = [
+        if(isNaN(document.getElementById(j[loop_counter]).value)
+          || document.getElementById(j[loop_counter]).value < 0){
+            document.getElementById(j[loop_counter]).value = [
               1,
               0,
               0,
@@ -400,9 +399,9 @@ function start(){
               125,
               0,
               0
-            ][i];
+            ][loop_counter];
         }
-    }while(i--);
+    }while(loop_counter--);
 
     if(document.getElementById('holes-per-point').value > 396){
         document.getElementById('holes-per-point').value = 396;
@@ -414,10 +413,10 @@ function start(){
     set_settings_disable(1);
 
     // reset buttons to empty with player and purple creature in initial positions
-    var a = 399;
+    loop_counter = 399;
     do{
-        document.getElementById(a).style.backgroundColor = color_empty;
-    }while(a--);
+        document.getElementById(loop_counter).style.backgroundColor = color_empty;
+    }while(loop_counter--);
     document.getElementById(21).style.backgroundColor = color_player;
     document.getElementById(378).style.backgroundColor = color_purple;
 
@@ -439,14 +438,15 @@ function start(){
         if(document.getElementById('holes-at-start').value > 398){
             document.getElementById('holes-at-start').value = 398;
         }
-        i = document.getElementById('holes-at-start').value - 1;
+
         a = -1;
+        loop_counter = document.getElementById('holes-at-start').value - 1;
         do{
             do{
                 a = random_number(400);
             }while(document.getElementById(a).style.backgroundColor !== color_empty);
             document.getElementById(a).style.backgroundColor = color_obstacle;
-        }while(i--);
+        }while(loop_counter--);
     }
 
     // setup display or not display of max frames or max points
@@ -488,7 +488,6 @@ var color_empty = 'rgb(200, 200, 200)';
 var color_obstacle = 'rgb(255, 255, 255)';
 var color_player = 'rgb(0, 100, 0)';
 var color_purple = 'rgb(255, 0, 255)';
-var i = 0;
 var interval = 0;
 var j = [''];
 var player = [
@@ -498,11 +497,17 @@ var player = [
 ];
 
 // create buttons for game-area
-for(i = 0; i < 400; i++){
-    if(i % 20 === 0 && i !== 0){
+for(var loop_counter = 0; loop_counter < 400; loop_counter++){
+    if(loop_counter % 20 === 0 && loop_counter !== 0){
         j.push('<br>');
     }
-    j.push('<input class=buttons disabled id=' + i + ' style="background:' + color_empty + '" type=button>');
+    j.push(
+      '<input class=buttons disabled id='
+      + loop_counter
+      + ' style="background:'
+      + color_empty
+      + '" type=button>'
+    );
 }
 j[23] = '<input class=buttons disabled id=21 style="background:' + color_player + '" type=button>';
 j[397] = '<input class=buttons disabled id=378 style="background:' + color_purple + '" type=button>';
