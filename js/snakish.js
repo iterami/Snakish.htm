@@ -2,7 +2,8 @@ function eat_purple_creature(){
     document.getElementById('score').innerHTML = parseInt(document.getElementById('score').innerHTML, 10) + 1;
 
     // if there will be additional spaces available for more holes
-    if(document.getElementById('score').innerHTML < Math.floor(398 / (parseInt(document.getElementById('holes-per-point').value, 10) + 1)) + 1){
+    if(document.getElementById('score').innerHTML <
+      Math.floor(398 / (parseInt(document.getElementById('holes-per-point').value, 10) + 1)) + 1){
 
         // pick a button with color_empty and make it the new purple creature
         do{
@@ -332,7 +333,8 @@ function save(){
 
     var loop_counter = 12;
     do{
-        if(document.getElementById(j[loop_counter]).value == [0, 125, 1, 0, 1, 1, 0, 0, 0, 1, 0, 'WASD', 'H'][loop_counter]){
+        if(document.getElementById(j[loop_counter]).value ==
+          [0, 125, 1, 0, 1, 1, 0, 0, 0, 1, 0, 'WASD', 'H'][loop_counter]){
             window.localStorage.removeItem('snakish-' + loop_counter);
 
         }else{
@@ -359,9 +361,10 @@ function set_settings_disable(i){
 }
 
 function showhide_hack(){
-    document.getElementById('hack-span').style.display = document.getElementById('hack-span').style.display === 'none'
-      ? 'inline'
-      : 'none';
+    document.getElementById('hack-span').style.display =
+      document.getElementById('hack-span').style.display === 'none'
+        ? 'inline'
+        : 'none';
 }
 
 function showhide_settings(){
@@ -454,9 +457,10 @@ function start(){
         document.getElementById('frames').innerHTML = document.getElementById('max-frames').value;
         document.getElementById('frames-max').innerHTML = document.getElementById('max-frames').value;
         document.getElementById('score-max').innerHTML = '';
-        document.getElementById('frames-max-span').style.display = document.getElementById('max-frames').value > 0
-          ? 'inline'
-          : 'none';
+        document.getElementById('frames-max-span').style.display =
+          document.getElementById('max-frames').value > 0
+            ? 'inline'
+            : 'none';
 
     }else{
         document.getElementById('frames').innerHTML = 0;
@@ -477,7 +481,8 @@ function start(){
 
 function stop(){
     clearInterval(interval);
-    document.getElementById('start-button').value = 'Start [' + document.getElementById('start-key').value + ']';
+    document.getElementById('start-button').value =
+      'Start [' + document.getElementById('start-key').value + ']';
     document.getElementById('start-button').onclick = function(){
         start();
     };
@@ -557,7 +562,8 @@ if(window.localStorage.getItem('snakish-12') === null){
 
 }else{
     document.getElementById('start-key').value = window.localStorage.getItem('snakish-12');
-    document.getElementById('start-button').value = 'Start [' + window.localStorage.getItem('snakish-12') + ']';
+    document.getElementById('start-button').value =
+      'Start [' + window.localStorage.getItem('snakish-12') + ']';
 }
 
 // adjust margin-top of entire game
