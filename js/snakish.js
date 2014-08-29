@@ -604,4 +604,4 @@ window.onkeydown = function(e){
             start();
         }
     }
-}
+};
