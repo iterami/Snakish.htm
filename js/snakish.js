@@ -485,10 +485,10 @@ function stop(){
     set_settings_disable(0);
 }
 
-var color_empty = 'rgb(200, 200, 200)';
-var color_obstacle = 'rgb(255, 255, 255)';
-var color_player = 'rgb(0, 100, 0)';
-var color_purple = 'rgb(255, 0, 255)';
+var color_empty = 'rgb(42, 42, 42)';
+var color_obstacle = 'rgb(0, 0, 0)';
+var color_player = 'rgb(32, 102, 32)';
+var color_purple = 'rgb(102, 51, 102)';
 var interval = 0;
 var j = [''];
 var player = [
