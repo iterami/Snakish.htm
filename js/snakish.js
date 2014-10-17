@@ -297,7 +297,7 @@ function reset(){
         document.getElementById('holes-per-point').value = 1;
         document.getElementById('max-frames').value = 0;
         document.getElementById('max-points').value = 50;
-        document.getElementById('move-keys').value = 'WASD';
+        document.getElementById('movement-keys').value = 'WASD';
         document.getElementById('ms-per-move').value = 125;
         document.getElementById('oncollision-select').value = 1;
         document.getElementById('start-key').value = 'H';
@@ -311,37 +311,36 @@ function reset(){
 
 function save(){
     // save settings into localStorage, if differ from default
-    j = [
-      'turn-angle-select',
-      'ms-per-move',
-      'holes-per-point',
-      'holes-at-start',
-      'oncollision-select',
-      'audio-volume',
-      'max-frames',
-      'wrap-select',
-      'y-margin',
-      'game-mode-select',
-      'max-points',
-      'move-keys',
-      'start-key'
-    ];
-
     var loop_counter = 12;
     do{
-        if(document.getElementById(j[loop_counter]).value ==
-          [0, 125, 1, 0, 1, 1, 0, 0, 0, 1, 0, 'WASD', 'H'][loop_counter]){
-            window.localStorage.removeItem('snakish-' + loop_counter);
+        var id = [
+          'turn-angle-select',
+          'ms-per-move',
+          'holes-per-point',
+          'holes-at-start',
+          'oncollision-select',
+          'audio-volume',
+          'max-frames',
+          'wrap-select',
+          'y-margin',
+          'game-mode-select',
+          'max-points',
+          'movement-keys',
+          'start-key',
+        ][loop_counter];
+
+        if(document.getElementById(id).value ==
+          [0, 125, 1, 0, 1, 1, 0, 0, 0, 1, 50, 'WASD', 'H'][loop_counter]){
+            window.localStorage.removeItem('Snakish.htm-' + id);
 
         }else{
+            console.log(id);
             window.localStorage.setItem(
-              'snakish-' + loop_counter,
-              document.getElementById(j[loop_counter]).value
+              'Snakish.htm-' + id,
+              document.getElementById(id).value
             );
         }
     }while(loop_counter--);
-
-    j = 0;
 }
 
 function set_settings_disable(i){
@@ -516,50 +515,50 @@ document.getElementById('game-area').innerHTML = j.join('');
 j = 0;
 
 // fetch settings from localStorage and update settings inputs
-document.getElementById('audio-volume').value = window.localStorage.getItem('snakish-5') === null
+document.getElementById('audio-volume').value = window.localStorage.getItem('Snakish.htm-audio-volume') === null
   ? 1
-  : parseFloat(window.localStorage.getItem('snakish-5'));
-document.getElementById('game-mode-select').value = window.localStorage.getItem('snakish-9') === null
+  : parseFloat(window.localStorage.getItem('Snakish.htm-audio-volume'));
+document.getElementById('game-mode-select').value = window.localStorage.getItem('Snakish.htm-game-mode-select') === null
   ? 1
   : 0;
-document.getElementById('holes-at-start').value = window.localStorage.getItem('snakish-3') === null
+document.getElementById('holes-at-start').value = window.localStorage.getItem('Snakish.htm-audio-holes-at-start') === null
   ? 0
-  : parseInt(window.localStorage.getItem('snakish-3'), 10);
-document.getElementById('holes-per-point').value = window.localStorage.getItem('snakish-2') === null
+  : parseInt(window.localStorage.getItem('Snakish.htm-holes-at-start'), 10);
+document.getElementById('holes-per-point').value = window.localStorage.getItem('Snakish.htm-holes-per-point') === null
   ? 1
-  : parseInt(window.localStorage.getItem('snakish-2'), 10);
-document.getElementById('max-frames').value = window.localStorage.getItem('snakish-6') === null
+  : parseInt(window.localStorage.getItem('Snakish.htm-holes-per-point'), 10);
+document.getElementById('max-frames').value = window.localStorage.getItem('Snakish.htm-max-frames') === null
   ? 0
-  : parseInt(window.localStorage.getItem('snakish-6'), 10);
-document.getElementById('max-points').value = window.localStorage.getItem('snakish-10') === null
+  : parseInt(window.localStorage.getItem('Snakish.htm-max-frames'), 10);
+document.getElementById('max-points').value = window.localStorage.getItem('Snakish.htm-max-points') === null
   ? 0
-  : parseInt(window.localStorage.getItem('snakish-10'), 10);
-document.getElementById('move-keys').value = window.localStorage.getItem('snakish-11') === null
+  : parseInt(window.localStorage.getItem('Snakish.htm-max-points'), 10);
+document.getElementById('movement-keys').value = window.localStorage.getItem('Snakish.htm-movement-keys') === null
   ? 'WASD'
-  : window.localStorage.getItem('snakish-10');
-document.getElementById('ms-per-move').value = window.localStorage.getItem('snakish-1') === null
+  : window.localStorage.getItem('Snakish.htm-movement-keys');
+document.getElementById('ms-per-move').value = window.localStorage.getItem('Snakish.htm-ms-per-move') === null
   ? 125
-  : parseInt(window.localStorage.getItem('snakish-1'), 10);
-document.getElementById('oncollision-select').value = window.localStorage.getItem('snakish-4') === null
+  : parseInt(window.localStorage.getItem('Snakish.htm-ms-per-move'), 10);
+document.getElementById('oncollision-select').value = window.localStorage.getItem('Snakish.htm-oncollision-select') === null
   ? 1
-  : parseInt(window.localStorage.getItem('snakish-4'), 10);
-document.getElementById('turn-angle-select').value = window.localStorage.getItem('snakish-0') === null
+  : parseInt(window.localStorage.getItem('Snakish.htm-oncollision-select'), 10);
+document.getElementById('turn-angle-select').value = window.localStorage.getItem('Snakish.htm-turn-angle-select') === null
   ? 0
-  : parseInt(window.localStorage.getItem('snakish-0'), 10);
-document.getElementById('wrap-select').value = window.localStorage.getItem('snakish-7') === null
+  : parseInt(window.localStorage.getItem('Snakish.htm-turn-angle-select'), 10);
+document.getElementById('wrap-select').value = window.localStorage.getItem('Snakish.htm-wrap-select') === null
   ? 0
-  : parseInt(window.localStorage.getItem('snakish-7'), 10);
-document.getElementById('y-margin').value = window.localStorage.getItem('snakish-8') === null
+  : parseInt(window.localStorage.getItem('Snakish.htm-wrap-select'), 10);
+document.getElementById('y-margin').value = window.localStorage.getItem('Snakish.htm-y-margin') === null
   ? 0
-  : parseInt(window.localStorage.getItem('snakish-8'), 10);
+  : parseInt(window.localStorage.getItem('Snakish.htm-y-margin'), 10);
 
-if(window.localStorage.getItem('snakish-12') === null){
+if(window.localStorage.getItem('Snakish.htm-start-key') === null){
     document.getElementById('start-key').value = 'H';
 
 }else{
-    document.getElementById('start-key').value = window.localStorage.getItem('snakish-12');
+    document.getElementById('start-key').value = window.localStorage.getItem('Snakish.htm-start-key');
     document.getElementById('start-button').value =
-      'Start [' + window.localStorage.getItem('snakish-12') + ']';
+      'Start [' + window.localStorage.getItem('Snakish.htm-start-key') + ']';
 }
 
 // adjust margin-top of entire game
@@ -576,25 +575,25 @@ window.onkeydown = function(e){
         key = String.fromCharCode(key);
 
         // if player wants to move up (if player is moving down then check if 180 degree turns are legal)
-        if(key === document.getElementById('move-keys').value[0]
+        if(key === document.getElementById('movement-keys').value[0]
           && (player[2] !== 2 || document.getElementById('turn-angle-select').value == 1)){
             // player move direction = up
             player[2] = 0;
 
         // if player wants to move right (if player is moving left then check if 180 degree turns are legal)
-        }else if(key === document.getElementById('move-keys').value[1]
+        }else if(key === document.getElementById('movement-keys').value[1]
           && (player[2] !== 1 || document.getElementById('turn-angle-select').value == 1)){
             // player move direction = left
             player[2] = 3;
 
         // if player wants to move down (if player is moving up then check if 180 degree turns are legal)
-        }else if(key === document.getElementById('move-keys').value[2]
+        }else if(key === document.getElementById('movement-keys').value[2]
           && (player[2] !== 0 || document.getElementById('turn-angle-select').value == 1)){
             // player move direction = down
             player[2] = 2;
 
         // if player wants to move left (if player is moving right then check if 180 degree turns are legal)
-        }else if(key === document.getElementById('move-keys').value[3]
+        }else if(key === document.getElementById('movement-keys').value[3]
           && (player[2] !== 3 || document.getElementById('turn-angle-select').value == 1)){
             // player move direction = right
             player[2] = 1;
