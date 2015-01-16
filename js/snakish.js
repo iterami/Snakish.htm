@@ -566,38 +566,38 @@ window.onkeydown = function(e){
     // ESC: stop current game.
     if(key === 27){
         stop();
+        return;
+    }
 
-    }else{
-        key = String.fromCharCode(key);
+    key = String.fromCharCode(key);
 
-        // If player wants to move up (if player is moving down then check if 180 degree turns are legal).
-        if(key === document.getElementById('movement-keys').value[0]
-          && (player['movement_direction'] !== 2 || document.getElementById('turn-angle-select').value == 1)){
-            // Player move direction = up.
-            player['movement_direction'] = 0;
+    // If player wants to move up (if player is moving down then check if 180 degree turns are legal).
+    if(key === document.getElementById('movement-keys').value[0]
+      && (player['movement_direction'] !== 2 || document.getElementById('turn-angle-select').value == 1)){
+        // Player move direction = up.
+        player['movement_direction'] = 0;
 
-        // If player wants to move right (if player is moving left then check if 180 degree turns are legal).
-        }else if(key === document.getElementById('movement-keys').value[1]
-          && (player['movement_direction'] !== 1 || document.getElementById('turn-angle-select').value == 1)){
-            // Player move direction = left.
-            player['movement_direction'] = 3;
+    // If player wants to move right (if player is moving left then check if 180 degree turns are legal).
+    }else if(key === document.getElementById('movement-keys').value[1]
+      && (player['movement_direction'] !== 1 || document.getElementById('turn-angle-select').value == 1)){
+        // Player move direction = left.
+        player['movement_direction'] = 3;
 
-        // If player wants to move down (if player is moving up then check if 180 degree turns are legal).
-        }else if(key === document.getElementById('movement-keys').value[2]
-          && (player['movement_direction'] !== 0 || document.getElementById('turn-angle-select').value == 1)){
-            // Player move direction = down.
-            player['movement_direction'] = 2;
+    // If player wants to move down (if player is moving up then check if 180 degree turns are legal).
+    }else if(key === document.getElementById('movement-keys').value[2]
+      && (player['movement_direction'] !== 0 || document.getElementById('turn-angle-select').value == 1)){
+        // Player move direction = down.
+        player['movement_direction'] = 2;
 
-        // If player wants to move left (if player is moving right then check if 180 degree turns are legal).
-        }else if(key === document.getElementById('movement-keys').value[3]
-          && (player['movement_direction'] !== 3 || document.getElementById('turn-angle-select').value == 1)){
-            // Player move direction = right.
-            player['movement_direction'] = 1;
+    // If player wants to move left (if player is moving right then check if 180 degree turns are legal).
+    }else if(key === document.getElementById('movement-keys').value[3]
+      && (player['movement_direction'] !== 3 || document.getElementById('turn-angle-select').value == 1)){
+        // Player move direction = right.
+        player['movement_direction'] = 1;
 
-        }else if(key === document.getElementById('start-key').value){
-            stop();
-            start();
-        }
+    }else if(key === document.getElementById('start-key').value){
+        stop();
+        start();
     }
 };
 
