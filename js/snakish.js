@@ -27,77 +27,6 @@ function eat_purple_creature(){
     }
 }
 
-function init(){
-    // Fetch settings from window.localStorage and update settings inputs.
-    document.getElementById('audio-volume').value = window.localStorage.getItem('Snakish.htm-audio-volume') === null
-      ? 1
-      : parseFloat(window.localStorage.getItem('Snakish.htm-audio-volume'));
-    document.getElementById('game-mode-select').value = window.localStorage.getItem('Snakish.htm-game-mode-select') === null
-      ? 1
-      : 0;
-    document.getElementById('holes-at-start').value = window.localStorage.getItem('Snakish.htm-audio-holes-at-start') === null
-      ? 0
-      : parseInt(window.localStorage.getItem('Snakish.htm-holes-at-start'), 10);
-    document.getElementById('holes-per-point').value = window.localStorage.getItem('Snakish.htm-holes-per-point') === null
-      ? 1
-      : parseInt(window.localStorage.getItem('Snakish.htm-holes-per-point'), 10);
-    document.getElementById('max-frames').value = window.localStorage.getItem('Snakish.htm-max-frames') === null
-      ? 0
-      : parseInt(window.localStorage.getItem('Snakish.htm-max-frames'), 10);
-    document.getElementById('max-points').value = window.localStorage.getItem('Snakish.htm-max-points') === null
-      ? 0
-      : parseInt(window.localStorage.getItem('Snakish.htm-max-points'), 10);
-    document.getElementById('movement-keys').value = window.localStorage.getItem('Snakish.htm-movement-keys') === null
-      ? 'WASD'
-      : window.localStorage.getItem('Snakish.htm-movement-keys');
-    document.getElementById('ms-per-move').value = window.localStorage.getItem('Snakish.htm-ms-per-move') === null
-      ? 125
-      : parseInt(window.localStorage.getItem('Snakish.htm-ms-per-move'), 10);
-    document.getElementById('oncollision-select').value = window.localStorage.getItem('Snakish.htm-oncollision-select') === null
-      ? 1
-      : parseInt(window.localStorage.getItem('Snakish.htm-oncollision-select'), 10);
-    document.getElementById('turn-angle-select').value = window.localStorage.getItem('Snakish.htm-turn-angle-select') === null
-      ? 0
-      : parseInt(window.localStorage.getItem('Snakish.htm-turn-angle-select'), 10);
-    document.getElementById('wrap-select').value = window.localStorage.getItem('Snakish.htm-wrap-select') === null
-      ? 0
-      : parseInt(window.localStorage.getItem('Snakish.htm-wrap-select'), 10);
-    document.getElementById('y-margin').value = window.localStorage.getItem('Snakish.htm-y-margin') === null
-      ? 0
-      : parseInt(window.localStorage.getItem('Snakish.htm-y-margin'), 10);
-
-    if(window.localStorage.getItem('Snakish.htm-start-key') === null){
-        document.getElementById('start-key').value = 'H';
-
-    }else{
-        document.getElementById('start-key').value = window.localStorage.getItem('Snakish.htm-start-key');
-        document.getElementById('start-button').value =
-          'Start [' + window.localStorage.getItem('Snakish.htm-start-key') + ']';
-    }
-
-    // Adjust margin-top of entire game.
-    document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
-
-    // Create buttons for game-area.
-    var output = [''];
-
-    for(var loop_counter = 0; loop_counter < 400; loop_counter++){
-        if(loop_counter % 20 === 0 && loop_counter !== 0){
-            output.push('<br>');
-        }
-        output.push(
-          '<input class=buttons disabled id='
-          + loop_counter
-          + ' style="background:'
-          + color_empty
-          + '" type=button>'
-        );
-    }
-    output[23] = '<input class=buttons disabled id=21 style="background:' + color_player + '" type=button>';
-    output[397] = '<input class=buttons disabled id=378 style="background:' + color_purple + '" type=button>';
-    document.getElementById('game-area').innerHTML = output.join('');
-}
-
 function move_player(){
     // Check if game is still running, based on game mode and if frames/score are over max.
     var end_game = document.getElementById('game-mode-select').value === 1
@@ -601,4 +530,73 @@ window.onkeydown = function(e){
     }
 };
 
-window.onload = init;
+window.onload = function(){
+    // Fetch settings from window.localStorage and update settings inputs.
+    document.getElementById('audio-volume').value = window.localStorage.getItem('Snakish.htm-audio-volume') === null
+      ? 1
+      : parseFloat(window.localStorage.getItem('Snakish.htm-audio-volume'));
+    document.getElementById('game-mode-select').value = window.localStorage.getItem('Snakish.htm-game-mode-select') === null
+      ? 1
+      : 0;
+    document.getElementById('holes-at-start').value = window.localStorage.getItem('Snakish.htm-audio-holes-at-start') === null
+      ? 0
+      : parseInt(window.localStorage.getItem('Snakish.htm-holes-at-start'), 10);
+    document.getElementById('holes-per-point').value = window.localStorage.getItem('Snakish.htm-holes-per-point') === null
+      ? 1
+      : parseInt(window.localStorage.getItem('Snakish.htm-holes-per-point'), 10);
+    document.getElementById('max-frames').value = window.localStorage.getItem('Snakish.htm-max-frames') === null
+      ? 0
+      : parseInt(window.localStorage.getItem('Snakish.htm-max-frames'), 10);
+    document.getElementById('max-points').value = window.localStorage.getItem('Snakish.htm-max-points') === null
+      ? 0
+      : parseInt(window.localStorage.getItem('Snakish.htm-max-points'), 10);
+    document.getElementById('movement-keys').value = window.localStorage.getItem('Snakish.htm-movement-keys') === null
+      ? 'WASD'
+      : window.localStorage.getItem('Snakish.htm-movement-keys');
+    document.getElementById('ms-per-move').value = window.localStorage.getItem('Snakish.htm-ms-per-move') === null
+      ? 125
+      : parseInt(window.localStorage.getItem('Snakish.htm-ms-per-move'), 10);
+    document.getElementById('oncollision-select').value = window.localStorage.getItem('Snakish.htm-oncollision-select') === null
+      ? 1
+      : parseInt(window.localStorage.getItem('Snakish.htm-oncollision-select'), 10);
+    document.getElementById('turn-angle-select').value = window.localStorage.getItem('Snakish.htm-turn-angle-select') === null
+      ? 0
+      : parseInt(window.localStorage.getItem('Snakish.htm-turn-angle-select'), 10);
+    document.getElementById('wrap-select').value = window.localStorage.getItem('Snakish.htm-wrap-select') === null
+      ? 0
+      : parseInt(window.localStorage.getItem('Snakish.htm-wrap-select'), 10);
+    document.getElementById('y-margin').value = window.localStorage.getItem('Snakish.htm-y-margin') === null
+      ? 0
+      : parseInt(window.localStorage.getItem('Snakish.htm-y-margin'), 10);
+
+    if(window.localStorage.getItem('Snakish.htm-start-key') === null){
+        document.getElementById('start-key').value = 'H';
+
+    }else{
+        document.getElementById('start-key').value = window.localStorage.getItem('Snakish.htm-start-key');
+        document.getElementById('start-button').value =
+          'Start [' + window.localStorage.getItem('Snakish.htm-start-key') + ']';
+    }
+
+    // Adjust margin-top of entire game.
+    document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
+
+    // Create buttons for game-area.
+    var output = [''];
+
+    for(var loop_counter = 0; loop_counter < 400; loop_counter++){
+        if(loop_counter % 20 === 0 && loop_counter !== 0){
+            output.push('<br>');
+        }
+        output.push(
+          '<input class=buttons disabled id='
+          + loop_counter
+          + ' style="background:'
+          + color_empty
+          + '" type=button>'
+        );
+    }
+    output[23] = '<input class=buttons disabled id=21 style="background:' + color_player + '" type=button>';
+    output[397] = '<input class=buttons disabled id=378 style="background:' + color_purple + '" type=button>';
+    document.getElementById('game-area').innerHTML = output.join('');
+};
