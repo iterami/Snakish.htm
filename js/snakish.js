@@ -457,7 +457,7 @@ function start(){
     }
 
     // Validate milliseconds per player movement and create interval.
-    interval = setInterval(
+    interval = window.setInterval(
       'move_player()',
       (document.getElementById('ms-per-move').value > 0)
         ? document.getElementById('ms-per-move').value
@@ -469,7 +469,7 @@ function start(){
 }
 
 function stop(){
-    clearInterval(interval);
+    window.clearInterval(interval);
     document.getElementById('start-button').value =
       'Start [' + document.getElementById('start-key').value + ']';
     document.getElementById('start-button').onclick = function(){
