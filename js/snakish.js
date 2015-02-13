@@ -9,20 +9,21 @@ function eat_purple_creature(){
     }
 
     // Pick a button with color_empty and make it the new purple creature.
+    var id = -1;
     do{
-        a = Math.floor(Math.random() * 400);
-    }while(document.getElementById(a).style.backgroundColor != color_empty);
-    document.getElementById(a).style.backgroundColor = color_purple;
+        id = Math.floor(Math.random() * 400);
+    }while(document.getElementById(id).style.backgroundColor != color_empty);
+    document.getElementById(id).style.backgroundColor = color_purple;
 
     var loop_counter = document.getElementById('holes-per-point').value - 1;
     // If more than 0 holes should be created.
     if(loop_counter >= 0){
         // Add new holes.
         do{
-            while(document.getElementById(a).style.backgroundColor != color_empty){
-                a = Math.floor(Math.random() * 400);
+            while(document.getElementById(id).style.backgroundColor != color_empty){
+                id = Math.floor(Math.random() * 400);
             }
-            document.getElementById(a).style.backgroundColor = color_obstacle;
+            document.getElementById(id).style.backgroundColor = color_obstacle;
         }while(loop_counter--);
     }
 }
@@ -70,7 +71,7 @@ function move_player(){
 
             // Collision!
             }else{
-                end_game = 1;
+                end_game = true;
             }
 
         // If player is at the top of the screen and can wrap in the Y-direction.
@@ -92,12 +93,12 @@ function move_player(){
 
             // Collision!
             }else{
-                end_game = 1;
+                end_game = true;
             }
 
         // Collision!
         }else{
-            end_game = 1;
+            end_game = true;
         }
 
     // If player is moving right.
@@ -120,7 +121,7 @@ function move_player(){
 
             // Collision!
             }else{
-                end_game = 1;
+                end_game = true;
             }
 
         // If player is at the right edge of the screen and can wrap in the X-direction.
@@ -142,12 +143,12 @@ function move_player(){
 
             // Collision!
             }else{
-                end_game = 1;
+                end_game = true;
             }
 
         // Collision!
         }else{
-            end_game = 1;
+            end_game = true;
         }
 
     // If player is moving down.
@@ -170,7 +171,7 @@ function move_player(){
 
             // Collision!
             }else{
-                end_game = 1;
+                end_game = true;
             }
 
         // If player is at the bottom edge of the screen and can wrap in the U-direction.
@@ -192,12 +193,12 @@ function move_player(){
 
             // Collision!
             }else{
-                end_game = 1;
+                end_game = true;
             }
 
         // Collision!
         }else{
-            end_game = 1;
+            end_game = true;
         }
 
     // If player is moving left.
@@ -219,7 +220,7 @@ function move_player(){
 
             // Collision!
             }else{
-                end_game = 1;
+                end_game = true;
             }
 
         // If player is at the left edge of the screen and can wrap in the X-direction.
@@ -241,12 +242,12 @@ function move_player(){
 
             // Collision!
             }else{
-                end_game = 1;
+                end_game = true;
             }
 
         // Collision!
         }else{
-            end_game = 1;
+            end_game = true;
         }
     }
 
@@ -428,13 +429,13 @@ function start(){
             document.getElementById('holes-at-start').value = 398;
         }
 
-        a = -1;
+        var id = -1;
         loop_counter = document.getElementById('holes-at-start').value - 1;
         do{
             do{
-                a = Math.floor(Math.random() * 400);
-            }while(document.getElementById(a).style.backgroundColor !== color_empty);
-            document.getElementById(a).style.backgroundColor = color_obstacle;
+                id = Math.floor(Math.random() * 400);
+            }while(document.getElementById(id).style.backgroundColor !== color_empty);
+            document.getElementById(id).style.backgroundColor = color_obstacle;
         }while(loop_counter--);
     }
 
