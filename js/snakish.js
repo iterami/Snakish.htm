@@ -270,7 +270,7 @@ function move_player(){
     // If player x or y position has changed.
     if(dx !== 0
       || dy !== 0){
-        // Reset old player position to an empty space.
+        // Reset old player position to color_empty.
         document.getElementById((player['y'] + dy) * 20 + player['x'] + dx).style.backgroundColor = color_empty;
     }
 
@@ -312,28 +312,25 @@ function reset(){
     save();
 }
 
+// Save settings into window.localStorage if they differ from default.
 function save(){
-    // Save settings into localStorage, if differ from default.
-    var loop_counter = 12;
-    do{
-        var id = [
-          'turn-angle-select',
-          'ms-per-move',
-          'holes-per-point',
-          'holes-at-start',
-          'oncollision-select',
-          'audio-volume',
-          'max-frames',
-          'wrap-select',
-          'y-margin',
-          'game-mode-select',
-          'max-points',
-          'movement-keys',
-          'start-key',
-        ][loop_counter];
-
-        if(document.getElementById(id).value ==
-          [0, 125, 1, 0, 1, 1, 0, 0, 0, 1, 0, 'WASD', 'H',][loop_counter]){
+    var ids = {
+      'audio-volume': 1,
+      'game-mode-select': 1,
+      'holes-at-start': 0,
+      'holes-per-point': 1,
+      'max-frames': 0,
+      'max-points': 0,
+      'movement-keys': 'WASD',
+      'ms-per-move': 125,
+      'oncollision-select': 1,
+      'start-key': 'H',
+      'turn-angle-select': 0,
+      'wrap-select': 0,
+      'y-margin': 0,
+    };
+    for(var id in ids){
+        if(document.getElementById(id).value == ids[id]){
             window.localStorage.removeItem('Snakish.htm-' + id);
 
         }else{
@@ -342,7 +339,7 @@ function save(){
               document.getElementById(id).value
             );
         }
-    }while(loop_counter--);
+    }
 }
 
 function set_settings_disable(state){
@@ -369,37 +366,28 @@ function settings_toggle(){
 }
 
 function start(){
-    var loop_counter = 5;
-    do{
-        var id = [
-          'audio-volume',
-          'holes-at-start',
-          'holes-per-point',
-          'max-frames',
-          'max-points',
-          'ms-per-move',
-          'y-margin',
-        ][loop_counter];
-
+    // Validate settings.
+    var ids = {
+      'audio-volume': 1,
+      'holes-at-start': 0,
+      'holes-per-point': 1,
+      'max-frames': 0,
+      'max-points': 0,
+      'ms-per-move': 125,
+      'y-margin': 0,
+    };
+    for(var id in ids){
         if(isNaN(document.getElementById(id).value)
           || document.getElementById(id).value < 0){
-            document.getElementById(id).value = [
-              1,
-              0,
-              1,
-              0,
-              0,
-              125,
-              0,
-            ][loop_counter];
+            document.getElementById(id).value = ids[id];
         }
-    }while(loop_counter--);
+    }
 
     if(document.getElementById('holes-per-point').value > 396){
         document.getElementById('holes-per-point').value = 396;
     }
 
-    // Adjust margin-top of entire game.
+    // Set margin-top of table based on y-margin.
     document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     set_settings_disable(true);
@@ -485,7 +473,7 @@ var color_player = 'rgb(32, 102, 32)';
 var color_purple = 'rgb(102, 51, 102)';
 var interval = 0;
 var player = {
-  movement_direction: 1,// 0==Up, 1==Right, 2==Down, 3==Left.
+  movement_direction: 1,// 0==Up, 1==Right, 2==Down, 3==Left
   x: 1,
   y: 1,
 };
@@ -533,42 +521,32 @@ window.onkeydown = function(e){
 
 window.onload = function(){
     // Fetch settings from window.localStorage and update settings inputs.
+    var ids = {
+      'holes-at-start': 0,
+      'holes-per-point': 1,
+      'max-frames': 0,
+      'max-points': 0,
+      'ms-per-move': 125,
+      'oncollision-select': 1,
+      'turn-angle-select': 0,
+      'wrap-select': 0,
+      'y-margin': 0,
+    };
+    for(var id in ids){
+        document.getElementById(id).value = window.localStorage.getItem('Snakish.htm-' + id) === null
+          ? ids[id]
+          : parseInt(window.localStorage.getItem('Snakish.htm-' + id));
+    }
+
     document.getElementById('audio-volume').value = window.localStorage.getItem('Snakish.htm-audio-volume') === null
       ? 1
       : parseFloat(window.localStorage.getItem('Snakish.htm-audio-volume'));
     document.getElementById('game-mode-select').value = window.localStorage.getItem('Snakish.htm-game-mode-select') === null
       ? 1
       : 0;
-    document.getElementById('holes-at-start').value = window.localStorage.getItem('Snakish.htm-audio-holes-at-start') === null
-      ? 0
-      : parseInt(window.localStorage.getItem('Snakish.htm-holes-at-start'), 10);
-    document.getElementById('holes-per-point').value = window.localStorage.getItem('Snakish.htm-holes-per-point') === null
-      ? 1
-      : parseInt(window.localStorage.getItem('Snakish.htm-holes-per-point'), 10);
-    document.getElementById('max-frames').value = window.localStorage.getItem('Snakish.htm-max-frames') === null
-      ? 0
-      : parseInt(window.localStorage.getItem('Snakish.htm-max-frames'), 10);
-    document.getElementById('max-points').value = window.localStorage.getItem('Snakish.htm-max-points') === null
-      ? 0
-      : parseInt(window.localStorage.getItem('Snakish.htm-max-points'), 10);
     document.getElementById('movement-keys').value = window.localStorage.getItem('Snakish.htm-movement-keys') === null
       ? 'WASD'
       : window.localStorage.getItem('Snakish.htm-movement-keys');
-    document.getElementById('ms-per-move').value = window.localStorage.getItem('Snakish.htm-ms-per-move') === null
-      ? 125
-      : parseInt(window.localStorage.getItem('Snakish.htm-ms-per-move'), 10);
-    document.getElementById('oncollision-select').value = window.localStorage.getItem('Snakish.htm-oncollision-select') === null
-      ? 1
-      : parseInt(window.localStorage.getItem('Snakish.htm-oncollision-select'), 10);
-    document.getElementById('turn-angle-select').value = window.localStorage.getItem('Snakish.htm-turn-angle-select') === null
-      ? 0
-      : parseInt(window.localStorage.getItem('Snakish.htm-turn-angle-select'), 10);
-    document.getElementById('wrap-select').value = window.localStorage.getItem('Snakish.htm-wrap-select') === null
-      ? 0
-      : parseInt(window.localStorage.getItem('Snakish.htm-wrap-select'), 10);
-    document.getElementById('y-margin').value = window.localStorage.getItem('Snakish.htm-y-margin') === null
-      ? 0
-      : parseInt(window.localStorage.getItem('Snakish.htm-y-margin'), 10);
 
     if(window.localStorage.getItem('Snakish.htm-start-key') === null){
         document.getElementById('start-key').value = 'H';
@@ -579,7 +557,7 @@ window.onload = function(){
           'Start [' + window.localStorage.getItem('Snakish.htm-start-key') + ']';
     }
 
-    // Adjust margin-top of entire game.
+    // Set margin-top of table based on y-margin.
     document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     // Create buttons for game-area.
