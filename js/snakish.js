@@ -538,15 +538,14 @@ window.onload = function(){
           : parseInt(window.localStorage.getItem('Snakish.htm-' + id));
     }
 
-    document.getElementById('audio-volume').value = window.localStorage.getItem('Snakish.htm-audio-volume') === null
-      ? 1
-      : parseFloat(window.localStorage.getItem('Snakish.htm-audio-volume'));
-    document.getElementById('game-mode-select').value = window.localStorage.getItem('Snakish.htm-game-mode-select') === null
-      ? 1
-      : 0;
-    document.getElementById('movement-keys').value = window.localStorage.getItem('Snakish.htm-movement-keys') === null
-      ? 'WASD'
-      : window.localStorage.getItem('Snakish.htm-movement-keys');
+    document.getElementById('audio-volume').value =
+      parseFloat(window.localStorage.getItem('Snakish.htm-audio-volume')) || 1;
+    document.getElementById('game-mode-select').value =
+      window.localStorage.getItem('Snakish.htm-game-mode-select') === null
+        ? 1
+        : 0;
+    document.getElementById('movement-keys').value =
+      window.localStorage.getItem('Snakish.htm-movement-keys') || 'WASD';
 
     if(window.localStorage.getItem('Snakish.htm-start-key') === null){
         document.getElementById('start-key').value = 'H';
