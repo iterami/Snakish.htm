@@ -1,3 +1,5 @@
+'use strict';
+
 function eat_purple_creature(){
     document.getElementById('score').innerHTML = parseInt(document.getElementById('score').innerHTML, 10) + 1;
 
