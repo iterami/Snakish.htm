@@ -399,7 +399,7 @@ function start(){
     set_settings_disable(true);
 
     // Reset buttons to empty with player and purple creature in initial positions.
-    loop_counter = 399;
+    var loop_counter = 399;
     do{
         document.getElementById(loop_counter).style.backgroundColor = color_empty;
     }while(loop_counter--);
