@@ -344,18 +344,6 @@ function save(){
     }
 }
 
-function set_settings_disable(state){
-    document.getElementById('game-mode-select').disabled = state;
-    document.getElementById('holes-per-point').disabled = state;
-    document.getElementById('max-frames').disabled = state;
-    document.getElementById('max-points').disabled = state;
-    document.getElementById('ms-per-move').disabled = state;
-    document.getElementById('oncollision-select').disabled = state;
-    document.getElementById('reset-button').disabled = state;
-    document.getElementById('turn-angle-select').disabled = state;
-    document.getElementById('wrap-select').disabled = state;
-}
-
 function settings_toggle(state){
     state = state == void 0
       ? document.getElementById('settings-button').value === '+'
@@ -395,8 +383,6 @@ function start(){
 
     // Set margin-top of table based on y-margin.
     document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
-
-    set_settings_disable(true);
 
     // Reset buttons to empty with player and purple creature in initial positions.
     var loop_counter = 399;
@@ -470,7 +456,6 @@ function stop(){
     document.getElementById('start-button').onclick = function(){
         start();
     };
-    set_settings_disable(false);
 }
 
 var color_empty = 'rgb(42, 42, 42)';
