@@ -393,9 +393,7 @@ function start(){
     document.getElementById(378).style.backgroundColor = color_purple;
 
     document.getElementById('start-button').value = 'End [ESC]';
-    document.getElementById('start-button').onclick = function(){
-        stop(0);
-    };
+    document.getElementById('start-button').onclick = stop;
     document.getElementById('score').innerHTML = '0';
 
     // Reset player
@@ -453,9 +451,7 @@ function stop(){
     window.clearInterval(interval);
     document.getElementById('start-button').value =
       'Start [' + document.getElementById('start-key').value + ']';
-    document.getElementById('start-button').onclick = function(){
-        start();
-    };
+    document.getElementById('start-button').onclick = start;
 }
 
 var color_empty = 'rgb(42, 42, 42)';
