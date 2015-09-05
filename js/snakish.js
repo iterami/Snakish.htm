@@ -557,21 +557,25 @@ window.onload = function(){
     document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     // Create buttons for game-area.
-    var output = [''];
+    var output = '';
 
     for(var loop_counter = 0; loop_counter < 400; loop_counter++){
         if(loop_counter % 20 === 0 && loop_counter !== 0){
-            output.push('<br>');
+            output += '<br>';
         }
-        output.push(
-          '<input class=buttons disabled id='
-          + loop_counter
-          + ' style="background:'
-          + color_empty
-          + '" type=button>'
-        );
+
+        var color = color_empty;
+        if(loop_counter == 21){
+            color = color_player;
+
+        }else if(loop_counter == 397){
+            color = color_purple;
+        }
+
+        output +=
+          '<input class=buttons disabled id=' + loop_counter
+          + ' style="background:' + color
+          + '" type=button>';
     }
-    output[23] = '<input class=buttons disabled id=21 style="background:' + color_player + '" type=button>';
-    output[397] = '<input class=buttons disabled id=378 style="background:' + color_purple + '" type=button>';
-    document.getElementById('game-area').innerHTML = output.join('');
+    document.getElementById('game-area').innerHTML = output;
 };
