@@ -276,8 +276,8 @@ function move_player(){
         document.getElementById((player['y'] + dy) * 20 + player['x'] + dx).style.backgroundColor = color_empty;
     }
 
-    // Set color of new player position to color_player.
-    document.getElementById(player['y'] * 20 + player['x']).style.backgroundColor = color_player;
+    // Set color of new player position to player['color'].
+    document.getElementById(player['y'] * 20 + player['x']).style.backgroundColor = player['color'];
 }
 
 function play_audio(id){
@@ -389,7 +389,7 @@ function start(){
     do{
         document.getElementById(loop_counter).style.backgroundColor = color_empty;
     }while(loop_counter--);
-    document.getElementById(21).style.backgroundColor = color_player;
+    document.getElementById(21).style.backgroundColor = player['color'];
     document.getElementById(378).style.backgroundColor = color_purple;
 
     document.getElementById('start-button').value = 'End [ESC]';
@@ -456,13 +456,13 @@ function stop(){
 
 var color_empty = 'rgb(42, 42, 42)';
 var color_obstacle = 'rgb(0, 0, 0)';
-var color_player = 'rgb(32, 102, 32)';
 var color_purple = 'rgb(102, 51, 102)';
 var interval = 0;
 var player = {
-  movement_direction: 1,// 0==Up, 1==Right, 2==Down, 3==Left
-  x: 1,
-  y: 1,
+  'color': 'rgb(32, 102, 32)',
+  'movement_direction': 1,// 0==Up, 1==Right, 2==Down, 3==Left
+  'x': 1,
+  'y': 1,
 };
 
 window.onkeydown = function(e){
@@ -566,7 +566,7 @@ window.onload = function(){
 
         var color = color_empty;
         if(loop_counter == 21){
-            color = color_player;
+            color = player['color'];
 
         }else if(loop_counter == 397){
             color = color_purple;
