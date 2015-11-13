@@ -3,50 +3,43 @@
 <title>Snakish.htm</title>
 <link href=css/snakish.css rel=stylesheet>
 
-<table id=table>
-    <tr>
-        <td class=left rowspan=2>
-        <td id=game-area>
-        <td class=settings-td rowspan=2>
-            <span id=settings-span>
-                <input id=audio-volume max=1 min=0 step=.01 type=range value=1>Audio<br>
-                <input id=holes-at-start value=0>Holes at Start<br>
-                <input id=holes-per-point value=1>Holes/Point<br>
-                <input id=max-frames value=0>Max Frames<br>
-                <input id=max-points value=50>Max Points<br>
-                Max<select id=game-mode-select>
-                  <option value=1>Frames</option>
-                  <option selected value=0>Points</option>
-                </select>Mode<br>
-                <input id=movement-keys maxlength=4 value=WASD>Move<br>
-                <input id=ms-per-move value=125>ms/Move<br>
-                <select id=oncollision-select>
-                  <option value=0>Nothing</option>
-                  <option selected value=1>End Game</option>
-                  <option value=2>Score-1</option>
-                </select>OnCollision<br>
-                <input id=start-key maxlength=1 value=H>Start<br>
-                <select id=turn-angle-select>
-                  <option value=0>90</option>
-                  <option value=1>&lt;=180</option>
-                </select>° Turn Angle<br>
-                <select id=wrap-select>
-                  <option value=0>No</option>
-                  <option value=1>X</option>
-                  <option value=2>X&Y</option>
-                  <option value=3>Y</option>
-                </select>Wrap<br>
-                <input id=y-margin value=0>Y Margin<br>
-                <input id=reset-button onclick=reset() type=button value=Reset>
-            </span>
-    <tr>
-        <td>
-            <div class=big>
-                Score: <b id=score>0</b><span id=score-max></span><br>
-                Frames: <b id=frames>0</b><span id=frames-max-span> out of <b id=frames-max>0</b></span>
-            </div>
-            <input id=start-button onclick=start() type=button value="Start [H]">
-            <input id=settings-button onclick=settings_toggle() type=button value=+>
-</table>
+<div id=game-area></div>
+<div class=big>
+    Score: <b id=score>0</b><span id=score-max></span><br>
+    Frames: <b id=frames>0</b><span id=frames-max-span> out of <b id=frames-max>0</b></span>
+</div>
+<input id=start-button onclick=start() type=button value="Start [H]">
+<input id=settings-button onclick=settings_toggle() type=button value=+>
+<div id=settings>
+    <input id=audio-volume max=1 min=0 step=.01 type=range value=1>Audio<br>
+    <input id=holes-at-start value=0>Holes at Start<br>
+    <input id=holes-per-point value=1>Holes/Point<br>
+    <input id=max-frames value=0>Max Frames<br>
+    <input id=max-points value=50>Max Points<br>
+    Max<select id=game-mode-select>
+      <option value=1>Frames</option>
+      <option selected value=0>Points</option>
+    </select>Mode<br>
+    <input id=movement-keys maxlength=4 value=WASD>Move<br>
+    <input id=ms-per-move value=125>ms/Move<br>
+    <select id=oncollision-select>
+      <option value=0>Nothing</option>
+      <option selected value=1>End Game</option>
+      <option value=2>Score-1</option>
+    </select>OnCollision<br>
+    <input id=start-key maxlength=1 value=H>Start<br>
+    <select id=turn-angle-select>
+      <option value=0>90</option>
+      <option value=1>&lt;=180</option>
+    </select>° Turn Angle<br>
+    <select id=wrap-select>
+      <option value=0>No</option>
+      <option value=1>X</option>
+      <option value=2>X&Y</option>
+      <option value=3>Y</option>
+    </select>Wrap<br>
+    <input id=y-margin value=0>Y Margin<br>
+    <input id=reset-button onclick=reset() type=button value=Reset>
+</div>
 
 <script src=js/snakish.js></script>

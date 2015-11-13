@@ -350,11 +350,11 @@ function settings_toggle(state){
       : state;
 
     if(state){
-        document.getElementById('settings-span').style.display = 'inline';
+        document.getElementById('settings').style.display = 'block';
         document.getElementById('settings-button').value = '-';
 
     }else{
-        document.getElementById('settings-span').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
         document.getElementById('settings-button').value = '+';
     }
 }
@@ -381,8 +381,8 @@ function start(){
         document.getElementById('holes-per-point').value = 396;
     }
 
-    // Set margin-top of table based on y-margin.
-    document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
+    // Set margin-top of game-area based on y-margin.
+    document.getElementById('game-area').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     // Reset buttons to empty with player and purple creature in initial positions.
     var loop_counter = 399;
@@ -553,8 +553,8 @@ window.onload = function(){
           'Start [' + window.localStorage.getItem('Snakish.htm-start-key') + ']';
     }
 
-    // Set margin-top of table based on y-margin.
-    document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
+    // Set margin-top of game-area based on y-margin.
+    document.getElementById('game-area').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     // Create buttons for game-area.
     var output = '';
