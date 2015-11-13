@@ -30,9 +30,6 @@ input[type=range],
 select:not([disabled]){
     cursor: pointer;
 }
-.left{
-    width: 50%;
-}
 #settings{
     display: none;
 }
