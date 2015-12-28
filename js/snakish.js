@@ -4,8 +4,9 @@ function eat_purple_creature(){
     document.getElementById('score').innerHTML = parseInt(document.getElementById('score').innerHTML, 10) + 1;
 
     // If there is no space available for more holes, stop.
+    var holes_per_point = document.getElementById('holes-per-point').value;
     if(document.getElementById('score').innerHTML >=
-      Math.floor(398 / (parseInt(document.getElementById('holes-per-point').value, 10) + 1)) + 1){
+      Math.floor(398 / (parseInt(holes_per_point, 10) + 1)) + 1){
         stop();
         return;
     }
@@ -17,7 +18,7 @@ function eat_purple_creature(){
     }while(document.getElementById(id).style.backgroundColor != color_empty);
     document.getElementById(id).style.backgroundColor = color_purple;
 
-    var loop_counter = document.getElementById('holes-per-point').value - 1;
+    var loop_counter = holes_per_point - 1;
     // If more than 0 holes should be created.
     if(loop_counter >= 0){
         // Add new holes.
@@ -32,8 +33,9 @@ function eat_purple_creature(){
 
 function move_player(){
     // Check if game is still running, based on game mode and if frames/score are over max.
+    var frames = parseFloat(document.getElementById('frames').innerHTML);
     var end_game = document.getElementById('game-mode-select').value === 1
-      ? parseFloat(document.getElementById('frames').innerHTML) <= 0
+      ? frames <= 0
         && document.getElementById('max-frames').value > 0
       : document.getElementById('max-points').value != 0
         && parseInt(document.getElementById('score').innerHTML, 10) >= document.getElementById('max-points').value;
@@ -45,9 +47,9 @@ function move_player(){
     }
 
     // Add or subtract 1 from frames depending on game mode.
-    document.getElementById('frames').innerHTML = ((parseFloat(document.getElementById('frames').innerHTML) +
+    document.getElementById('frames').innerHTML = (frames +
         ((document.getElementById('game-mode-select').value === 1
-      && document.getElementById('max-frames').value > 0) ? -1 : 1)));
+      && document.getElementById('max-frames').value > 0) ? -1 : 1));
 
     var check_color = 0;
     var dx = 0;
@@ -256,11 +258,12 @@ function move_player(){
     // If a collision with an obstacle or edge was detected.
     if(end_game){
         // If game ends oncollision...
-        if(document.getElementById('oncollision-select').value == 1){
+        var oncollision_select = document.getElementById('oncollision-select').value;
+        if(oncollision_select == 1){
             stop();
 
         // ...else if score decreases.
-        }else if(document.getElementById('oncollision-select').value === 2){
+        }else if(oncollision_select === 2){
             document.getElementById('score').innerHTML = 
               parseInt(
                 document.getElementById('score').innerHTML,
@@ -297,19 +300,24 @@ function reset(){
 
     stop();
 
-    document.getElementById('audio-volume').value = 1;
-    document.getElementById('game-mode-select').value = 1;
-    document.getElementById('holes-at-start').value = 0;
-    document.getElementById('holes-per-point').value = 1;
-    document.getElementById('max-frames').value = 0;
-    document.getElementById('max-points').value = 0;
-    document.getElementById('movement-keys').value = 'WASD';
-    document.getElementById('ms-per-move').value = 125;
-    document.getElementById('oncollision-select').value = 1;
-    document.getElementById('start-key').value = 'H';
-    document.getElementById('turn-angle-select').value = 0;
-    document.getElementById('wrap-select').value = 0;
-    document.getElementById('y-margin').value = 0;
+    var ids = {
+      'audio-volume': 1,
+      'game-mode-select': 1,
+      'holes-at-start': 0,
+      'holes-per-point': 1,
+      'max-frames': 0,
+      'max-points': 0,
+      'movement-keys': 'WASD',
+      'ms-per-move': 125,
+      'oncollision-select': 1,
+      'start-key': 'H',
+      'turn-angle-select': 0,
+      'wrap-select': 0,
+      'y-margin': 0,
+    };
+    for(var id in ids){
+        document.getElementById(id).value = ids[id];
+    }
 
     save();
 }
@@ -332,13 +340,14 @@ function save(){
       'y-margin': 0,
     };
     for(var id in ids){
-        if(document.getElementById(id).value == ids[id]){
+        var value = document.getElementById(id).value;
+        if(value == ids[id]){
             window.localStorage.removeItem('Snakish.htm-' + id);
 
         }else{
             window.localStorage.setItem(
               'Snakish.htm-' + id,
-              document.getElementById(id).value
+              value
             );
         }
     }
@@ -371,8 +380,9 @@ function start(){
       'y-margin': 0,
     };
     for(var id in ids){
-        if(isNaN(document.getElementById(id).value)
-          || document.getElementById(id).value < 0){
+        var value = document.getElementById(id).value;
+        if(isNaN(value)
+          || value < 0){
             document.getElementById(id).value = ids[id];
         }
     }
@@ -419,8 +429,9 @@ function start(){
 
     // Setup display or not display of max frames or max points.
     if(document.getElementById('game-mode-select').value === 1){
-        document.getElementById('frames').innerHTML = document.getElementById('max-frames').value;
-        document.getElementById('frames-max').innerHTML = document.getElementById('max-frames').value;
+        var max_frames = document.getElementById('max-frames').value;
+        document.getElementById('frames').innerHTML = max_frames;
+        document.getElementById('frames-max').innerHTML = max_frames;
         document.getElementById('score-max').innerHTML = '';
         document.getElementById('frames-max-span').style.display =
           document.getElementById('max-frames').value > 0
@@ -428,18 +439,20 @@ function start(){
             : 'none';
 
     }else{
+        var max_points = document.getElementById('max-points').value;
         document.getElementById('frames').innerHTML = 0;
         document.getElementById('frames-max-span').style.display = 'none';
-        document.getElementById('score-max').innerHTML = document.getElementById('max-points').value > 0
-          ? ' out of <b>' + document.getElementById('max-points').value + '</b>'
+        document.getElementById('score-max').innerHTML = max_points > 0
+          ? ' out of <b>' + max_points + '</b>'
           : '';
     }
 
     // Validate milliseconds per player movement and create interval.
+    var ms_per_move = document.getElementById('ms-per-move').value;
     interval = window.setInterval(
       'move_player()',
-      (document.getElementById('ms-per-move').value > 0)
-        ? document.getElementById('ms-per-move').value
+      (ms_per_move > 0)
+        ? ms_per_move
         : 125
     );
 
@@ -485,28 +498,30 @@ window.onkeydown = function(e){
     }
 
     key = String.fromCharCode(key);
+    var keys = document.getElementById('movement-keys').value;
+    var turn_angle_select = document.getElementById('turn-angle-select').value;
 
     // If player wants to move up (if player is moving down then check if 180 degree turns are legal).
-    if(key === document.getElementById('movement-keys').value[0]
-      && (player['movement_direction'] !== 2 || document.getElementById('turn-angle-select').value == 1)){
+    if(key === keys[0]
+      && (player['movement_direction'] !== 2 || turn_angle_select == 1)){
         // Player move direction = up.
         player['movement_direction'] = 0;
 
     // If player wants to move right (if player is moving left then check if 180 degree turns are legal).
-    }else if(key === document.getElementById('movement-keys').value[1]
-      && (player['movement_direction'] !== 1 || document.getElementById('turn-angle-select').value == 1)){
+    }else if(key === keys[1]
+      && (player['movement_direction'] !== 1 || turn_angle_select == 1)){
         // Player move direction = left.
         player['movement_direction'] = 3;
 
     // If player wants to move down (if player is moving up then check if 180 degree turns are legal).
-    }else if(key === document.getElementById('movement-keys').value[2]
-      && (player['movement_direction'] !== 0 || document.getElementById('turn-angle-select').value == 1)){
+    }else if(key === keys[2]
+      && (player['movement_direction'] !== 0 || turn_angle_select == 1)){
         // Player move direction = down.
         player['movement_direction'] = 2;
 
     // If player wants to move left (if player is moving right then check if 180 degree turns are legal).
-    }else if(key === document.getElementById('movement-keys').value[3]
-      && (player['movement_direction'] !== 3 || document.getElementById('turn-angle-select').value == 1)){
+    }else if(key === keys[3]
+      && (player['movement_direction'] !== 3 || turn_angle_select == 1)){
         // Player move direction = right.
         player['movement_direction'] = 1;
 
@@ -530,9 +545,10 @@ window.onload = function(){
       'y-margin': 0,
     };
     for(var id in ids){
-        document.getElementById(id).value = window.localStorage.getItem('Snakish.htm-' + id) === null
+        var value = window.localStorage.getItem('Snakish.htm-' + id);
+        document.getElementById(id).value = value === null
           ? ids[id]
-          : parseInt(window.localStorage.getItem('Snakish.htm-' + id));
+          : parseInt(value);
     }
 
     document.getElementById('audio-volume').value =
@@ -568,7 +584,7 @@ window.onload = function(){
         if(loop_counter == 21){
             color = player['color'];
 
-        }else if(loop_counter == 397){
+        }else if(loop_counter == 378){
             color = color_purple;
         }
 
