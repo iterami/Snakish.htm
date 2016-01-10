@@ -443,7 +443,7 @@ function start(){
         document.getElementById('frames').innerHTML = 0;
         document.getElementById('frames-max-span').style.display = 'none';
         document.getElementById('score-max').innerHTML = max_points > 0
-          ? ' out of <b>' + max_points + '</b>'
+          ? ' / <b>' + max_points + '</b>'
           : '';
     }
 
