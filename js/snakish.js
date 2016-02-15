@@ -264,7 +264,7 @@ function move_player(){
 
         // ...else if score decreases.
         }else if(oncollision_select === 2){
-            document.getElementById('score').innerHTML = 
+            document.getElementById('score').innerHTML =
               parseInt(
                 document.getElementById('score').innerHTML,
                 10
@@ -359,7 +359,7 @@ function settings_toggle(state){
       : state;
 
     if(state){
-        document.getElementById('settings').style.display = 'block';
+        document.getElementById('settings').style.display = 'inline-block';
         document.getElementById('settings-button').value = '-';
 
     }else{
