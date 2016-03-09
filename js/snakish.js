@@ -451,7 +451,7 @@ function start(){
     var ms_per_move = document.getElementById('ms-per-move').value;
     interval = window.setInterval(
       move_player,
-      (ms_per_move > 0)
+      ms_per_move > 0
         ? ms_per_move
         : 125
     );
