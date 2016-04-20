@@ -1,7 +1,10 @@
 'use strict';
 
 function eat_purple_creature(){
-    document.getElementById('score').innerHTML = parseInt(document.getElementById('score').innerHTML, 10) + 1;
+    document.getElementById('score').innerHTML = parseInt(
+      document.getElementById('score').innerHTML,
+      10
+    ) + 1;
 
     // If there is no space available for more holes, stop.
     var holes_per_point = document.getElementById('holes-per-point').value;
@@ -538,7 +541,7 @@ window.onload = function(){
         var value = window.localStorage.getItem('Snakish.htm-' + id);
         document.getElementById(id).value = value === null
           ? ids[id]
-          : parseInt(value);
+          : parseInt(value, 10);
     }
 
     document.getElementById('audio-volume').value =
