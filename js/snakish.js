@@ -497,4 +497,6 @@ window.onload = function(){
           + '" type=button>';
     }
     document.getElementById('game-area').innerHTML = output;
+
+    stop();
 };
