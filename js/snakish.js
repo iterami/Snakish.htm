@@ -351,6 +351,9 @@ function start(){
           : '';
     }
 
+    // Save settings.
+    save();
+
     // Validate milliseconds per player movement and create interval.
     interval = window.setInterval(
       move_player,
@@ -358,9 +361,6 @@ function start(){
         ? settings['ms-per-move']
         : 125
     );
-
-    // Save settings.
-    save();
 }
 
 function stop(){
