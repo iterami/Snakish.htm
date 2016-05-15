@@ -453,24 +453,21 @@ window.onload = function(){
     );
 
     document.getElementById('settings').innerHTML =
-      '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range value=' + settings['audio-volume'] + '><td>Audio'
-        + '<tr><td><input id=holes-at-start value=' + settings['holes-at-start'] + '><td>Holes at Start'
-        + '<tr><td><input id=holes-per-point value=' + settings['holes-per-point'] + '><td>Holes/Point'
-        + '<tr><td><input id=max-frames value=' + settings['max-frames'] + '><td>Max Frames'
-        + '<tr><td><input id=max-points value=' + settings['max-points'] + '><td>Max Points'
+      '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
+        + '<tr><td><input id=holes-at-start><td>Holes at Start'
+        + '<tr><td><input id=holes-per-point><td>Holes/Point'
+        + '<tr><td><input id=max-frames><td>Max Frames'
+        + '<tr><td><input id=max-points><td>Max Points'
         + '<tr><td><select id=game-mode><option value=1>Frames</option><option value=0>Points</option></select><td>Mode'
-        + '<tr><td><input id=movement-keys maxlength=4 value=' + settings['movement-keys'] + '><td>Move'
-        + '<tr><td><input id=ms-per-move value=' + settings['ms-per-move'] + '><td>ms/Move'
+        + '<tr><td><input id=movement-keys maxlength=4><td>Move'
+        + '<tr><td><input id=ms-per-move><td>ms/Move'
         + '<tr><td><select id=oncollision><option value=0>Nothing</option><option value=1>End Game</option><option value=2>Score-1</option></select><td>OnCollision'
-        + '<tr><td><input id=start-key maxlength=1 value=' + settings['start-key'] + '><td>Start'
+        + '<tr><td><input id=start-key maxlength=1><td>Start'
         + '<tr><td><select id=turn-angle><option value=0>90</option><option value=1>&lt;=180</option></select><td>° Turn Angle'
         + '<tr><td><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X&amp;Y</option><option value=3>Y</option></select><td>Wrap'
-        + '<tr><td><input id=y-margin value=' + settings['y-margin'] + '><td>Y Margin'
+        + '<tr><td><input id=y-margin><td>Y Margin'
         + '<tr><td colspan=2><input id=reset-button onclick=reset() type=button value=Reset>';
-    document.getElementById('game-mode').value = settings['game-mode'];
-    document.getElementById('oncollision').value = settings['oncollision'];
-    document.getElementById('turn-angle').value = settings['turn-angle'];
-    document.getElementById('wrap').value = settings['wrap'];
+    update_settings();
 
     // Set margin-top of game-area based on y-margin.
     document.getElementById('game-area').style.marginTop = settings['y-margin'] + 'px';
