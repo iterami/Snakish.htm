@@ -301,8 +301,8 @@ function settings_toggle(state){
 }
 
 function start(){
-    // Set margin-top of game-area based on y-margin.
-    document.getElementById('game-area').style.marginTop = settings['y-margin'] + 'px';
+    // Set margin-top of game-div based on y-margin.
+    document.getElementById('game-div').style.marginTop = settings['y-margin'] + 'px';
 
     // Reset buttons to empty with player and purple creature in initial positions.
     var loop_counter = 399;
@@ -469,10 +469,10 @@ window.onload = function(){
         + '<tr><td colspan=2><input id=reset-button onclick=reset() type=button value=Reset>';
     update_settings();
 
-    // Set margin-top of game-area based on y-margin.
-    document.getElementById('game-area').style.marginTop = settings['y-margin'] + 'px';
+    // Set margin-top of game-div based on y-margin.
+    document.getElementById('game-div').style.marginTop = settings['y-margin'] + 'px';
 
-    // Create buttons for game-area.
+    // Create buttons for game-div.
     var output = '';
 
     for(var loop_counter = 0; loop_counter < 400; loop_counter++){
@@ -493,7 +493,7 @@ window.onload = function(){
           + ' style="background:' + color
           + '" type=button>';
     }
-    document.getElementById('game-area').innerHTML = output;
+    document.getElementById('game-div').innerHTML = output;
 
     stop();
 };
