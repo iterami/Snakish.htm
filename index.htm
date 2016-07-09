@@ -1,17 +1,17 @@
 <!doctype html>
 <meta charset=utf-8>
 <title>Snakish.htm</title>
-<link href=css/snakish.css rel=stylesheet>
+<link href=../common/css/dom.css rel=stylesheet>
 
 <div id=game-div></div>
-<div class=big>
+<div class=medium>
     Score: <b id=score>0</b><span id=score-max></span><br>
     Frames: <b id=frames>0</b><span id=frames-max-span> / <b id=frames-max>0</b></span>
 </div>
-<input id=start-button onclick=start() type=button value="Start [H]">
+<input class=medium id=start-button onclick=start() type=button value="Start [H]">
 <input id=settings-button onclick=settings_toggle() type=button value=+>
 <br>
-<table id=settings></table>
+<table class=hidden id=settings></table>
 
 <script src=../common/js/settings.js></script>
 <script src=js/snakish.js></script>
