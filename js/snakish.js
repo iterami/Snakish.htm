@@ -489,7 +489,7 @@ window.onload = function(){
         }
 
         output +=
-          '<input class=gamebutton disabled id=' + loop_counter
+          '<input class=gridbutton disabled id=' + loop_counter
           + ' style="background:' + color
           + '" type=button>';
     }
