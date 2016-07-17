@@ -452,7 +452,8 @@ window.onload = function(){
     );
 
     document.getElementById('settings').innerHTML =
-      '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
+      '<tr><td colspan=2><input id=reset-button onclick=settings_reset() type=button value=Reset>'
+        + '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
         + '<tr><td><input id=holes-at-start><td>Holes at Start'
         + '<tr><td><input id=holes-per-point><td>Holes/Point'
         + '<tr><td><input id=max-frames><td>Max Frames'
@@ -464,8 +465,7 @@ window.onload = function(){
         + '<tr><td><input id=start-key maxlength=1><td>Start'
         + '<tr><td><select id=turn-angle><option value=0>90</option><option value=1>&lt;=180</option></select><td>° Turn Angle'
         + '<tr><td><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X&amp;Y</option><option value=3>Y</option></select><td>Wrap'
-        + '<tr><td><input id=y-margin><td>Y Margin'
-        + '<tr><td colspan=2><input id=reset-button onclick=settings_reset() type=button value=Reset>';
+        + '<tr><td><input id=y-margin><td>Y Margin';
     settings_update();
 
     // Set margin-top of game-div based on y-margin.
