@@ -17,7 +17,7 @@ function eat_purple_creature(){
     // Pick a button with color_empty and make it the new purple creature.
     var id = -1;
     do{
-        id = Math.floor(Math.random() * 400);
+        id = random_integer(400);
     }while(document.getElementById(id).style.backgroundColor != color_empty);
     document.getElementById(id).style.backgroundColor = color_purple;
 
@@ -27,7 +27,7 @@ function eat_purple_creature(){
         // Add new holes.
         do{
             while(document.getElementById(id).style.backgroundColor != color_empty){
-                id = Math.floor(Math.random() * 400);
+                id = random_integer(400);
             }
             document.getElementById(id).style.backgroundColor = color_obstacle;
         }while(loop_counter--);
@@ -329,7 +329,7 @@ function start(){
         loop_counter = settings_settings['holes-at-start'] - 1;
         do{
             do{
-                id = Math.floor(Math.random() * 400);
+                id = random_integer(400);
             }while(document.getElementById(id).style.backgroundColor !== color_empty);
             document.getElementById(id).style.backgroundColor = color_obstacle;
         }while(loop_counter--);
