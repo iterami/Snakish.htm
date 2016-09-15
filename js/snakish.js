@@ -1,6 +1,11 @@
 'use strict';
 
 function eat_purple_creature(){
+    audio_start(
+      'beep',
+      settings_settings['audio-volume']
+    );
+
     document.getElementById('score').innerHTML = parseInt(
       document.getElementById('score').innerHTML,
       10
@@ -448,6 +453,14 @@ window.onload = function(){
         'turn-angle': 0,
         'wrap': 0,
         'y-margin': 0,
+      }
+    );
+    audio_init(settings['audio-volume']);
+    audio_create(
+      'beep',
+      {
+        'duration': .1,
+        'volume': .1,
       }
     );
 
