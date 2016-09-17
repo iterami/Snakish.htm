@@ -2,7 +2,7 @@
 
 function eat_purple_creature(){
     audio_start(
-      'beep',
+      'boop',
       settings_settings['audio-volume']
     );
 
@@ -457,7 +457,7 @@ window.onload = function(){
     );
     audio_init(settings['audio-volume']);
     audio_create(
-      'beep',
+      'boop',
       {
         'duration': .1,
         'volume': .1,
