@@ -5,15 +5,5 @@ A different take on the classic game of Snake. Instead of a tail that grows in s
 
 ---
 
-Action            | Key
-------------------|----
-Change Direction  | WASD
-Hide Settings     | -
-Show Settings     | +
-Start New Game    | H
-Stop Current Game | ESC
-
----
-
 Requires:
 * [iterami/common](https://github.com/iterami/common)
