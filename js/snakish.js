@@ -508,4 +508,9 @@ window.onload = function(){
     document.getElementById('game-div').innerHTML = output;
 
     stop();
+
+    document.getElementById('settings-button').onclick = function(){
+        settings_toggle();
+    };
+    document.getElementById('start-button').onclick = start;
 };
