@@ -44,9 +44,9 @@ function move_player(){
     var frames = parseFloat(document.getElementById('frames').innerHTML);
     var end_game = settings_settings['game-mode'] === 1
       ? frames <= 0
-        && settings_settings['max-frames'] > 0
-      : settings_settings['max-points'] != 0
-        && parseInt(document.getElementById('score').innerHTML, 10) >= settings_settings['max-points'];
+        && settings_settings['max'] > 0
+      : settings_settings['max'] != 0
+        && parseInt(document.getElementById('score').innerHTML, 10) >= settings_settings['max'];
 
     // If game is not running, stop().
     if(end_game){
@@ -57,7 +57,7 @@ function move_player(){
     // Add or subtract 1 from frames depending on game mode.
     document.getElementById('frames').innerHTML = (frames +
         ((settings_settings['game-mode'] === 1
-      && settings_settings['max-frames'] > 0) ? -1 : 1));
+      && settings_settings['max'] > 0) ? -1 : 1));
 
     var check_color = 0;
     var dx = 0;
@@ -342,19 +342,19 @@ function start(){
 
     // Setup display or not display of max frames or max points.
     if(settings_settings['game-mode'] === 1){
-        document.getElementById('frames').innerHTML = settings_settings['max-frames'];
-        document.getElementById('frames-max').innerHTML = settings_settings['max-frames'];
+        document.getElementById('frames').innerHTML = settings_settings['max'];
+        document.getElementById('frames-max').innerHTML = settings_settings['max'];
         document.getElementById('score-max').innerHTML = '';
         document.getElementById('frames-max-span').style.display =
-          document.getElementById('max-frames').value > 0
+          document.getElementById('max').value > 0
             ? 'inline'
             : 'none';
 
     }else{
         document.getElementById('frames').innerHTML = 0;
         document.getElementById('frames-max-span').style.display = 'none';
-        document.getElementById('score-max').innerHTML = settings_settings['max-points'] > 0
-          ? ' / <b>' + settings_settings['max-points'] + '</b>'
+        document.getElementById('score-max').innerHTML = settings_settings['max'] > 0
+          ? ' / <b>' + settings_settings['max'] + '</b>'
           : '';
     }
 
@@ -444,8 +444,7 @@ window.onload = function(){
         'game-mode': 0,
         'holes-at-start': 0,
         'holes-per-point': 1,
-        'max-frames': 0,
-        'max-points': 0,
+        'max': 0,
         'movement-keys': 'WASD',
         'ms-per-move': 125,
         'oncollision': 1,
@@ -471,9 +470,7 @@ window.onload = function(){
         + '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
         + '<tr><td><input id=holes-at-start><td>Holes at Start'
         + '<tr><td><input id=holes-per-point><td>Holes/Point'
-        + '<tr><td><input id=max-frames><td>Max Frames'
-        + '<tr><td><input id=max-points><td>Max Points'
-        + '<tr><td><select id=game-mode><option value=1>Frames</option><option value=0>Points</option></select><td>Mode'
+        + '<tr><td><input id=max><td>Max <select id=game-mode><option value=1>Frames</option><option value=0>Points</option></select>'
         + '<tr><td><input id=movement-keys maxlength=4><td>Move'
         + '<tr><td><input id=ms-per-move><td>ms/Move'
         + '<tr><td><select id=oncollision><option value=0>Nothing</option><option value=1>End Game</option><option value=2>Score-1</option></select><td>OnCollision'
