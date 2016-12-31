@@ -437,9 +437,9 @@ window.onkeydown = function(e){
 };
 
 window.onload = function(){
-    settings_init(
-      'Snakish.htm-',
-      {
+    settings_init({
+      'prefix': 'Snakish.htm-',
+      'settings': {
         'audio-volume': 1,
         'game-mode': 0,
         'holes-at-start': 0,
@@ -452,8 +452,8 @@ window.onload = function(){
         'turn-angle': 0,
         'wrap': 0,
         'y-margin': 0,
-      }
-    );
+      },
+    });
     audio_init({
       'id': settings_settings['audio-volume'],
     });
