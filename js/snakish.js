@@ -360,7 +360,7 @@ function start(){
         document.getElementById('frames').innerHTML = 0;
         document.getElementById('frames-max-span').style.display = 'none';
         document.getElementById('score-max').innerHTML = settings_settings['max'] > 0
-          ? ' / <b>' + settings_settings['max'] + '</b>'
+          ? ' / ' + settings_settings['max']
           : '';
     }
 
