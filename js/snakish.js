@@ -391,57 +391,6 @@ var player = {
   'y': 1,
 };
 
-window.onkeydown = function(e){
-    var key = e.keyCode || e.which;
-
-    // ESC: stop current game.
-    if(key === 27){
-        stop();
-        return;
-
-    // +: show settings.
-    }else if(key === 187){
-        settings_toggle(true);
-        return;
-
-    // -: hide settings.
-    }else if(key === 189){
-        settings_toggle(false);
-        return;
-    }
-
-    key = String.fromCharCode(key);
-
-    // If player wants to move up (if player is moving down then check if 180 degree turns are legal).
-    if(key === settings_settings['movement-keys'][0]
-      && (player['movement_direction'] !== 2 || settings_settings['turn-angle'] == 1)){
-        // Player move direction = up.
-        player['movement_direction'] = 0;
-
-    // If player wants to move right (if player is moving left then check if 180 degree turns are legal).
-    }else if(key === settings_settings['movement-keys'][1]
-      && (player['movement_direction'] !== 1 || settings_settings['turn-angle'] == 1)){
-        // Player move direction = left.
-        player['movement_direction'] = 3;
-
-    // If player wants to move down (if player is moving up then check if 180 degree turns are legal).
-    }else if(key === settings_settings['movement-keys'][2]
-      && (player['movement_direction'] !== 0 || settings_settings['turn-angle'] == 1)){
-        // Player move direction = down.
-        player['movement_direction'] = 2;
-
-    // If player wants to move left (if player is moving right then check if 180 degree turns are legal).
-    }else if(key === settings_settings['movement-keys'][3]
-      && (player['movement_direction'] !== 3 || settings_settings['turn-angle'] == 1)){
-        // Player move direction = right.
-        player['movement_direction'] = 1;
-
-    }else if(key === settings_settings['start-key']){
-        stop();
-        start();
-    }
-};
-
 window.onload = function(){
     settings_init({
       'prefix': 'Snakish.htm-',
@@ -518,4 +467,55 @@ window.onload = function(){
         settings_toggle();
     };
     document.getElementById('start-button').onclick = start;
+
+    window.onkeydown = function(e){
+        var key = e.keyCode || e.which;
+
+        // ESC: stop current game.
+        if(key === 27){
+            stop();
+            return;
+
+        // +: show settings.
+        }else if(key === 187){
+            settings_toggle(true);
+            return;
+
+        // -: hide settings.
+        }else if(key === 189){
+            settings_toggle(false);
+            return;
+        }
+
+        key = String.fromCharCode(key);
+
+        // If player wants to move up (if player is moving down then check if 180 degree turns are legal).
+        if(key === settings_settings['movement-keys'][0]
+          && (player['movement_direction'] !== 2 || settings_settings['turn-angle'] == 1)){
+            // Player move direction = up.
+            player['movement_direction'] = 0;
+
+        // If player wants to move right (if player is moving left then check if 180 degree turns are legal).
+        }else if(key === settings_settings['movement-keys'][1]
+          && (player['movement_direction'] !== 1 || settings_settings['turn-angle'] == 1)){
+            // Player move direction = left.
+            player['movement_direction'] = 3;
+
+        // If player wants to move down (if player is moving up then check if 180 degree turns are legal).
+        }else if(key === settings_settings['movement-keys'][2]
+          && (player['movement_direction'] !== 0 || settings_settings['turn-angle'] == 1)){
+            // Player move direction = down.
+            player['movement_direction'] = 2;
+
+        // If player wants to move left (if player is moving right then check if 180 degree turns are legal).
+        }else if(key === settings_settings['movement-keys'][3]
+          && (player['movement_direction'] !== 3 || settings_settings['turn-angle'] == 1)){
+            // Player move direction = right.
+            player['movement_direction'] = 1;
+
+        }else if(key === settings_settings['start-key']){
+            stop();
+            start();
+        }
+    };
 };
