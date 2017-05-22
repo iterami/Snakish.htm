@@ -3,7 +3,7 @@
 function eat_purple_creature(){
     audio_start({
       'id': 'boop',
-      'volume-multiplier': storage_data['audio-volume'],
+      'volume-multiplier': core_storage_data['audio-volume'],
     });
 
     document.getElementById('score').innerHTML = parseInt(
@@ -12,7 +12,7 @@ function eat_purple_creature(){
     ) + 1;
 
     // If there is no space available for more holes, stop.
-    var holes_per_point = storage_data['holes-per-point'];
+    var holes_per_point = core_storage_data['holes-per-point'];
     if(document.getElementById('score').innerHTML >=
       Math.floor(398 / (parseInt(holes_per_point, 10) + 1)) + 1){
         stop();
@@ -46,11 +46,11 @@ function eat_purple_creature(){
 function move_player(){
     // Check if game is still running, based on game mode and if frames/score are over max.
     var frames = parseFloat(document.getElementById('frames').innerHTML);
-    var end_game = storage_data['game-mode'] === 1
+    var end_game = core_storage_data['game-mode'] === 1
       ? frames <= 0
-        && storage_data['max'] > 0
-      : storage_data['max'] != 0
-        && parseInt(document.getElementById('score').innerHTML, 10) >= storage_data['max'];
+        && core_storage_data['max'] > 0
+      : core_storage_data['max'] != 0
+        && parseInt(document.getElementById('score').innerHTML, 10) >= core_storage_data['max'];
 
     // If game is not running, stop().
     if(end_game){
@@ -60,8 +60,8 @@ function move_player(){
 
     // Add or subtract 1 from frames depending on game mode.
     document.getElementById('frames').innerHTML = (frames +
-        ((storage_data['game-mode'] === 1
-      && storage_data['max'] > 0) ? -1 : 1));
+        ((core_storage_data['game-mode'] === 1
+      && core_storage_data['max'] > 0) ? -1 : 1));
 
     var check_color = 0;
     var dx = 0;
@@ -91,8 +91,8 @@ function move_player(){
             }
 
         // If player is at the top of the screen and can wrap in the Y-direction.
-        }else if(storage_data['wrap'] == 2
-          || storage_data['wrap'] == 3){
+        }else if(core_storage_data['wrap'] == 2
+          || core_storage_data['wrap'] == 3){
             // Fetch color of space at the bottom of the screen.
             check_color = document.getElementById((player['y'] + 19) * 20 + player['x']).style.backgroundColor;
 
@@ -141,8 +141,8 @@ function move_player(){
             }
 
         // If player is at the right edge of the screen and can wrap in the X-direction.
-        }else if(storage_data['wrap'] == 1
-          || storage_data['wrap'] == 2){
+        }else if(core_storage_data['wrap'] == 1
+          || core_storage_data['wrap'] == 2){
             // Fetch color of space at the left of the screen.
             check_color = document.getElementById(player['y'] * 20 + player['x'] - 19).style.backgroundColor;
 
@@ -191,8 +191,8 @@ function move_player(){
             }
 
         // If player is at the bottom edge of the screen and can wrap in the U-direction.
-        }else if(storage_data['wrap'] == 2
-          || storage_data['wrap'] == 3){
+        }else if(core_storage_data['wrap'] == 2
+          || core_storage_data['wrap'] == 3){
             // Fetch color of space at the top of the screen.
             check_color = document.getElementById((player['y'] - 19) * 20 + player['x']).style.backgroundColor;
 
@@ -240,8 +240,8 @@ function move_player(){
             }
 
         // If player is at the left edge of the screen and can wrap in the X-direction.
-        }else if(storage_data['wrap'] == 1
-          || storage_data['wrap'] == 2){
+        }else if(core_storage_data['wrap'] == 1
+          || core_storage_data['wrap'] == 2){
             // Fetch color of space at the right side of the screen.
             check_color = document.getElementById(player['y'] * 20 + player['x'] + 19).style.backgroundColor;
 
@@ -270,11 +270,11 @@ function move_player(){
     // If a collision with an obstacle or edge was detected.
     if(end_game){
         // If game ends oncollision...
-        if(storage_data['oncollision'] == 1){
+        if(core_storage_data['oncollision'] == 1){
             stop();
 
         // ...else if score decreases.
-        }else if(storage_data['oncollision'] === 2){
+        }else if(core_storage_data['oncollision'] === 2){
             document.getElementById('score').innerHTML =
               parseInt(
                 document.getElementById('score').innerHTML,
@@ -310,10 +310,10 @@ function settings_toggle(state){
 }
 
 function start(){
-    storage_save();
+    core_storage_save();
 
     // Set margin-top of game-div based on y-margin.
-    document.getElementById('game-div').style.marginTop = storage_data['y-margin'] + 'px';
+    document.getElementById('game-div').style.marginTop = core_storage_data['y-margin'] + 'px';
 
     // Reset buttons to empty with player and purple creature in initial positions.
     var loop_counter = 399;
@@ -333,9 +333,9 @@ function start(){
     player['y'] = 1;
 
     // Create initial holes, if any.
-    if(storage_data['holes-at-start'] > 0){
+    if(core_storage_data['holes-at-start'] > 0){
         var id = -1;
-        loop_counter = storage_data['holes-at-start'] - 1;
+        loop_counter = core_storage_data['holes-at-start'] - 1;
         do{
             do{
                 id = core_random_integer({
@@ -347,9 +347,9 @@ function start(){
     }
 
     // Setup display or not display of max frames or max points.
-    if(storage_data['game-mode'] === 1){
-        document.getElementById('frames').innerHTML = storage_data['max'];
-        document.getElementById('frames-max').innerHTML = storage_data['max'];
+    if(core_storage_data['game-mode'] === 1){
+        document.getElementById('frames').innerHTML = core_storage_data['max'];
+        document.getElementById('frames-max').innerHTML = core_storage_data['max'];
         document.getElementById('score-max').innerHTML = '';
         document.getElementById('frames-max-span').style.display =
           document.getElementById('max').value > 0
@@ -359,16 +359,16 @@ function start(){
     }else{
         document.getElementById('frames').innerHTML = 0;
         document.getElementById('frames-max-span').style.display = 'none';
-        document.getElementById('score-max').innerHTML = storage_data['max'] > 0
-          ? ' / ' + storage_data['max']
+        document.getElementById('score-max').innerHTML = core_storage_data['max'] > 0
+          ? ' / ' + core_storage_data['max']
           : '';
     }
 
     // Validate milliseconds per player movement and create interval.
     interval = window.setInterval(
       move_player,
-      storage_data['ms-per-move'] > 0
-        ? storage_data['ms-per-move']
+      core_storage_data['ms-per-move'] > 0
+        ? core_storage_data['ms-per-move']
         : 125
     );
 }
@@ -376,7 +376,7 @@ function start(){
 function stop(){
     window.clearInterval(interval);
     document.getElementById('start-button').value =
-      'Start [' + storage_data['start-key'] + ']';
+      'Start [' + core_storage_data['start-key'] + ']';
     document.getElementById('start-button').onclick = start;
 }
 
@@ -392,7 +392,7 @@ var player = {
 };
 
 window.onload = function(){
-    storage_init({
+    core_storage_init({
       'data': {
         'audio-volume': 1,
         'game-mode': 0,
@@ -410,7 +410,7 @@ window.onload = function(){
       'prefix': 'Snakish.htm-',
     });
     audio_init({
-      'id': storage_data['audio-volume'],
+      'id': core_storage_data['audio-volume'],
     });
     audio_create({
       'id': 'boop',
@@ -421,7 +421,7 @@ window.onload = function(){
     });
 
     document.getElementById('settings').innerHTML =
-      '<tr><td colspan=2><input id=reset-button onclick=storage_reset() type=button value=Reset>'
+      '<tr><td colspan=2><input id=reset-button onclick=core_storage_reset() type=button value=Reset>'
         + '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
         + '<tr><td><input id=holes-at-start><td>Holes at Start'
         + '<tr><td><input id=holes-per-point><td>Holes/Point'
@@ -433,10 +433,10 @@ window.onload = function(){
         + '<tr><td><select id=turn-angle><option value=0>90</option><option value=1>&lt;=180</option></select><td>° Turn Angle'
         + '<tr><td><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X&amp;Y</option><option value=3>Y</option></select><td>Wrap'
         + '<tr><td><input id=y-margin><td>Y Margin';
-    storage_update();
+    core_storage_update();
 
     // Set margin-top of game-div based on y-margin.
-    document.getElementById('game-div').style.marginTop = storage_data['y-margin'] + 'px';
+    document.getElementById('game-div').style.marginTop = core_storage_data['y-margin'] + 'px';
 
     // Create buttons for game-div.
     var output = '';
@@ -490,30 +490,30 @@ window.onload = function(){
         key = String.fromCharCode(key);
 
         // If player wants to move up (if player is moving down then check if 180 degree turns are legal).
-        if(key === storage_data['movement-keys'][0]
-          && (player['movement_direction'] !== 2 || storage_data['turn-angle'] == 1)){
+        if(key === core_storage_data['movement-keys'][0]
+          && (player['movement_direction'] !== 2 || core_storage_data['turn-angle'] == 1)){
             // Player move direction = up.
             player['movement_direction'] = 0;
 
         // If player wants to move right (if player is moving left then check if 180 degree turns are legal).
-        }else if(key === storage_data['movement-keys'][1]
-          && (player['movement_direction'] !== 1 || storage_data['turn-angle'] == 1)){
+        }else if(key === core_storage_data['movement-keys'][1]
+          && (player['movement_direction'] !== 1 || core_storage_data['turn-angle'] == 1)){
             // Player move direction = left.
             player['movement_direction'] = 3;
 
         // If player wants to move down (if player is moving up then check if 180 degree turns are legal).
-        }else if(key === storage_data['movement-keys'][2]
-          && (player['movement_direction'] !== 0 || storage_data['turn-angle'] == 1)){
+        }else if(key === core_storage_data['movement-keys'][2]
+          && (player['movement_direction'] !== 0 || core_storage_data['turn-angle'] == 1)){
             // Player move direction = down.
             player['movement_direction'] = 2;
 
         // If player wants to move left (if player is moving right then check if 180 degree turns are legal).
-        }else if(key === storage_data['movement-keys'][3]
-          && (player['movement_direction'] !== 3 || storage_data['turn-angle'] == 1)){
+        }else if(key === core_storage_data['movement-keys'][3]
+          && (player['movement_direction'] !== 3 || core_storage_data['turn-angle'] == 1)){
             // Player move direction = right.
             player['movement_direction'] = 1;
 
-        }else if(key === storage_data['start-key']){
+        }else if(key === core_storage_data['start-key']){
             stop();
             start();
         }
