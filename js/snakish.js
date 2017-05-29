@@ -294,104 +294,7 @@ function move_player(){
     document.getElementById(player['y'] * 20 + player['x']).style.backgroundColor = player['color'];
 }
 
-function settings_toggle(state){
-    state = state == void 0
-      ? document.getElementById('settings-button').value === '+'
-      : state;
-
-    if(state){
-        document.getElementById('settings').style.display = 'inline-block';
-        document.getElementById('settings-button').value = '-';
-
-    }else{
-        document.getElementById('settings').style.display = 'none';
-        document.getElementById('settings-button').value = '+';
-    }
-}
-
-function start(){
-    core_storage_save();
-
-    // Set margin-top of game-div based on y-margin.
-    document.getElementById('game-div').style.marginTop = core_storage_data['y-margin'] + 'px';
-
-    // Reset buttons to empty with player and purple creature in initial positions.
-    var loop_counter = 399;
-    do{
-        document.getElementById(loop_counter).style.backgroundColor = color_empty;
-    }while(loop_counter--);
-    document.getElementById(21).style.backgroundColor = player['color'];
-    document.getElementById(378).style.backgroundColor = color_purple;
-
-    document.getElementById('start-button').value = 'End [ESC]';
-    document.getElementById('start-button').onclick = stop;
-    document.getElementById('score').innerHTML = '0';
-
-    // Reset player
-    player['movement_direction'] = 1; // 0==Up, 1==Right, 2==Down, 3==Left
-    player['x'] = 1;
-    player['y'] = 1;
-
-    // Create initial holes, if any.
-    if(core_storage_data['holes-at-start'] > 0){
-        var id = -1;
-        loop_counter = core_storage_data['holes-at-start'] - 1;
-        do{
-            do{
-                id = core_random_integer({
-                  'max': 400,
-                });
-            }while(document.getElementById(id).style.backgroundColor !== color_empty);
-            document.getElementById(id).style.backgroundColor = color_obstacle;
-        }while(loop_counter--);
-    }
-
-    // Setup display or not display of max frames or max points.
-    if(core_storage_data['game-mode'] === 1){
-        document.getElementById('frames').innerHTML = core_storage_data['max'];
-        document.getElementById('frames-max').innerHTML = core_storage_data['max'];
-        document.getElementById('score-max').innerHTML = '';
-        document.getElementById('frames-max-span').style.display =
-          document.getElementById('max').value > 0
-            ? 'inline'
-            : 'none';
-
-    }else{
-        document.getElementById('frames').innerHTML = 0;
-        document.getElementById('frames-max-span').style.display = 'none';
-        document.getElementById('score-max').innerHTML = core_storage_data['max'] > 0
-          ? ' / ' + core_storage_data['max']
-          : '';
-    }
-
-    // Validate milliseconds per player movement and create interval.
-    interval = window.setInterval(
-      move_player,
-      core_storage_data['ms-per-move'] > 0
-        ? core_storage_data['ms-per-move']
-        : 125
-    );
-}
-
-function stop(){
-    window.clearInterval(interval);
-    document.getElementById('start-button').value =
-      'Start [' + core_storage_data['start-key'] + ']';
-    document.getElementById('start-button').onclick = start;
-}
-
-var color_empty = 'rgb(42, 42, 42)';
-var color_obstacle = 'rgb(0, 0, 0)';
-var color_purple = 'rgb(102, 51, 102)';
-var interval = 0;
-var player = {
-  'color': 'rgb(32, 102, 32)',
-  'movement_direction': 1,// 0==Up, 1==Right, 2==Down, 3==Left
-  'x': 1,
-  'y': 1,
-};
-
-window.onload = function(){
+function repo_init(){
     core_storage_init({
       'data': {
         'audio-volume': 1,
@@ -518,4 +421,101 @@ window.onload = function(){
             start();
         }
     };
+}
+
+function settings_toggle(state){
+    state = state == void 0
+      ? document.getElementById('settings-button').value === '+'
+      : state;
+
+    if(state){
+        document.getElementById('settings').style.display = 'inline-block';
+        document.getElementById('settings-button').value = '-';
+
+    }else{
+        document.getElementById('settings').style.display = 'none';
+        document.getElementById('settings-button').value = '+';
+    }
+}
+
+function start(){
+    core_storage_save();
+
+    // Set margin-top of game-div based on y-margin.
+    document.getElementById('game-div').style.marginTop = core_storage_data['y-margin'] + 'px';
+
+    // Reset buttons to empty with player and purple creature in initial positions.
+    var loop_counter = 399;
+    do{
+        document.getElementById(loop_counter).style.backgroundColor = color_empty;
+    }while(loop_counter--);
+    document.getElementById(21).style.backgroundColor = player['color'];
+    document.getElementById(378).style.backgroundColor = color_purple;
+
+    document.getElementById('start-button').value = 'End [ESC]';
+    document.getElementById('start-button').onclick = stop;
+    document.getElementById('score').innerHTML = '0';
+
+    // Reset player
+    player['movement_direction'] = 1; // 0==Up, 1==Right, 2==Down, 3==Left
+    player['x'] = 1;
+    player['y'] = 1;
+
+    // Create initial holes, if any.
+    if(core_storage_data['holes-at-start'] > 0){
+        var id = -1;
+        loop_counter = core_storage_data['holes-at-start'] - 1;
+        do{
+            do{
+                id = core_random_integer({
+                  'max': 400,
+                });
+            }while(document.getElementById(id).style.backgroundColor !== color_empty);
+            document.getElementById(id).style.backgroundColor = color_obstacle;
+        }while(loop_counter--);
+    }
+
+    // Setup display or not display of max frames or max points.
+    if(core_storage_data['game-mode'] === 1){
+        document.getElementById('frames').innerHTML = core_storage_data['max'];
+        document.getElementById('frames-max').innerHTML = core_storage_data['max'];
+        document.getElementById('score-max').innerHTML = '';
+        document.getElementById('frames-max-span').style.display =
+          document.getElementById('max').value > 0
+            ? 'inline'
+            : 'none';
+
+    }else{
+        document.getElementById('frames').innerHTML = 0;
+        document.getElementById('frames-max-span').style.display = 'none';
+        document.getElementById('score-max').innerHTML = core_storage_data['max'] > 0
+          ? ' / ' + core_storage_data['max']
+          : '';
+    }
+
+    // Validate milliseconds per player movement and create interval.
+    interval = window.setInterval(
+      move_player,
+      core_storage_data['ms-per-move'] > 0
+        ? core_storage_data['ms-per-move']
+        : 125
+    );
+}
+
+function stop(){
+    window.clearInterval(interval);
+    document.getElementById('start-button').value =
+      'Start [' + core_storage_data['start-key'] + ']';
+    document.getElementById('start-button').onclick = start;
+}
+
+var color_empty = 'rgb(42, 42, 42)';
+var color_obstacle = 'rgb(0, 0, 0)';
+var color_purple = 'rgb(102, 51, 102)';
+var interval = 0;
+var player = {
+  'color': 'rgb(32, 102, 32)',
+  'movement_direction': 1,// 0==Up, 1==Right, 2==Down, 3==Left
+  'x': 1,
+  'y': 1,
 };
