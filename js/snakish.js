@@ -295,8 +295,8 @@ function move_player(){
 }
 
 function repo_init(){
-    core_storage_init({
-      'data': {
+    core_repo_init({
+      'storage': {
         'audio-volume': 1,
         'game-mode': 0,
         'holes-at-start': 0,
@@ -310,7 +310,7 @@ function repo_init(){
         'wrap': 0,
         'y-margin': 0,
       },
-      'prefix': 'Snakish.htm-',
+      'title': 'Snakish.htm',
     });
     audio_init({
       'id': core_storage_data['audio-volume'],
