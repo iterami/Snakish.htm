@@ -294,18 +294,66 @@ function move_player(){
     document.getElementById(player['y'] * 20 + player['x']).style.backgroundColor = player['color'];
 }
 
+function repo_escape(){
+    stop();
+}
+
 function repo_init(){
     core_repo_init({
+      'keybinds': {
+        65: {
+          'todo': function(){
+              if(player['movement_direction'] !== 1 || core_storage_data['turn-angle'] == 1){
+                  player['movement_direction'] = 3;
+              }
+          },
+        },
+        68: {
+          'todo': function(){
+              if(player['movement_direction'] !== 3 || core_storage_data['turn-angle'] == 1){
+                  player['movement_direction'] = 1;
+              }
+          },
+        },
+        72: {
+          'todo': function(){
+              stop();
+              start();
+          },
+        },
+        83: {
+          'todo': function(){
+              if(player['movement_direction'] !== 0 || core_storage_data['turn-angle'] == 1){
+                  player['movement_direction'] = 2;
+              }
+          },
+        },
+        87: {
+          'todo': function(){
+              if(player['movement_direction'] !== 2 || core_storage_data['turn-angle'] == 1){
+                  player['movement_direction'] = 0;
+              }
+          },
+        },
+        187: {
+          'todo': function(){
+              settings_toggle(true);
+          },
+        },
+        189: {
+          'todo': function(){
+              settings_toggle(false);
+          },
+        },
+      },
       'storage': {
         'audio-volume': 1,
         'game-mode': 0,
         'holes-at-start': 0,
         'holes-per-point': 1,
         'max': 0,
-        'movement-keys': 'WASD',
         'ms-per-move': 125,
         'oncollision': 1,
-        'start-key': 'H',
         'turn-angle': 0,
         'wrap': 0,
         'y-margin': 0,
@@ -329,10 +377,8 @@ function repo_init(){
         + '<tr><td><input id=holes-at-start><td>Holes at Start'
         + '<tr><td><input id=holes-per-point><td>Holes/Point'
         + '<tr><td><input id=max><td>Max <select id=game-mode><option value=1>Frames</option><option value=0>Points</option></select>'
-        + '<tr><td><input id=movement-keys maxlength=4><td>Move'
         + '<tr><td><input id=ms-per-move><td>ms/Move'
         + '<tr><td><select id=oncollision><option value=0>Nothing</option><option value=1>End Game</option><option value=2>Score-1</option></select><td>OnCollision'
-        + '<tr><td><input id=start-key maxlength=1><td>Start'
         + '<tr><td><select id=turn-angle><option value=0>90</option><option value=1>&lt;=180</option></select><td>° Turn Angle'
         + '<tr><td><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X&amp;Y</option><option value=3>Y</option></select><td>Wrap'
         + '<tr><td><input id=y-margin><td>Y Margin';
@@ -370,57 +416,6 @@ function repo_init(){
         settings_toggle();
     };
     document.getElementById('start-button').onclick = start;
-
-    window.onkeydown = function(e){
-        var key = e.keyCode || e.which;
-
-        // ESC: stop current game.
-        if(key === 27){
-            stop();
-            return;
-
-        // +: show settings.
-        }else if(key === 187){
-            settings_toggle(true);
-            return;
-
-        // -: hide settings.
-        }else if(key === 189){
-            settings_toggle(false);
-            return;
-        }
-
-        key = String.fromCharCode(key);
-
-        // If player wants to move up (if player is moving down then check if 180 degree turns are legal).
-        if(key === core_storage_data['movement-keys'][0]
-          && (player['movement_direction'] !== 2 || core_storage_data['turn-angle'] == 1)){
-            // Player move direction = up.
-            player['movement_direction'] = 0;
-
-        // If player wants to move right (if player is moving left then check if 180 degree turns are legal).
-        }else if(key === core_storage_data['movement-keys'][1]
-          && (player['movement_direction'] !== 1 || core_storage_data['turn-angle'] == 1)){
-            // Player move direction = left.
-            player['movement_direction'] = 3;
-
-        // If player wants to move down (if player is moving up then check if 180 degree turns are legal).
-        }else if(key === core_storage_data['movement-keys'][2]
-          && (player['movement_direction'] !== 0 || core_storage_data['turn-angle'] == 1)){
-            // Player move direction = down.
-            player['movement_direction'] = 2;
-
-        // If player wants to move left (if player is moving right then check if 180 degree turns are legal).
-        }else if(key === core_storage_data['movement-keys'][3]
-          && (player['movement_direction'] !== 3 || core_storage_data['turn-angle'] == 1)){
-            // Player move direction = right.
-            player['movement_direction'] = 1;
-
-        }else if(key === core_storage_data['start-key']){
-            stop();
-            start();
-        }
-    };
 }
 
 function settings_toggle(state){
@@ -504,8 +499,7 @@ function start(){
 
 function stop(){
     window.clearInterval(interval);
-    document.getElementById('start-button').value =
-      'Start [' + core_storage_data['start-key'] + ']';
+    document.getElementById('start-button').value = 'Start [H]';
     document.getElementById('start-button').onclick = start;
 }
 
