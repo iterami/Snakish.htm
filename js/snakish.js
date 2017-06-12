@@ -335,19 +335,8 @@ function repo_init(){
               }
           },
         },
-        187: {
-          'todo': function(){
-              settings_toggle(true);
-          },
-        },
-        189: {
-          'todo': function(){
-              settings_toggle(false);
-          },
-        },
       },
       'storage': {
-        'audio-volume': 1,
         'game-mode': 0,
         'holes-at-start': 0,
         'holes-per-point': 1,
@@ -358,6 +347,7 @@ function repo_init(){
         'wrap': 0,
         'y-margin': 0,
       },
+      'storage-menu': '<input id=holes-at-start>Holes at Start<br><input id=holes-per-point>Holes/Point<br><input id=max>Max <select id=game-mode><option value=1>Frames</option><option value=0>Points</option></select><br><input id=ms-per-move>ms/Move<br><select id=oncollision><option value=0>Nothing</option><option value=1>End Game</option><option value=2>Score-1</option></select>OnCollision<br><select id=turn-angle><option value=0>90</option><option value=1>&lt;=180</option></select>° Turn Angle<br><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X&amp;Y</option><option value=3>Y</option></select>Wrap<br><input id=y-margin>Y Margin',
       'title': 'Snakish.htm',
     });
     audio_init({
@@ -370,19 +360,6 @@ function repo_init(){
         'volume': .1,
       },
     });
-
-    document.getElementById('settings').innerHTML =
-      '<tr><td colspan=2><input id=reset-button onclick=core_storage_reset() type=button value=Reset>'
-        + '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
-        + '<tr><td><input id=holes-at-start><td>Holes at Start'
-        + '<tr><td><input id=holes-per-point><td>Holes/Point'
-        + '<tr><td><input id=max><td>Max <select id=game-mode><option value=1>Frames</option><option value=0>Points</option></select>'
-        + '<tr><td><input id=ms-per-move><td>ms/Move'
-        + '<tr><td><select id=oncollision><option value=0>Nothing</option><option value=1>End Game</option><option value=2>Score-1</option></select><td>OnCollision'
-        + '<tr><td><select id=turn-angle><option value=0>90</option><option value=1>&lt;=180</option></select><td>° Turn Angle'
-        + '<tr><td><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X&amp;Y</option><option value=3>Y</option></select><td>Wrap'
-        + '<tr><td><input id=y-margin><td>Y Margin';
-    core_storage_update();
 
     // Set margin-top of game-div based on y-margin.
     document.getElementById('game-div').style.marginTop = core_storage_data['y-margin'] + 'px';
@@ -412,25 +389,7 @@ function repo_init(){
 
     stop();
 
-    document.getElementById('settings-button').onclick = function(){
-        settings_toggle();
-    };
     document.getElementById('start-button').onclick = start;
-}
-
-function settings_toggle(state){
-    state = state == void 0
-      ? document.getElementById('settings-button').value === '+'
-      : state;
-
-    if(state){
-        document.getElementById('settings').style.display = 'inline-block';
-        document.getElementById('settings-button').value = '-';
-
-    }else{
-        document.getElementById('settings').style.display = 'none';
-        document.getElementById('settings-button').value = '+';
-    }
 }
 
 function start(){
