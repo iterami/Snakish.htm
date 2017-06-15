@@ -1,9 +1,8 @@
 'use strict';
 
 function eat_purple_creature(){
-    audio_start({
+    core_audio_start({
       'id': 'boop',
-      'volume-multiplier': core_storage_data['audio-volume'],
     });
 
     document.getElementById('score').innerHTML = parseInt(
@@ -350,10 +349,7 @@ function repo_init(){
       'storage-menu': '<input id=holes-at-start>Holes at Start<br><input id=holes-per-point>Holes/Point<br><input id=max>Max <select id=game-mode><option value=1>Frames</option><option value=0>Points</option></select><br><input id=ms-per-move>ms/Move<br><select id=oncollision><option value=0>Nothing</option><option value=1>End Game</option><option value=2>Score-1</option></select>OnCollision<br><select id=turn-angle><option value=0>90</option><option value=1>&lt;=180</option></select>° Turn Angle<br><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X&amp;Y</option><option value=3>Y</option></select>Wrap<br><input id=y-margin>Y Margin',
       'title': 'Snakish.htm',
     });
-    audio_init({
-      'id': core_storage_data['audio-volume'],
-    });
-    audio_create({
+    core_audio_create({
       'id': 'boop',
       'properties': {
         'duration': .1,
