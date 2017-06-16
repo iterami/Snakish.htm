@@ -346,7 +346,7 @@ function repo_init(){
         'wrap': 0,
         'y-margin': 0,
       },
-      'storage-menu': '<input id=holes-at-start>Holes at Start<br><input id=holes-per-point>Holes/Point<br><input id=max>Max <select id=game-mode><option value=1>Frames</option><option value=0>Points</option></select><br><input id=ms-per-move>ms/Move<br><select id=oncollision><option value=0>Nothing</option><option value=1>End Game</option><option value=2>Score-1</option></select>OnCollision<br><select id=turn-angle><option value=0>90</option><option value=1>&lt;=180</option></select>° Turn Angle<br><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X&amp;Y</option><option value=3>Y</option></select>Wrap<br><input id=y-margin>Y Margin',
+      'storage-menu': '<table><tr><td><input id=holes-at-start><td>Holes at Start<tr><td><input id=holes-per-point><td>Holes/Point<tr><td><input id=max><td>Max <select id=game-mode><option value=1>Frames</option><option value=0>Points</option></select><tr><td><input id=ms-per-move><td>ms/Move<tr><td><select id=oncollision><option value=0>Nothing</option><option value=1>End Game</option><option value=2>Score-1</option></select><td>OnCollision<tr><td><select id=turn-angle><option value=0>90</option><option value=1>&lt;=180</option></select><td>° Turn Angle<tr><td><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X&amp;Y</option><option value=3>Y</option></select><td>Wrap<tr><td><input id=y-margin><td>Y Margin</table>',
       'title': 'Snakish.htm',
     });
     core_audio_create({
