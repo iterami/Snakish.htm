@@ -25,7 +25,7 @@ function eat_purple_creature(){
           'max': 400,
         });
     }while(document.getElementById(id).style.backgroundColor != color_empty);
-    document.getElementById(id).style.backgroundColor = color_purple;
+    document.getElementById(id).style.backgroundColor = core_storage_data['color-negative'];
 
     var loop_counter = holes_per_point - 1;
     // If more than 0 holes should be created.
@@ -76,7 +76,7 @@ function move_player(){
             // If the space is not an obstacle continue, else collision.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === color_purple){
+                if(check_color === core_storage_data['color-negative']){
                     eat_purple_creature();
                 }
 
@@ -98,8 +98,8 @@ function move_player(){
             // If the space is not an obstacle continue.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === color_purple){
-                    eat_purple_creature()
+                if(check_color === core_storage_data['color-negative']){
+                    eat_purple_creature();
                 }
 
                 // Set player Y position to bottom of the screen.
@@ -126,7 +126,7 @@ function move_player(){
             // If the space is not an obstacle continue.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === color_purple){
+                if(check_color === core_storage_data['color-negative']){
                     eat_purple_creature();
                 }
 
@@ -148,7 +148,7 @@ function move_player(){
             // If the space is not an obstacle continue.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === color_purple){
+                if(check_color === core_storage_data['color-negative']){
                     eat_purple_creature();
                 }
 
@@ -176,7 +176,7 @@ function move_player(){
             // If the space is not an obstacle continue.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === color_purple){
+                if(check_color === core_storage_data['color-negative']){
                     eat_purple_creature();
                 }
 
@@ -198,7 +198,7 @@ function move_player(){
             // If the space is not an obstacle continue.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === color_purple){
+                if(check_color === core_storage_data['color-negative']){
                     eat_purple_creature();
                 }
 
@@ -225,7 +225,7 @@ function move_player(){
             // If the space is not an obstacle continue.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === color_purple){
+                if(check_color === core_storage_data['color-negative']){
                     eat_purple_creature();
                 }
 
@@ -247,7 +247,7 @@ function move_player(){
             // If the space is not an obstacle continue.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === color_purple){
+                if(check_color === core_storage_data['color-negative']){
                     eat_purple_creature();
                 }
 
@@ -289,8 +289,8 @@ function move_player(){
         document.getElementById((player['y'] + dy) * 20 + player['x'] + dx).style.backgroundColor = color_empty;
     }
 
-    // Set color of new player position to player['color'].
-    document.getElementById(player['y'] * 20 + player['x']).style.backgroundColor = player['color'];
+    // Set color of new player position to core_storage_data['color-positive'].
+    document.getElementById(player['y'] * 20 + player['x']).style.backgroundColor = core_storage_data['color-positive'];
 }
 
 function repo_escape(){
@@ -364,10 +364,10 @@ function repo_init(){
 
         var color = color_empty;
         if(loop_counter == 21){
-            color = player['color'];
+            color = core_storage_data['color-positive'];
 
         }else if(loop_counter == 378){
-            color = color_purple;
+            color = core_storage_data['color-negative'];
         }
 
         output +=
@@ -390,8 +390,8 @@ function start(){
     do{
         document.getElementById(loop_counter).style.backgroundColor = color_empty;
     }while(loop_counter--);
-    document.getElementById(21).style.backgroundColor = player['color'];
-    document.getElementById(378).style.backgroundColor = color_purple;
+    document.getElementById(21).style.backgroundColor = core_storage_data['color-positive'];
+    document.getElementById(378).style.backgroundColor = core_storage_data['color-negative'];
 
     document.getElementById('start-button').value = 'End [ESC]';
     document.getElementById('start-button').onclick = stop;
@@ -451,10 +451,8 @@ function stop(){
 
 var color_empty = 'rgb(42, 42, 42)';
 var color_obstacle = 'rgb(0, 0, 0)';
-var color_purple = 'rgb(102, 51, 102)';
 var interval = 0;
 var player = {
-  'color': 'rgb(32, 102, 32)',
   'movement_direction': 1,// 0==Up, 1==Right, 2==Down, 3==Left
   'x': 1,
   'y': 1,
