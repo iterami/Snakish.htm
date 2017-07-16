@@ -11,9 +11,8 @@ function eat_purple_creature(){
     ) + 1;
 
     // If there is no space available for more holes, stop.
-    var holes_per_point = core_storage_data['holes-per-point'];
     if(document.getElementById('score').innerHTML >=
-      Math.floor(398 / (parseInt(holes_per_point, 10) + 1)) + 1){
+      Math.floor(398 / (core_storage_data['holes-per-point'] + 1)) + 1){
         stop();
         return;
     }
@@ -27,7 +26,7 @@ function eat_purple_creature(){
     }while(document.getElementById(id).style.backgroundColor != color_empty);
     document.getElementById(id).style.backgroundColor = core_storage_data['color-negative'];
 
-    var loop_counter = holes_per_point - 1;
+    var loop_counter = core_storage_data['holes-per-point'] - 1;
     // If more than 0 holes should be created.
     if(loop_counter >= 0){
         // Add new holes.
@@ -76,7 +75,9 @@ function move_player(){
             // If the space is not an obstacle continue, else collision.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === core_storage_data['color-negative']){
+                if(check_color === core_hex_to_rgb({
+                  'hex': core_storage_data['color-negative'],
+                })){
                     eat_purple_creature();
                 }
 
@@ -98,7 +99,9 @@ function move_player(){
             // If the space is not an obstacle continue.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === core_storage_data['color-negative']){
+                if(check_color === core_hex_to_rgb({
+                  'hex': core_storage_data['color-negative'],
+                })){
                     eat_purple_creature();
                 }
 
@@ -126,7 +129,9 @@ function move_player(){
             // If the space is not an obstacle continue.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === core_storage_data['color-negative']){
+                if(check_color === core_hex_to_rgb({
+                  'hex': core_storage_data['color-negative'],
+                })){
                     eat_purple_creature();
                 }
 
@@ -148,7 +153,9 @@ function move_player(){
             // If the space is not an obstacle continue.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === core_storage_data['color-negative']){
+                if(check_color === core_hex_to_rgb({
+                  'hex': core_storage_data['color-negative'],
+                })){
                     eat_purple_creature();
                 }
 
@@ -176,7 +183,9 @@ function move_player(){
             // If the space is not an obstacle continue.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === core_storage_data['color-negative']){
+                if(check_color === core_hex_to_rgb({
+                  'hex': core_storage_data['color-negative'],
+                })){
                     eat_purple_creature();
                 }
 
@@ -198,7 +207,9 @@ function move_player(){
             // If the space is not an obstacle continue.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === core_storage_data['color-negative']){
+                if(check_color === core_hex_to_rgb({
+                  'hex': core_storage_data['color-negative'],
+                })){
                     eat_purple_creature();
                 }
 
@@ -225,7 +236,9 @@ function move_player(){
             // If the space is not an obstacle continue.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === core_storage_data['color-negative']){
+                if(check_color === core_hex_to_rgb({
+                  'hex': core_storage_data['color-negative'],
+                })){
                     eat_purple_creature();
                 }
 
@@ -247,7 +260,9 @@ function move_player(){
             // If the space is not an obstacle continue.
             if(check_color !== color_obstacle){
                 // If color of space is purple, eat the creature.
-                if(check_color === core_storage_data['color-negative']){
+                if(check_color === core_hex_to_rgb({
+                  'hex': core_storage_data['color-negative'],
+                })){
                     eat_purple_creature();
                 }
 
