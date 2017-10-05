@@ -5,14 +5,14 @@ function eat_purple_creature(){
       'id': 'boop',
     });
 
-    document.getElementById('score').innerHTML = parseInt(
-      document.getElementById('score').innerHTML,
+    var element = document.getElementById('score');
+    element.innerHTML = parseInt(
+      element.innerHTML,
       10
     ) + 1;
 
     // If there is no space available for more holes, stop.
-    if(document.getElementById('score').innerHTML >=
-      Math.floor(398 / (core_storage_data['holes-per-point'] + 1)) + 1){
+    if(element.innerHTML >= Math.floor(398 / (core_storage_data['holes-per-point'] + 1)) + 1){
         stop();
         return;
     }
@@ -289,11 +289,11 @@ function move_player(){
 
         // ...else if score decreases.
         }else if(core_storage_data['oncollision'] === 2){
-            document.getElementById('score').innerHTML =
-              parseInt(
-                document.getElementById('score').innerHTML,
-                10
-              ) - 1;
+            var element = document.getElementById('score');
+            element.innerHTML = parseInt(
+              element.innerHTML,
+              10
+            ) - 1;
         }
     }
 
@@ -408,8 +408,9 @@ function start(){
     document.getElementById(21).style.backgroundColor = core_storage_data['color-positive'];
     document.getElementById(378).style.backgroundColor = core_storage_data['color-negative'];
 
-    document.getElementById('start-button').value = 'End [ESC]';
-    document.getElementById('start-button').onclick = stop;
+    var element = document.getElementById('start-button');
+    element.value = 'End [ESC]';
+    element.onclick = stop;
     document.getElementById('score').innerHTML = '0';
 
     // Reset player
@@ -460,8 +461,9 @@ function start(){
 
 function stop(){
     window.clearInterval(interval);
-    document.getElementById('start-button').value = 'Start [H]';
-    document.getElementById('start-button').onclick = start;
+    var element = document.getElementById('start-button');
+    element.value = 'Start [H]';
+    element.onclick = start;
 }
 
 var color_empty = 'rgb(42, 42, 42)';
