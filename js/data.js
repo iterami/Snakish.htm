@@ -319,9 +319,13 @@ function start(){
     document.getElementById(21).style.backgroundColor = core_storage_data['color-positive'];
     document.getElementById(378).style.backgroundColor = core_storage_data['color-negative'];
 
-    var element = document.getElementById('start-button');
-    element.value = 'End [ESC]';
-    element.onclick = stop;
+    core_html_modify({
+      'id': 'start-button',
+      'properties': {
+        'onclick': stop,
+        'value': 'End [ESC]',
+      },
+    });
     document.getElementById('score').innerHTML = '0';
 
     // Reset player
@@ -372,9 +376,13 @@ function start(){
 
 function stop(){
     window.clearInterval(interval);
-    var element = document.getElementById('start-button');
-    element.value = 'Start [H]';
-    element.onclick = start;
+    core_html_modify({
+      'id': 'start-button',
+      'properties': {
+        'onclick': start,
+        'value': 'Start [H]',
+      },
+    });
 }
 
 var color_empty = 'rgb(42, 42, 42)';
