@@ -384,12 +384,3 @@ function stop(){
       },
     });
 }
-
-var color_empty = 'rgb(42, 42, 42)';
-var color_obstacle = 'rgb(0, 0, 0)';
-var interval = 0;
-var player = {
-  'movement_direction': 1,// 0==Up, 1==Right, 2==Down, 3==Left
-  'x': 1,
-  'y': 1,
-};
