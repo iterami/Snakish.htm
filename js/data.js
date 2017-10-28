@@ -13,7 +13,7 @@ function eat_purple_creature(){
 
     // If there is no space available for more holes, stop.
     if(element.innerHTML >= Math.floor(398 / (core_storage_data['holes-per-point'] + 1)) + 1){
-        stop();
+        core_interval_pause_all();
         return;
     }
 
@@ -52,7 +52,7 @@ function move_player(){
 
     // If game is not running, stop().
     if(end_game){
-        stop();
+        core_interval_pause_all();
         return;
     }
 
@@ -285,7 +285,7 @@ function move_player(){
     if(end_game){
         // If game ends oncollision...
         if(core_storage_data['oncollision'] == 1){
-            stop();
+            core_interval_pause_all();
 
         // ...else if score decreases.
         }else if(core_storage_data['oncollision'] === 2){
@@ -309,7 +309,9 @@ function move_player(){
 }
 
 function start(){
-    core_storage_save();
+    if(core_menu_open){
+        core_escape();
+    }
 
     // Reset buttons to empty with player and purple creature in initial positions.
     var loop_counter = 399;
@@ -319,13 +321,6 @@ function start(){
     document.getElementById(21).style.backgroundColor = core_storage_data['color-positive'];
     document.getElementById(378).style.backgroundColor = core_storage_data['color-negative'];
 
-    core_html_modify({
-      'id': 'start-button',
-      'properties': {
-        'onclick': stop,
-        'value': 'End [ESC]',
-      },
-    });
     document.getElementById('score').innerHTML = '0';
 
     // Reset player
@@ -366,21 +361,9 @@ function start(){
     }
 
     // Validate milliseconds per player movement and create interval.
-    interval = window.setInterval(
-      move_player,
-      core_storage_data['ms-per-move'] > 0
-        ? core_storage_data['ms-per-move']
-        : 125
-    );
-}
-
-function stop(){
-    window.clearInterval(interval);
-    core_html_modify({
-      'id': 'start-button',
-      'properties': {
-        'onclick': start,
-        'value': 'Start [H]',
-      },
+    core_interval_modify({
+      'id': 'interval',
+      'interval': core_storage_data['ms-per-move'],
+      'todo': move_player,
     });
 }

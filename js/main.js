@@ -19,13 +19,13 @@ function repo_init(){
       'globals': {
         'color_empty': 'rgb(42, 42, 42)',
         'color_obstacle': 'rgb(0, 0, 0)',
-        'interval': 0,
         'player': {
           'movement_direction': 1,// 0==Up, 1==Right, 2==Down, 3==Left
           'x': 1,
           'y': 1,
         },
       },
+      'info': '<input id=start-button type=button value=Restart>',
       'keybinds': {
         65: {
           'todo': function(){
@@ -99,5 +99,5 @@ function repo_init(){
     }
     document.getElementById('game-div').innerHTML = output;
 
-    stop();
+    start();
 }
