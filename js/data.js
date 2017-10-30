@@ -309,10 +309,6 @@ function move_player(){
 }
 
 function start(){
-    if(core_menu_open){
-        core_escape();
-    }
-
     // Reset buttons to empty with player and purple creature in initial positions.
     var loop_counter = 399;
     do{
