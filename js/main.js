@@ -30,38 +30,10 @@ function repo_init(){
       },
       'info': '<input id=start-button type=button value=Restart>',
       'keybinds': {
-        65: {
-          'todo': function(){
-              if(player['movement_direction'] !== 1 || core_storage_data['turn-angle'] == 1){
-                  player['movement_direction'] = 3;
-              }
-          },
-        },
-        68: {
-          'todo': function(){
-              if(player['movement_direction'] !== 3 || core_storage_data['turn-angle'] == 1){
-                  player['movement_direction'] = 1;
-              }
-          },
-        },
         72: {
           'todo': function(){
               stop();
               start();
-          },
-        },
-        83: {
-          'todo': function(){
-              if(player['movement_direction'] !== 0 || core_storage_data['turn-angle'] == 1){
-                  player['movement_direction'] = 2;
-              }
-          },
-        },
-        87: {
-          'todo': function(){
-              if(player['movement_direction'] !== 2 || core_storage_data['turn-angle'] == 1){
-                  player['movement_direction'] = 0;
-              }
           },
         },
       },

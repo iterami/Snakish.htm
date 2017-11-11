@@ -65,6 +65,28 @@ function move_player(){
     var dx = 0;
     var dy = 0;
 
+    // Player movement direction.
+    if(core_keys[core_storage_data['move-←']]['state']){
+        if(player['movement_direction'] !== 1 || core_storage_data['turn-angle'] == 1){
+            player['movement_direction'] = 3;
+        }
+
+    }else if(core_keys[core_storage_data['move-→']]['state']){
+        if(player['movement_direction'] !== 3 || core_storage_data['turn-angle'] == 1){
+            player['movement_direction'] = 1;
+        }
+
+    }else if(core_keys[core_storage_data['move-↓']]['state']){
+        if(player['movement_direction'] !== 0 || core_storage_data['turn-angle'] == 1){
+            player['movement_direction'] = 2;
+        }
+
+    }else if(core_keys[core_storage_data['move-↑']]['state']){
+        if(player['movement_direction'] !== 2 || core_storage_data['turn-angle'] == 1){
+            player['movement_direction'] = 0;
+        }
+    }
+
     // If player is moving up.
     if(player['movement_direction'] === 0){
         // If player is not at the top of the screen.
