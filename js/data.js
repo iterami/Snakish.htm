@@ -42,28 +42,10 @@ function eat_purple_creature(){
 }
 
 function move_player(){
-    // Check if game is still running, based on game mode and if frames/score are over max.
-    var frames = parseFloat(document.getElementById('frames').innerHTML);
-    var end_game = core_storage_data['game-mode'] === 1
-      ? frames <= 0
-        && core_storage_data['max'] > 0
-      : core_storage_data['max'] != 0
-        && parseInt(document.getElementById('score').innerHTML, 10) >= core_storage_data['max'];
-
-    // If game is not running, stop().
-    if(end_game){
-        core_interval_pause_all();
-        return;
-    }
-
-    // Add or subtract 1 from frames depending on game mode.
-    document.getElementById('frames').innerHTML = (frames +
-        ((core_storage_data['game-mode'] === 1
-      && core_storage_data['max'] > 0) ? -1 : 1));
-
     var check_color = 0;
     var dx = 0;
     var dy = 0;
+    var end_game = false;
 
     // Player movement direction.
     if(core_keys[core_storage_data['move-←']]['state']){
@@ -358,24 +340,6 @@ function start(){
             }while(document.getElementById(id).style.backgroundColor !== color_empty);
             document.getElementById(id).style.backgroundColor = color_obstacle;
         }while(loop_counter--);
-    }
-
-    // Setup display or not display of max frames or max points.
-    if(core_storage_data['game-mode'] === 1){
-        document.getElementById('frames').innerHTML = core_storage_data['max'];
-        document.getElementById('frames-max').innerHTML = core_storage_data['max'];
-        document.getElementById('score-max').innerHTML = '';
-        document.getElementById('frames-max-span').style.display =
-          document.getElementById('max').value > 0
-            ? 'inline'
-            : 'none';
-
-    }else{
-        document.getElementById('frames').innerHTML = 0;
-        document.getElementById('frames-max-span').style.display = 'none';
-        document.getElementById('score-max').innerHTML = core_storage_data['max'] > 0
-          ? ' / ' + core_storage_data['max']
-          : '';
     }
 
     // Validate milliseconds per player movement and create interval.
