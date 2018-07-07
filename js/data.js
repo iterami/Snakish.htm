@@ -6,7 +6,7 @@ function eat_purple_creature(){
     });
 
     var element = document.getElementById('score');
-    element.innerHTML = parseInt(
+    element.innerHTML = Number.parseInt(
       element.innerHTML,
       10
     ) + 1;
@@ -294,7 +294,7 @@ function move_player(){
         // ...else if score decreases.
         }else if(core_storage_data['oncollision'] === 2){
             var element = document.getElementById('score');
-            element.innerHTML = parseInt(
+            element.innerHTML = Number.parseInt(
               element.innerHTML,
               10
             ) - 1;
