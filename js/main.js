@@ -51,14 +51,14 @@ function repo_init(){
     });
 
     // Create buttons for game-div.
-    var output = '';
+    let output = '';
 
-    for(var loop_counter = 0; loop_counter < 400; loop_counter++){
+    for(let loop_counter = 0; loop_counter < 400; loop_counter++){
         if(loop_counter % 20 === 0 && loop_counter !== 0){
             output += '<br>';
         }
 
-        var color = color_empty;
+        let color = color_empty;
         if(loop_counter == 21){
             color = core_storage_data['color-positive'];
 

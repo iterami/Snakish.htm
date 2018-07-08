@@ -5,7 +5,7 @@ function eat_purple_creature(){
       'id': 'boop',
     });
 
-    var element = document.getElementById('score');
+    let element = document.getElementById('score');
     element.innerHTML = Number.parseInt(
       element.innerHTML,
       10
@@ -18,7 +18,7 @@ function eat_purple_creature(){
     }
 
     // Pick a button with color_empty and make it the new purple creature.
-    var id = -1;
+    let id = -1;
     do{
         id = core_random_integer({
           'max': 400,
@@ -26,7 +26,7 @@ function eat_purple_creature(){
     }while(document.getElementById(id).style.backgroundColor != color_empty);
     document.getElementById(id).style.backgroundColor = core_storage_data['color-negative'];
 
-    var loop_counter = core_storage_data['holes-per-point'] - 1;
+    let loop_counter = core_storage_data['holes-per-point'] - 1;
     // If more than 0 holes should be created.
     if(loop_counter >= 0){
         // Add new holes.
@@ -42,10 +42,10 @@ function eat_purple_creature(){
 }
 
 function move_player(){
-    var check_color = 0;
-    var dx = 0;
-    var dy = 0;
-    var end_game = false;
+    let check_color = 0;
+    let dx = 0;
+    let dy = 0;
+    let end_game = false;
 
     // Player movement direction.
     if(core_keys[core_storage_data['move-←']]['state']){
@@ -293,7 +293,7 @@ function move_player(){
 
         // ...else if score decreases.
         }else if(core_storage_data['oncollision'] === 2){
-            var element = document.getElementById('score');
+            let element = document.getElementById('score');
             element.innerHTML = Number.parseInt(
               element.innerHTML,
               10
@@ -314,7 +314,7 @@ function move_player(){
 
 function start(){
     // Reset buttons to empty with player and purple creature in initial positions.
-    var loop_counter = 399;
+    let loop_counter = 399;
     do{
         document.getElementById(loop_counter).style.backgroundColor = color_empty;
     }while(loop_counter--);
@@ -330,7 +330,7 @@ function start(){
 
     // Create initial holes, if any.
     if(core_storage_data['holes-at-start'] > 0){
-        var id = -1;
+        let id = -1;
         loop_counter = core_storage_data['holes-at-start'] - 1;
         do{
             do{
