@@ -46,7 +46,12 @@ function repo_init(){
         'turn-angle': 0,
         'wrap': 0,
       },
-      'storage-menu': '<table><tr><td><input id=holes-at-start><td>Holes at Start<tr><td><input id=holes-per-point><td>Holes/Point<tr><td><input id=ms-per-move><td>ms/Move<tr><td><select id=oncollision><option value=1>End Game</option><option value=0>Nothing</option><option value=2>Score-1</option></select><td>OnCollision<tr><td><select id=turn-angle><option value=0>90</option><option value=1>&lt;=180</option></select><td>° Turn Angle<tr><td><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X&amp;Y</option><option value=3>Y</option></select><td>Wrap</table>',
+      'storage-menu': '<table><tr><td><input id=holes-at-start><td>Holes at Start'
+        + '<tr><td><input id=holes-per-point><td>Holes/Point'
+        + '<tr><td><input id=ms-per-move><td>ms/Move'
+        + '<tr><td><select id=oncollision><option value=1>End Game</option><option value=0>Nothing</option><option value=2>Score-1</option></select><td>OnCollision'
+        + '<tr><td><select id=turn-angle><option value=0>90</option><option value=1>&lt;=180</option></select><td>° Turn Angle'
+        + '<tr><td><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X&amp;Y</option><option value=3>Y</option></select><td>Wrap</table>',
       'title': 'Snakish.htm',
     });
 
