@@ -316,7 +316,11 @@ function start(){
     // Reset buttons to empty with player and purple creature in initial positions.
     let loop_counter = 399;
     do{
-        document.getElementById(loop_counter).style.backgroundColor = color_empty;
+        let element = document.getElementById(loop_counter);
+
+        element.style.backgroundColor = color_empty;
+        element.style.height = core_storage_data['height'];
+        element.style.width = core_storage_data['width'];
     }while(loop_counter--);
     document.getElementById(21).style.backgroundColor = core_storage_data['color-positive'];
     document.getElementById(378).style.backgroundColor = core_storage_data['color-negative'];

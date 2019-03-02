@@ -39,14 +39,18 @@ function repo_init(){
       },
       'menu': true,
       'storage': {
+        'height': '25px',
         'holes-at-start': 0,
         'holes-per-point': 1,
         'ms-per-move': 125,
         'oncollision': 1,
         'turn-angle': 0,
+        'width': '25px',
         'wrap': 0,
       },
-      'storage-menu': '<table><tr><td><input id=holes-at-start><td>Holes at Start'
+      'storage-menu': '<table><tr><td><input id=height><td>Button Height'
+        + '<tr><td><input id=width><td>Button Width'
+        + '<tr><td><input id=holes-at-start><td>Holes at Start'
         + '<tr><td><input id=holes-per-point><td>Holes/Point'
         + '<tr><td><input id=ms-per-move><td>ms/Move'
         + '<tr><td><select id=oncollision><option value=1>End Game</option><option value=0>Nothing</option><option value=2>Score-1</option></select><td>OnCollision'
