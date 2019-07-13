@@ -1,7 +1,7 @@
 'use strict';
 
 function eat_purple_creature(){
-    core_audio_start({
+    audio_start({
       'id': 'boop',
     });
 
