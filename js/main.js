@@ -70,17 +70,23 @@ function repo_init(){
         }
 
         let color = color_empty;
+        let value = '';
+
         if(loop_counter == 21){
             color = core_storage_data['color-positive'];
+            value = '•';
 
         }else if(loop_counter == 378){
             color = core_storage_data['color-negative'];
+            value = '+';
         }
 
         output +=
           '<input class=gridbutton disabled id=' + loop_counter
           + ' style="background:' + color
-          + '" type=button>';
+          + '" type=button'
+          + (value.length > 0 ? ' value=' + value : '')
+          + '>';
     }
     document.getElementById('game-div').innerHTML = output;
 }

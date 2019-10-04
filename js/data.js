@@ -24,7 +24,10 @@ function eat_purple_creature(){
           'max': 400,
         });
     }while(document.getElementById(id).style.backgroundColor != color_empty);
-    document.getElementById(id).style.backgroundColor = core_storage_data['color-negative'];
+
+    element = document.getElementById(id);
+    element.style.backgroundColor = core_storage_data['color-negative'];
+    element.value = '+';
 
     let loop_counter = core_storage_data['holes-per-point'] - 1;
     // If more than 0 holes should be created.
@@ -305,11 +308,15 @@ function move_player(){
     if(dx !== 0
       || dy !== 0){
         // Reset old player position to color_empty.
-        document.getElementById((player['y'] + dy) * 20 + player['x'] + dx).style.backgroundColor = color_empty;
+        let element = document.getElementById((player['y'] + dy) * 20 + player['x'] + dx);
+        element.style.backgroundColor = color_empty;
+        element.value = '';
     }
 
     // Set color of new player position to core_storage_data['color-positive'].
-    document.getElementById(player['y'] * 20 + player['x']).style.backgroundColor = core_storage_data['color-positive'];
+    let element = document.getElementById(player['y'] * 20 + player['x']);
+    element.style.backgroundColor = core_storage_data['color-positive'];
+    element.value = '•';
 }
 
 function start(){
@@ -322,8 +329,13 @@ function start(){
         element.style.height = core_storage_data['height'];
         element.style.width = core_storage_data['width'];
     }while(loop_counter--);
-    document.getElementById(21).style.backgroundColor = core_storage_data['color-positive'];
-    document.getElementById(378).style.backgroundColor = core_storage_data['color-negative'];
+    let element = document.getElementById(21);
+    element.style.backgroundColor = core_storage_data['color-positive'];
+    element.value = '•';
+
+    element = document.getElementById(378);
+    element.style.backgroundColor = core_storage_data['color-negative'];
+    element.value = '+';
 
     document.getElementById('score').innerHTML = '0';
 
