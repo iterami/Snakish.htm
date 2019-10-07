@@ -328,6 +328,7 @@ function start(){
         element.style.backgroundColor = color_empty;
         element.style.height = core_storage_data['height'];
         element.style.width = core_storage_data['width'];
+        element.value = '';
     }while(loop_counter--);
     let element = document.getElementById(21);
     element.style.backgroundColor = core_storage_data['color-positive'];
