@@ -1,7 +1,9 @@
 'use strict';
 
 function repo_escape(){
-    stop();
+    if(!core_intervals['interval']){
+        core_repo_reset();
+    }
 }
 
 function repo_init(){
