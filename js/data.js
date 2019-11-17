@@ -23,7 +23,7 @@ function eat_purple_creature(){
         id = core_random_integer({
           'max': 400,
         });
-    }while(document.getElementById(id).style.backgroundColor != color_empty);
+    }while(document.getElementById(id).style.backgroundColor !== color_empty);
 
     element = document.getElementById(id);
     element.style.backgroundColor = core_storage_data['color-negative'];
@@ -34,7 +34,7 @@ function eat_purple_creature(){
     if(loop_counter >= 0){
         // Add new holes.
         do{
-            while(document.getElementById(id).style.backgroundColor != color_empty){
+            while(document.getElementById(id).style.backgroundColor !== color_empty){
                 id = core_random_integer({
                   'max': 400,
                 });
@@ -52,22 +52,22 @@ function move_player(){
 
     // Player movement direction.
     if(core_keys[core_storage_data['move-←']]['state']){
-        if(player['movement_direction'] !== 1 || core_storage_data['turn-angle'] == 1){
+        if(player['movement_direction'] !== 1 || core_storage_data['turn-angle'] === 1){
             player['movement_direction'] = 3;
         }
 
     }else if(core_keys[core_storage_data['move-→']]['state']){
-        if(player['movement_direction'] !== 3 || core_storage_data['turn-angle'] == 1){
+        if(player['movement_direction'] !== 3 || core_storage_data['turn-angle'] === 1){
             player['movement_direction'] = 1;
         }
 
     }else if(core_keys[core_storage_data['move-↓']]['state']){
-        if(player['movement_direction'] !== 0 || core_storage_data['turn-angle'] == 1){
+        if(player['movement_direction'] !== 0 || core_storage_data['turn-angle'] === 1){
             player['movement_direction'] = 2;
         }
 
     }else if(core_keys[core_storage_data['move-↑']]['state']){
-        if(player['movement_direction'] !== 2 || core_storage_data['turn-angle'] == 1){
+        if(player['movement_direction'] !== 2 || core_storage_data['turn-angle'] === 1){
             player['movement_direction'] = 0;
         }
     }
@@ -98,8 +98,8 @@ function move_player(){
             }
 
         // If player is at the top of the screen and can wrap in the Y-direction.
-        }else if(core_storage_data['wrap'] == 2
-          || core_storage_data['wrap'] == 3){
+        }else if(core_storage_data['wrap'] === 2
+          || core_storage_data['wrap'] === 3){
             // Fetch color of space at the bottom of the screen.
             check_color = document.getElementById((player['y'] + 19) * 20 + player['x']).style.backgroundColor;
 
@@ -152,8 +152,8 @@ function move_player(){
             }
 
         // If player is at the right edge of the screen and can wrap in the X-direction.
-        }else if(core_storage_data['wrap'] == 1
-          || core_storage_data['wrap'] == 2){
+        }else if(core_storage_data['wrap'] === 1
+          || core_storage_data['wrap'] === 2){
             // Fetch color of space at the left of the screen.
             check_color = document.getElementById(player['y'] * 20 + player['x'] - 19).style.backgroundColor;
 
@@ -206,8 +206,8 @@ function move_player(){
             }
 
         // If player is at the bottom edge of the screen and can wrap in the U-direction.
-        }else if(core_storage_data['wrap'] == 2
-          || core_storage_data['wrap'] == 3){
+        }else if(core_storage_data['wrap'] === 2
+          || core_storage_data['wrap'] === 3){
             // Fetch color of space at the top of the screen.
             check_color = document.getElementById((player['y'] - 19) * 20 + player['x']).style.backgroundColor;
 
@@ -259,8 +259,8 @@ function move_player(){
             }
 
         // If player is at the left edge of the screen and can wrap in the X-direction.
-        }else if(core_storage_data['wrap'] == 1
-          || core_storage_data['wrap'] == 2){
+        }else if(core_storage_data['wrap'] === 1
+          || core_storage_data['wrap'] === 2){
             // Fetch color of space at the right side of the screen.
             check_color = document.getElementById(player['y'] * 20 + player['x'] + 19).style.backgroundColor;
 
@@ -291,7 +291,7 @@ function move_player(){
     // If a collision with an obstacle or edge was detected.
     if(end_game){
         // If game ends oncollision...
-        if(core_storage_data['oncollision'] == 1){
+        if(core_storage_data['oncollision'] === 1){
             core_interval_pause_all();
 
         // ...else if score decreases.
@@ -341,7 +341,7 @@ function start(){
     document.getElementById('score').innerHTML = '0';
 
     // Reset player
-    player['movement_direction'] = 1; // 0==Up, 1==Right, 2==Down, 3==Left
+    player['movement_direction'] = 1; // 0=Up, 1=Right, 2=Down, 3=Left
     player['x'] = 1;
     player['y'] = 1;
 

@@ -18,7 +18,7 @@ function repo_init(){
         'color_empty': 'rgb(42, 42, 42)',
         'color_obstacle': 'rgb(0, 0, 0)',
         'player': {
-          'movement_direction': 1,// 0==Up, 1==Right, 2==Down, 3==Left
+          'movement_direction': 1,// 0=Up, 1=Right, 2=Down, 3=Left
           'x': 1,
           'y': 1,
         },
@@ -72,11 +72,11 @@ function repo_init(){
         let color = color_empty;
         let value = '';
 
-        if(loop_counter == 21){
+        if(loop_counter === 21){
             color = core_storage_data['color-positive'];
             value = '•';
 
-        }else if(loop_counter == 378){
+        }else if(loop_counter === 378){
             color = core_storage_data['color-negative'];
             value = '+';
         }
