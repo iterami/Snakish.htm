@@ -6,13 +6,13 @@ function eat_purple_creature(){
     });
 
     let element = document.getElementById('score');
-    element.innerHTML = Number.parseInt(
-      element.innerHTML,
+    element.textContent = Number.parseInt(
+      element.textContent,
       10
     ) + 1;
 
     // If there is no space available for more holes, stop.
-    if(element.innerHTML >= Math.floor(398 / (core_storage_data['holes-per-point'] + 1)) + 1){
+    if(element.textContent >= Math.floor(398 / (core_storage_data['holes-per-point'] + 1)) + 1){
         core_interval_pause_all();
         return;
     }
@@ -297,8 +297,8 @@ function move_player(){
         // ...else if score decreases.
         }else if(core_storage_data['oncollision'] === 2){
             let element = document.getElementById('score');
-            element.innerHTML = Number.parseInt(
-              element.innerHTML,
+            element.textContent = Number.parseInt(
+              element.textContent,
               10
             ) - 1;
         }
@@ -338,7 +338,7 @@ function start(){
     element.style.backgroundColor = core_storage_data['color-negative'];
     element.value = '+';
 
-    document.getElementById('score').innerHTML = '0';
+    document.getElementById('score').textContent = '0';
 
     // Reset player
     player['movement_direction'] = 1; // 0=Up, 1=Right, 2=Down, 3=Left
