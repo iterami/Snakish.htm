@@ -296,7 +296,7 @@ function move_player(){
 
         // ...else if score decreases.
         }else if(core_storage_data['oncollision'] === 2){
-            let element = document.getElementById('score');
+            const element = document.getElementById('score');
             element.textContent = Number.parseInt(
               element.textContent,
               10
@@ -308,13 +308,13 @@ function move_player(){
     if(dx !== 0
       || dy !== 0){
         // Reset old player position to color_empty.
-        let element = document.getElementById((player['y'] + dy) * 20 + player['x'] + dx);
+        const element = document.getElementById((player['y'] + dy) * 20 + player['x'] + dx);
         element.style.backgroundColor = color_empty;
         element.value = '';
     }
 
     // Set color of new player position to core_storage_data['color-positive'].
-    let element = document.getElementById(player['y'] * 20 + player['x']);
+    const element = document.getElementById(player['y'] * 20 + player['x']);
     element.style.backgroundColor = core_storage_data['color-positive'];
     element.value = '•';
 }
@@ -323,7 +323,7 @@ function start(){
     // Reset buttons to empty with player and purple creature in initial positions.
     let loop_counter = 399;
     do{
-        let element = document.getElementById(loop_counter);
+        const element = document.getElementById(loop_counter);
 
         element.style.backgroundColor = color_empty;
         element.style.height = core_storage_data['height'];
