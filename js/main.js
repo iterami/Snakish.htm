@@ -62,6 +62,8 @@ function repo_init(){
 
     // Create buttons for game-div.
     let output = '';
+    const gamediv = document.getElementById('game-div');
+    gamediv.style.minWidth = '600px';
 
     for(let loop_counter = 0; loop_counter < 400; loop_counter++){
         if(loop_counter % 20 === 0 && loop_counter !== 0){
@@ -87,5 +89,5 @@ function repo_init(){
           + (value.length > 0 ? ' value=' + value : '')
           + '>';
     }
-    document.getElementById('game-div').innerHTML = output;
+    gamediv.innerHTML = output;
 }
