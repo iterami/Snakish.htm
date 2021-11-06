@@ -86,7 +86,7 @@ function repo_init(){
           '<input class=gridbutton disabled id=' + loop_counter
           + ' style="background:' + color
           + '" type=button'
-          + (value.length > 0 ? ' value=' + value : '')
+          + (value.length ? ' value=' + value : '')
           + '>';
     }
     gamediv.innerHTML = output;
