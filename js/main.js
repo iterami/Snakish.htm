@@ -33,22 +33,22 @@ function repo_init(){
           start();
       },
       'storage': {
+        'collision': 1,
         'height': '25px',
-        'holes-at-start': 0,
-        'holes-per-point': 1,
+        'holes-point': 1,
+        'holes-start': 0,
         'ms-per-move': 125,
-        'oncollision': 1,
         'turn-angle': 0,
         'width': '25px',
         'wrap': 0,
       },
-      'storage-menu': '<table><tr><td><input id=height><td>Button Height'
-        + '<tr><td><input id=width><td>Button Width'
-        + '<tr><td><input id=holes-at-start min=0 step=any type=number><td>Holes at Start'
-        + '<tr><td><input id=holes-per-point min=0 step=any type=number><td>Holes/Point'
-        + '<tr><td><input id=ms-per-move min=1 step=any type=number><td>ms/Move'
-        + '<tr><td><select id=oncollision><option value=1>End Game</option><option value=0>Nothing</option><option value=2>Score-1</option></select><td>OnCollision'
-        + '<tr><td><select id=turn-angle><option value=0>90</option><option value=1>&lt;=180</option></select><td>° Turn Angle'
+      'storage-menu': '<table><tr><td><input class=mini id=height><td>Button Height'
+        + '<tr><td><input class=mini id=width><td>Button Width'
+        + '<tr><td><select id=collision><option value=1>End Game</option><option value=0>Nothing</option><option value=2>Score-1</option></select><td>Collision'
+        + '<tr><td><input class=mini id=holes-point min=0 step=any type=number><td>Holes/Point'
+        + '<tr><td><input class=mini id=holes-start min=0 step=any type=number><td>Holes/Start'
+        + '<tr><td><input class=mini id=ms-per-move min=1 step=any type=number><td>ms/Move'
+        + '<tr><td><select id=turn-angle><option value=0>90°</option><option value=1>any</option></select><td>Turn Angle'
         + '<tr><td><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X&amp;Y</option><option value=3>Y</option></select><td>Wrap</table>',
       'title': 'Snakish.htm',
     });

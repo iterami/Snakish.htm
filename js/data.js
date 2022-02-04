@@ -11,7 +11,7 @@ function eat_purple_creature(){
       10
     ) + 1;
 
-    if(element.textContent >= Math.floor(398 / (core_storage_data['holes-per-point'] + 1)) + 1){
+    if(element.textContent >= Math.floor(398 / (core_storage_data['holes-point'] + 1)) + 1){
         core_interval_pause_all();
         return;
     }
@@ -27,7 +27,7 @@ function eat_purple_creature(){
     element.style.backgroundColor = core_storage_data['color-negative'];
     element.value = '+';
 
-    let loop_counter = core_storage_data['holes-per-point'] - 1;
+    let loop_counter = core_storage_data['holes-point'] - 1;
     if(loop_counter >= 0){
         do{
             while(document.getElementById(id).style.backgroundColor !== color_empty){
@@ -218,10 +218,10 @@ function move_player(){
     }
 
     if(end_game){
-        if(core_storage_data['oncollision'] === 1){
+        if(core_storage_data['collision'] === 1){
             core_interval_pause_all();
 
-        }else if(core_storage_data['oncollision'] === 2){
+        }else if(core_storage_data['collision'] === 2){
             const element = document.getElementById('score');
             element.textContent = Number.parseInt(
               element.textContent,
@@ -266,9 +266,9 @@ function start(){
     player['x'] = 1;
     player['y'] = 1;
 
-    if(core_storage_data['holes-at-start'] > 0){
+    if(core_storage_data['holes-start'] > 0){
         let id = -1;
-        loop_counter = core_storage_data['holes-at-start'] - 1;
+        loop_counter = core_storage_data['holes-start'] - 1;
         do{
             do{
                 id = core_random_integer({
