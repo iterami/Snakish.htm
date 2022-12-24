@@ -83,7 +83,7 @@ function repo_init(){
 
         output +=
           '<input class=gridbutton disabled id=' + loop_counter
-          + ' style="background:' + color
+          + ' style="background-color:' + color
           + '" type=button'
           + (value.length ? ' value=' + value : '')
           + '>';
