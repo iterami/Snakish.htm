@@ -62,7 +62,7 @@ function repo_init(){
 
     let output = '';
     const gamediv = document.getElementById('game-div');
-    gamediv.style.minWidth = '600px';
+    gamediv.style.minWidth = '560px';
 
     for(let loop_counter = 0; loop_counter < 400; loop_counter++){
         if(loop_counter % 20 === 0 && loop_counter !== 0){
