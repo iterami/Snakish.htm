@@ -291,7 +291,7 @@ function repo_init(){
         + '<tr><td><input class=mini id=holes-start min=0 step=any type=number><td>Holes/Start'
         + '<tr><td><input class=mini id=ms-per-move min=1 step=any type=number><td>ms/Move'
         + '<tr><td><select id=turn-angle><option value=0>90°</option><option value=1>any</option></select><td>Turn Angle'
-        + '<tr><td><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X&amp;Y</option><option value=3>Y</option></select><td>Wrap</table>',
+        + '<tr><td><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X+Y</option><option value=3>Y</option></select><td>Wrap</table>',
       'title': 'Snakish.htm',
     });
     audio_create({
