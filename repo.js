@@ -286,12 +286,12 @@ function repo_init(){
       },
       'storage-menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
         + '<tr><td><input class=mini id=width type=text><td>Button Width'
-        + '<tr><td><select id=collision><option value=1>End Game</option><option value=0>Nothing</option><option value=2>Score-1</option></select><td>Collision'
+        + '<tr><td><select id=collision><option value=1>End Game<option value=0>Nothing<option value=2>Score-1</select><td>Collision'
         + '<tr><td><input class=mini id=holes-point min=0 step=any type=number><td>Holes/Point'
         + '<tr><td><input class=mini id=holes-start min=0 step=any type=number><td>Holes/Start'
         + '<tr><td><input class=mini id=ms-per-move min=1 step=any type=number><td>ms/Move'
-        + '<tr><td><select id=turn-angle><option value=0>90°</option><option value=1>any</option></select><td>Turn Angle'
-        + '<tr><td><select id=wrap><option value=0>No</option><option value=1>X</option><option value=2>X+Y</option><option value=3>Y</option></select><td>Wrap</table>',
+        + '<tr><td><select id=turn-angle><option value=0>90°<option value=1>any</select><td>Turn Angle'
+        + '<tr><td><select id=wrap><option value=0>No<option value=1>X<option value=2>X+Y<option value=3>Y</select><td>Wrap</table>',
       'title': 'Snakish.htm',
     });
     audio_create({
