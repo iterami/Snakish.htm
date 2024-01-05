@@ -24,7 +24,7 @@ function eat_purple_creature(){
     }while(document.getElementById(id).style.backgroundColor !== color_empty);
 
     element = document.getElementById(id);
-    element.style.backgroundColor = core_storage_data['color-negative'];
+    element.style.backgroundColor = color_negative;
     element.value = '+';
 
     let loop_counter = core_storage_data['holes-point'] - 1;
@@ -67,17 +67,12 @@ function move_player(){
         }
     }
 
-    const rgb = core_hex_to_rgb({
-      'hex': core_storage_data['color-negative'],
-    });
-    const rgb_negative = 'rgb(' + rgb['red'] + ', ' + rgb['green'] + ', ' + rgb['blue'] + ')';
-
     if(player['movement_direction'] === 0){
         if(player['y'] - 1 >= 0){
             check_color = document.getElementById((player['y'] - 1) * 20 + player['x']).style.backgroundColor;
 
             if(check_color !== color_obstacle){
-                if(check_color === rgb_negative){
+                if(check_color === color_negative){
                     eat_purple_creature();
                 }
 
@@ -93,7 +88,7 @@ function move_player(){
             check_color = document.getElementById((player['y'] + 19) * 20 + player['x']).style.backgroundColor;
 
             if(check_color !== color_obstacle){
-                if(check_color === rgb_negative){
+                if(check_color === color_negative){
                     eat_purple_creature();
                 }
 
@@ -113,7 +108,7 @@ function move_player(){
             check_color = document.getElementById(player['y'] * 20 + player['x'] + 1).style.backgroundColor;
 
             if(check_color !== color_obstacle){
-                if(check_color === rgb_negative){
+                if(check_color === color_negative){
                     eat_purple_creature();
                 }
 
@@ -129,7 +124,7 @@ function move_player(){
             check_color = document.getElementById(player['y'] * 20 + player['x'] - 19).style.backgroundColor;
 
             if(check_color !== color_obstacle){
-                if(check_color === rgb_negative){
+                if(check_color === color_negative){
                     eat_purple_creature();
                 }
 
@@ -149,7 +144,7 @@ function move_player(){
             check_color = document.getElementById((player['y'] + 1) * 20 + player['x']).style.backgroundColor;
 
             if(check_color !== color_obstacle){
-                if(check_color === rgb_negative){
+                if(check_color === color_negative){
                     eat_purple_creature();
                 }
 
@@ -165,7 +160,7 @@ function move_player(){
             check_color = document.getElementById((player['y'] - 19) * 20 + player['x']).style.backgroundColor;
 
             if(check_color !== color_obstacle){
-                if(check_color === rgb_negative){
+                if(check_color === color_negative){
                     eat_purple_creature();
                 }
 
@@ -185,7 +180,7 @@ function move_player(){
             check_color = document.getElementById(player['y'] * 20 + player['x'] - 1).style.backgroundColor;
 
             if(check_color !== color_obstacle){
-                if(check_color === rgb_negative){
+                if(check_color === color_negative){
                     eat_purple_creature();
                 }
 
@@ -201,7 +196,7 @@ function move_player(){
             check_color = document.getElementById(player['y'] * 20 + player['x'] + 19).style.backgroundColor;
 
             if(check_color !== color_obstacle){
-                if(check_color === rgb_negative){
+                if(check_color === color_negative){
                     eat_purple_creature();
                 }
 
@@ -238,7 +233,7 @@ function move_player(){
     }
 
     const element = document.getElementById(player['y'] * 20 + player['x']);
-    element.style.backgroundColor = core_storage_data['color-positive'];
+    element.style.backgroundColor = color_positive;
     element.value = '•';
 }
 
@@ -258,7 +253,9 @@ function repo_init(){
       },
       'globals': {
         'color_empty': 'rgb(42, 42, 42)',
+        'color_negative': 'rgb(102, 51, 102)',
         'color_obstacle': 'rgb(0, 0, 0)',
+        'color_positive': '#206620',
         'player': {
           'movement_direction': 1,// 0=Up, 1=Right, 2=Down, 3=Left
           'x': 1,
@@ -315,11 +312,11 @@ function repo_init(){
         let value = '';
 
         if(loop_counter === 21){
-            color = core_storage_data['color-positive'];
+            color = color_positive;
             value = '•';
 
         }else if(loop_counter === 378){
-            color = core_storage_data['color-negative'];
+            color = color_negative;
             value = '+';
         }
 
@@ -344,11 +341,11 @@ function start(){
         element.value = '';
     }while(loop_counter--);
     let element = document.getElementById(21);
-    element.style.backgroundColor = core_storage_data['color-positive'];
+    element.style.backgroundColor = color_positive;
     element.value = '•';
 
     element = document.getElementById(378);
-    element.style.backgroundColor = core_storage_data['color-negative'];
+    element.style.backgroundColor = color_negative;
     element.value = '+';
 
     document.getElementById('score').textContent = '0';
