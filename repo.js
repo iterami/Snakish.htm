@@ -25,7 +25,7 @@ function eat_purple_creature(){
 
     element = document.getElementById(id);
     element.style.backgroundColor = color_negative;
-    element.value = '+';
+    element.textContent = '+';
 
     let loop_counter = core_storage_data['holes-point'] - 1;
     if(loop_counter >= 0){
@@ -229,12 +229,12 @@ function move_player(){
       || dy !== 0){
         const element = document.getElementById((player['y'] + dy) * 20 + player['x'] + dx);
         element.style.backgroundColor = color_empty;
-        element.value = '';
+        element.textContent = '';
     }
 
     const element = document.getElementById(player['y'] * 20 + player['x']);
     element.style.backgroundColor = color_positive;
-    element.value = '•';
+    element.textContent = '•';
 }
 
 function repo_escape(){
@@ -262,7 +262,7 @@ function repo_init(){
           'y': 1,
         },
       },
-      'info': '<input id=start-button type=button value=Restart>',
+      'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
       'reset': function(){
           stop();
@@ -321,11 +321,11 @@ function repo_init(){
         }
 
         output +=
-          '<input class=gridbutton disabled id=' + loop_counter
+          '<button class=gridbutton disabled id=' + loop_counter
           + ' style="background-color:' + color
-          + '" type=button'
-          + (value.length ? ' value=' + value : '')
-          + '>';
+          + '" type=button>'
+          + (value.length ? value : '')
+          + '</button>';
     }
     gamediv.innerHTML = output;
 }
