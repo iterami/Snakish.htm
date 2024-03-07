@@ -1,9 +1,7 @@
 'use strict';
 
 function eat_purple_creature(){
-    audio_start({
-      'id': 'boop',
-    });
+    audio_start('boop');
 
     let element = document.getElementById('score');
     element.textContent = Number.parseInt(
@@ -290,13 +288,6 @@ function repo_init(){
         + '<tr><td><select id=turn-angle><option value=0>90°<option value=1>any</select><td>Turn Angle'
         + '<tr><td><select id=wrap><option value=0>No<option value=1>X<option value=2>X+Y<option value=3>Y</select><td>Wrap</table>',
       'title': 'Snakish.htm',
-    });
-    audio_create({
-      'audios': {
-        'boop': {
-          'duration': .1,
-        },
-      },
     });
 
     let output = '';
