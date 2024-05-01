@@ -17,10 +17,10 @@ function eat_purple_creature(){
     let id = -1;
     do{
         id = core_random_integer({
-          'max': 400,
+          'max': empty.length,
         });
-    }while(document.getElementById(id).style.backgroundColor !== color_empty);
-
+    }while(id === player['y'] * 20 + player['x']);
+    empty.splice(id, 1);
     element = document.getElementById(id);
     element.style.backgroundColor = color_negative;
     element.textContent = '+';
@@ -28,11 +28,12 @@ function eat_purple_creature(){
     let loop_counter = core_storage_data['holes-point'] - 1;
     if(loop_counter >= 0){
         do{
-            while(document.getElementById(id).style.backgroundColor !== color_empty){
+            do{
                 id = core_random_integer({
-                  'max': 400,
+                  'max': empty.length,
                 });
-            }
+            }while(id === player['y'] * 20 + player['x']);
+            empty.splice(id, 1);
             document.getElementById(id).style.backgroundColor = color_obstacle;
         }while(loop_counter--);
     }
@@ -254,6 +255,7 @@ function repo_init(){
         'color_negative': 'rgb(102, 51, 102)',
         'color_obstacle': 'rgb(0, 0, 0)',
         'color_positive': '#206620',
+        'empty': [],
         'player': {
           'movement_direction': 1,// 0=Up, 1=Right, 2=Down, 3=Left
           'x': 1,
@@ -322,6 +324,7 @@ function repo_init(){
 }
 
 function start(){
+    empty.length = 0;
     let loop_counter = 399;
     do{
         const element = document.getElementById(loop_counter);
@@ -329,15 +332,16 @@ function start(){
         element.style.backgroundColor = color_empty;
         element.style.height = core_storage_data['height'];
         element.style.width = core_storage_data['width'];
-        element.value = '';
+        element.textContent = '';
+        empty.push(loop_counter);
     }while(loop_counter--);
     let element = document.getElementById(21);
     element.style.backgroundColor = color_positive;
-    element.value = '•';
+    element.textContent = '•';
 
     element = document.getElementById(378);
     element.style.backgroundColor = color_negative;
-    element.value = '+';
+    element.textContent = '+';
 
     document.getElementById('score').textContent = '0';
 
@@ -346,14 +350,15 @@ function start(){
     player['y'] = 1;
 
     if(core_storage_data['holes-start'] > 0){
-        let id = -1;
         loop_counter = core_storage_data['holes-start'] - 1;
         do{
+            let id = -1;
             do{
                 id = core_random_integer({
-                  'max': 400,
+                  'max': empty.length,
                 });
-            }while(document.getElementById(id).style.backgroundColor !== color_empty);
+            }while(id === player['y'] * 20 + player['x']);
+            empty.splice(id, 1);
             document.getElementById(id).style.backgroundColor = color_obstacle;
         }while(loop_counter--);
     }
