@@ -9,11 +9,6 @@ function eat_purple_creature(){
       10
     ) + 1;
 
-    if(element.textContent >= Math.floor(398 / (core_storage_data['holes-point'] + 1)) + 1){
-        core_interval_pause_all();
-        return;
-    }
-
     let id = -1;
     do{
         id = core_random_integer({
@@ -25,7 +20,10 @@ function eat_purple_creature(){
     element.style.backgroundColor = color_negative;
     element.textContent = '+';
 
-    let loop_counter = core_storage_data['holes-point'] - 1;
+    let loop_counter = Math.min(
+      core_storage_data['holes-point'] - 1,
+      397
+    );
     if(loop_counter >= 0){
         do{
             do{
@@ -335,10 +333,13 @@ function start(){
         element.textContent = '';
         empty.push(loop_counter);
     }while(loop_counter--);
+
+    empty.splice(21, 1);
     let element = document.getElementById(21);
     element.style.backgroundColor = color_positive;
     element.textContent = '•';
 
+    empty.splice(377, 1);
     element = document.getElementById(378);
     element.style.backgroundColor = color_negative;
     element.textContent = '+';
@@ -350,7 +351,10 @@ function start(){
     player['y'] = 1;
 
     if(core_storage_data['holes-start'] > 0){
-        loop_counter = core_storage_data['holes-start'] - 1;
+        loop_counter = Math.min(
+          core_storage_data['holes-start'] - 1,
+          396
+        );
         do{
             let id = -1;
             do{
