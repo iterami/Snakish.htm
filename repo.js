@@ -19,8 +19,8 @@ function eat_purple_creature(){
         id = core_random_integer({
           'max': empty.length,
         });
-    }while(id === player['y'] * 20 + player['x']);
-    empty.splice(id, 1);
+    }while(empty[id] === player['y'] * 20 + player['x']);
+    id = empty.splice(id, 1);
     element = document.getElementById(id);
     element.style.backgroundColor = color_negative;
     element.textContent = '+';
@@ -32,8 +32,8 @@ function eat_purple_creature(){
                 id = core_random_integer({
                   'max': empty.length,
                 });
-            }while(id === player['y'] * 20 + player['x']);
-            empty.splice(id, 1);
+            }while(empty[id] === player['y'] * 20 + player['x']);
+            id = empty.splice(id, 1);
             document.getElementById(id).style.backgroundColor = color_obstacle;
         }while(loop_counter--);
     }
@@ -357,8 +357,8 @@ function start(){
                 id = core_random_integer({
                   'max': empty.length,
                 });
-            }while(id === player['y'] * 20 + player['x']);
-            empty.splice(id, 1);
+            }while(empty[id] === player['y'] * 20 + player['x']);
+            id = empty.splice(id, 1);
             document.getElementById(id).style.backgroundColor = color_obstacle;
         }while(loop_counter--);
     }
