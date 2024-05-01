@@ -320,7 +320,7 @@ function repo_init(){
           + (value.length ? value : '')
           + '</button>';
     }
-    gamediv.innerHTML = output;
+    gamediv.innerHTML = output + '<br>';
 }
 
 function start(){
