@@ -298,39 +298,22 @@ function repo_init(){
             output += '<br>';
         }
 
-        let color = color_empty;
-        let value = '';
-
-        if(loop_counter === 21){
-            color = color_positive;
-            value = '•';
-
-        }else if(loop_counter === 378){
-            color = color_negative;
-            value = '+';
-        }
-
-        output +=
-          '<button class=gridbutton disabled id=' + loop_counter
-          + ' style="background-color:' + color
-          + '" type=button>'
-          + (value.length ? value : '')
-          + '</button>';
+        output += '<button class=gridbutton disabled id=' + loop_counter + ' type=button></button>';
     }
     gamediv.innerHTML = output + '<br>';
+    reset();
 }
 
-function start(){
+function reset(){
     empty.length = 0;
     let loop_counter = 399;
     do{
+        empty.push(loop_counter);
         const element = document.getElementById(loop_counter);
-
         element.style.backgroundColor = color_empty;
         element.style.height = core_storage_data['height'];
         element.style.width = core_storage_data['width'];
         element.textContent = '';
-        empty.push(loop_counter);
     }while(loop_counter--);
 
     let element = document.getElementById(21);
@@ -346,6 +329,10 @@ function start(){
     player['movement_direction'] = 1; // 0=Up, 1=Right, 2=Down, 3=Left
     player['x'] = 1;
     player['y'] = 1;
+}
+
+function start(){
+    reset();
 
     if(core_storage_data['holes-start'] > 0){
         loop_counter = Math.min(
