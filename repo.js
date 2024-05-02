@@ -270,12 +270,12 @@ function repo_init(){
       },
       'storage': {
         'collision': 1,
-        'height': '25px',
+        'height': 25,
         'holes-point': 1,
         'holes-start': 0,
         'ms-per-move': 125,
         'turn-angle': 0,
-        'width': '25px',
+        'width': 25,
         'wrap': 0,
       },
       'storage-menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
@@ -311,8 +311,10 @@ function reset(){
         empty.push(loop_counter);
         const element = document.getElementById(loop_counter);
         element.style.backgroundColor = color_empty;
-        element.style.height = core_storage_data['height'];
-        element.style.width = core_storage_data['width'];
+        element.style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
+        element.style.height = core_storage_data['height'] + 'px';
+        element.style.lineHeight = Math.ceil(core_storage_data['height'] / 2) + 'px';
+        element.style.width = core_storage_data['width'] + 'px';
         element.textContent = '';
     }while(loop_counter--);
 
@@ -324,6 +326,7 @@ function reset(){
     element.style.backgroundColor = color_negative;
     element.textContent = '+';
 
+    document.getElementById('game-div').style.lineHeight = core_storage_data['height'] + 'px';
     document.getElementById('score').textContent = '0';
 
     player['movement_direction'] = 1; // 0=Up, 1=Right, 2=Down, 3=Left
