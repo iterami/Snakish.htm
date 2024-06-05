@@ -3,11 +3,14 @@
 function eat_purple_creature(){
     audio_start('boop');
 
-    let element = document.getElementById('score');
-    element.textContent = Number.parseInt(
-      element.textContent,
-      10
-    ) + 1;
+    core_ui_update({
+      'ids': {
+        'score': Number.parseInt(
+          core_elements['score'].value,
+          10
+        ) + 1,
+      },
+    });
 
     let id = -1;
     do{
@@ -15,9 +18,8 @@ function eat_purple_creature(){
           'max': empty.length,
         });
     }while(empty[id] === player['y'] * 20 + player['x']);
-    element = document.getElementById(empty[id]);
-    element.style.backgroundColor = color_negative;
-    element.textContent = '+';
+    core_elements[empty[id]].style.backgroundColor = color_negative;
+    core_elements[empty[id]].textContent = '+';
 
     let loop_counter = Math.min(
       core_storage_data['holes-point'] - 1,
@@ -31,7 +33,7 @@ function eat_purple_creature(){
                 });
             }while(empty[id] === player['y'] * 20 + player['x']);
             id = empty.splice(id, 1);
-            document.getElementById(id).style.backgroundColor = color_obstacle;
+            core_elements[id].style.backgroundColor = color_obstacle;
         }while(loop_counter--);
     }
 }
@@ -65,7 +67,7 @@ function move_player(){
 
     if(player['movement_direction'] === 0){
         if(player['y'] - 1 >= 0){
-            check_color = document.getElementById((player['y'] - 1) * 20 + player['x']).style.backgroundColor;
+            check_color = core_elements[(player['y'] - 1) * 20 + player['x']].style.backgroundColor;
 
             if(check_color !== color_obstacle){
                 if(check_color === color_negative){
@@ -81,7 +83,7 @@ function move_player(){
 
         }else if(core_storage_data['wrap'] === 2
           || core_storage_data['wrap'] === 3){
-            check_color = document.getElementById((player['y'] + 19) * 20 + player['x']).style.backgroundColor;
+            check_color = core_elements[(player['y'] + 19) * 20 + player['x']].style.backgroundColor;
 
             if(check_color !== color_obstacle){
                 if(check_color === color_negative){
@@ -101,7 +103,7 @@ function move_player(){
 
     }else if(player['movement_direction'] === 1){
         if(player['x'] + 1 <= 19){
-            check_color = document.getElementById(player['y'] * 20 + player['x'] + 1).style.backgroundColor;
+            check_color = core_elements[player['y'] * 20 + player['x'] + 1].style.backgroundColor;
 
             if(check_color !== color_obstacle){
                 if(check_color === color_negative){
@@ -117,7 +119,7 @@ function move_player(){
 
         }else if(core_storage_data['wrap'] === 1
           || core_storage_data['wrap'] === 2){
-            check_color = document.getElementById(player['y'] * 20 + player['x'] - 19).style.backgroundColor;
+            check_color = core_elements[player['y'] * 20 + player['x'] - 19].style.backgroundColor;
 
             if(check_color !== color_obstacle){
                 if(check_color === color_negative){
@@ -137,7 +139,7 @@ function move_player(){
 
     }else if(player['movement_direction'] === 2){
         if(player['y'] + 1 <= 19){
-            check_color = document.getElementById((player['y'] + 1) * 20 + player['x']).style.backgroundColor;
+            check_color = core_elements[(player['y'] + 1) * 20 + player['x']].style.backgroundColor;
 
             if(check_color !== color_obstacle){
                 if(check_color === color_negative){
@@ -153,7 +155,7 @@ function move_player(){
 
         }else if(core_storage_data['wrap'] === 2
           || core_storage_data['wrap'] === 3){
-            check_color = document.getElementById((player['y'] - 19) * 20 + player['x']).style.backgroundColor;
+            check_color = core_elements[(player['y'] - 19) * 20 + player['x']].style.backgroundColor;
 
             if(check_color !== color_obstacle){
                 if(check_color === color_negative){
@@ -173,7 +175,7 @@ function move_player(){
 
     }else if(player['movement_direction'] === 3){
         if(player['x'] - 1 >= 0){
-            check_color = document.getElementById(player['y'] * 20 + player['x'] - 1).style.backgroundColor;
+            check_color = core_elements[player['y'] * 20 + player['x'] - 1].style.backgroundColor;
 
             if(check_color !== color_obstacle){
                 if(check_color === color_negative){
@@ -189,7 +191,7 @@ function move_player(){
 
         }else if(core_storage_data['wrap'] === 1
           || core_storage_data['wrap'] === 2){
-            check_color = document.getElementById(player['y'] * 20 + player['x'] + 19).style.backgroundColor;
+            check_color = core_elements[player['y'] * 20 + player['x'] + 19].style.backgroundColor;
 
             if(check_color !== color_obstacle){
                 if(check_color === color_negative){
@@ -213,22 +215,25 @@ function move_player(){
             core_interval_pause_all();
 
         }else if(core_storage_data['collision'] === 2){
-            const element = document.getElementById('score');
-            element.textContent = Number.parseInt(
-              element.textContent,
-              10
-            ) - 1;
+            core_ui_update({
+              'ids': {
+                'score': Number.parseInt(
+                  core_elements['score'].value,
+                  10
+                ) - 1,
+              },
+            });
         }
     }
 
     if(dx !== 0
       || dy !== 0){
-        const element = document.getElementById((player['y'] + dy) * 20 + player['x'] + dx);
+        const element = core_elements[(player['y'] + dy) * 20 + player['x'] + dx];
         element.style.backgroundColor = color_empty;
         element.textContent = '';
     }
 
-    const element = document.getElementById(player['y'] * 20 + player['x']);
+    const element = core_elements[player['y'] * 20 + player['x']];
     element.style.backgroundColor = color_positive;
     element.textContent = '•';
 }
@@ -287,11 +292,14 @@ function repo_init(){
         + '<tr><td><select id=turn-angle><option value=0>90°<option value=1>any</select><td>Turn Angle'
         + '<tr><td><select id=wrap><option value=0>No<option value=1>X<option value=2>X+Y<option value=3>Y</select><td>Wrap</table>',
       'title': 'Snakish.htm',
+      'ui-elements': [
+        'game-div',
+        'score',
+      ],
     });
 
     let output = '';
-    const gamediv = document.getElementById('game-div');
-    gamediv.style.minWidth = '560px';
+    core_elements['game-div'].style.minWidth = '560px';
 
     for(let loop_counter = 0; loop_counter < 400; loop_counter++){
         if(loop_counter % 20 === 0 && loop_counter !== 0){
@@ -300,7 +308,7 @@ function repo_init(){
 
         output += '<button class=gridbutton disabled id=' + loop_counter + ' type=button></button>';
     }
-    gamediv.innerHTML = output + '<br>';
+    core_elements['game-div'].innerHTML = output + '<br>';
     reset();
 }
 
@@ -309,25 +317,22 @@ function reset(){
     let loop_counter = 399;
     do{
         empty.push(loop_counter);
-        const element = document.getElementById(loop_counter);
-        element.style.backgroundColor = color_empty;
-        element.style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
-        element.style.height = core_storage_data['height'] + 'px';
-        element.style.lineHeight = Math.ceil(core_storage_data['height'] / 2) + 'px';
-        element.style.width = core_storage_data['width'] + 'px';
-        element.textContent = '';
+        core_elements[loop_counter] = document.getElementById(loop_counter);
+        core_elements[loop_counter].style.backgroundColor = color_empty;
+        core_elements[loop_counter].style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
+        core_elements[loop_counter].style.height = core_storage_data['height'] + 'px';
+        core_elements[loop_counter].style.lineHeight = Math.ceil(core_storage_data['height'] / 2) + 'px';
+        core_elements[loop_counter].style.width = core_storage_data['width'] + 'px';
+        core_elements[loop_counter].textContent = '';
     }while(loop_counter--);
 
-    let element = document.getElementById(21);
-    element.style.backgroundColor = color_positive;
-    element.textContent = '•';
+    core_elements[21].style.backgroundColor = color_positive;
+    core_elements[21].textContent = '•';
+    core_elements[378].style.backgroundColor = color_negative;
+    core_elements[378].textContent = '+';
 
-    element = document.getElementById(378);
-    element.style.backgroundColor = color_negative;
-    element.textContent = '+';
-
-    document.getElementById('game-div').style.lineHeight = core_storage_data['height'] + 'px';
-    document.getElementById('score').textContent = '0';
+    core_elements['game-div'].style.lineHeight = core_storage_data['height'] + 'px';
+    core_elements['score'].textContent = '0';
 
     player['movement_direction'] = 1; // 0=Up, 1=Right, 2=Down, 3=Left
     player['x'] = 1;
@@ -350,7 +355,7 @@ function start(){
                 });
             }while(empty[id] === 21 || empty[id] === 378);
             id = empty.splice(id, 1);
-            document.getElementById(id).style.backgroundColor = color_obstacle;
+            core_elements[id].style.backgroundColor = color_obstacle;
         }while(loop_counter--);
     }
 
