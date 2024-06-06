@@ -6,7 +6,7 @@ function eat_purple_creature(){
     core_ui_update({
       'ids': {
         'score': Number.parseInt(
-          core_elements['score'].value,
+          core_elements['score'].textContent,
           10
         ) + 1,
       },
@@ -218,7 +218,7 @@ function move_player(){
             core_ui_update({
               'ids': {
                 'score': Number.parseInt(
-                  core_elements['score'].value,
+                  core_elements['score'].textContent,
                   10
                 ) - 1,
               },
