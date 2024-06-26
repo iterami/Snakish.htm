@@ -21,10 +21,10 @@ function eat_purple_creature(){
     core_elements[empty[id]].style.backgroundColor = color_negative;
     core_elements[empty[id]].textContent = '+';
 
-    let loop_counter = Math.min(
+    let loop_counter = Math.floor(Math.min(
       core_storage_data['holes-point'] - 1,
       397
-    );
+    ));
     if(loop_counter >= 0){
         do{
             do{
@@ -286,8 +286,8 @@ function repo_init(){
       'storage-menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
         + '<tr><td><input class=mini id=width type=text><td>Button Width'
         + '<tr><td><select id=collision><option value=1>End Game<option value=0>Nothing<option value=2>Score-1</select><td>Collision'
-        + '<tr><td><input class=mini id=holes-point min=0 step=any type=number><td>Holes/Point'
-        + '<tr><td><input class=mini id=holes-start min=0 step=any type=number><td>Holes/Start'
+        + '<tr><td><input class=mini id=holes-point min=0 step=1 type=number><td>Holes/Point'
+        + '<tr><td><input class=mini id=holes-start min=0 step=1 type=number><td>Holes/Start'
         + '<tr><td><input class=mini id=ms-per-move min=1 step=any type=number><td>ms/Move'
         + '<tr><td><select id=turn-angle><option value=0>90°<option value=1>any</select><td>Turn Angle'
         + '<tr><td><select id=wrap><option value=0>No<option value=1>X<option value=2>X+Y<option value=3>Y</select><td>Wrap</table>',
@@ -343,10 +343,10 @@ function start(){
     reset();
 
     if(core_storage_data['holes-start'] > 0){
-        loop_counter = Math.min(
+        loop_counter = Math.floor(Math.min(
           core_storage_data['holes-start'] - 1,
           396
-        );
+        ));
         do{
             let id = -1;
             do{
