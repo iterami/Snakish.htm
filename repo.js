@@ -229,7 +229,7 @@ function move_player(){
     if(dx !== 0
       || dy !== 0){
         const element = core_elements[(player['y'] + dy) * 20 + player['x'] + dx];
-        element.style.backgroundColor = color_empty;
+        element.style.backgroundColor = '';
         element.textContent = '';
     }
 
@@ -253,7 +253,6 @@ function repo_init(){
         },
       },
       'globals': {
-        'color_empty': 'rgb(42, 42, 42)',
         'color_negative': 'rgb(102, 51, 102)',
         'color_obstacle': 'rgb(0, 0, 0)',
         'color_positive': '#206620',
@@ -318,7 +317,7 @@ function reset(){
     do{
         empty.push(loop_counter);
         core_elements[loop_counter] = document.getElementById(loop_counter);
-        core_elements[loop_counter].style.backgroundColor = color_empty;
+        core_elements[loop_counter].style.backgroundColor = '';
         core_elements[loop_counter].style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
         core_elements[loop_counter].style.height = core_storage_data['height'] + 'px';
         core_elements[loop_counter].style.lineHeight = Math.ceil(core_storage_data['height'] / 2) + 'px';
