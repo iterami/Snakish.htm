@@ -312,7 +312,7 @@ function repo_init(){
 }
 
 function reset(){
-    empty.length = 0;
+    core_object_reset(empty);
     let loop_counter = 399;
     do{
         empty.push(loop_counter);
