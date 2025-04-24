@@ -342,7 +342,7 @@ function start(){
     reset();
 
     if(core_storage_data['holes-start'] > 0){
-        loop_counter = Math.floor(Math.min(
+        let loop_counter = Math.floor(Math.min(
           core_storage_data['holes-start'] - 1,
           396
         ));
