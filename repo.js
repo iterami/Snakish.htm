@@ -241,7 +241,7 @@ function move_player(){
 function repo_escape(){
     if(!core_intervals['interval']
       && !core_menu_open){
-        core_repo_reset();
+        start();
     }
 }
 
@@ -249,7 +249,7 @@ function repo_init(){
     core_repo_init({
       'events': {
         'start-button': {
-          'onclick': core_repo_reset,
+          'onclick': start
         },
       },
       'globals': {
@@ -265,13 +265,6 @@ function repo_init(){
       },
       'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
-      'reset': function(){
-          stop();
-          if(core_menu_open){
-              core_escape();
-          }
-          start();
-      },
       'storage': {
         'collision': 1,
         'height': 25,
@@ -282,6 +275,7 @@ function repo_init(){
         'width': 25,
         'wrap': 0,
       },
+      'storage-controls': true,
       'storage-menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
         + '<tr><td><input class=mini id=width min=1 step=any type=number><td>Button Width'
         + '<tr><td><select id=collision><option value=1>End Game<option value=0>Nothing<option value=2>Score-1</select><td>Collision'
@@ -339,6 +333,9 @@ function reset(){
 }
 
 function start(){
+    if(core_menu_open){
+        core_escape();
+    }
     reset();
 
     if(core_storage_data['holes-start'] > 0){
