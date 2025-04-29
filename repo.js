@@ -5,10 +5,7 @@ function eat_purple_creature(){
 
     core_ui_update({
       'ids': {
-        'score': Number.parseInt(
-          core_elements['score'].textContent,
-          10
-        ) + 1,
+        'score': ++score,
       },
     });
 
@@ -217,10 +214,7 @@ function move_player(){
         }else if(core_storage_data['collision'] === 2){
             core_ui_update({
               'ids': {
-                'score': Number.parseInt(
-                  core_elements['score'].textContent,
-                  10
-                ) - 1,
+                'score': --score,
               },
             });
         }
@@ -249,7 +243,7 @@ function repo_init(){
     core_repo_init({
       'events': {
         'start-button': {
-          'onclick': start
+          'onclick': start,
         },
       },
       'globals': {
@@ -262,6 +256,7 @@ function repo_init(){
           'x': 1,
           'y': 1,
         },
+        'score': 0,
       },
       'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
@@ -287,7 +282,6 @@ function repo_init(){
       'title': 'Snakish.htm',
       'ui-elements': [
         'game-div',
-        'score',
       ],
     });
 
@@ -325,7 +319,7 @@ function reset(){
     core_elements[378].textContent = '+';
 
     core_elements['game-div'].style.lineHeight = core_storage_data['height'] + 'px';
-    core_elements['score'].textContent = '0';
+    score = 0;
 
     player['movement_direction'] = 1; // 0=Up, 1=Right, 2=Down, 3=Left
     player['x'] = 1;
@@ -333,6 +327,10 @@ function reset(){
 }
 
 function start(){
+    if(score > 0
+      && !globalThis.confirm('Start new game?')){
+        return;
+    }
     if(core_menu_open){
         core_escape();
     }
