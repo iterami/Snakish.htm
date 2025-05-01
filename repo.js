@@ -41,22 +41,53 @@ function move_player(){
     let dy = 0;
     let end_game = false;
 
-    if(core_keys[core_storage_data['move-←']]['state']){
+    let move_down = false;
+    let move_left = false;
+    let move_right = false;
+    let move_up = false;
+    if(core_mobile){
+        if(core_mouse['down-0']){
+            if(Math.abs(core_mouse['movement-y']) < 5){
+                if(core_mouse['movement-x'] > 5){
+                    move_right = true;
+
+                }else if(core_mouse['movement-x'] < -5){
+                    move_left = true;
+                }
+
+            }else if(Math.abs(core_mouse['movement-x']) < 5){
+                if(core_mouse['movement-y'] > 5){
+                    move_down = true;
+
+                }else if(core_mouse['movement-y'] < -5){
+                    move_up = true;
+                }
+            }
+        }
+
+    }else{
+        move_down = core_keys[core_storage_data['move-↓']]['state'];
+        move_left = core_keys[core_storage_data['move-←']]['state'];
+        move_right = core_keys[core_storage_data['move-→']]['state'];
+        move_up = core_keys[core_storage_data['move-↑']]['state'];
+    }
+
+    if(move_left){
         if(player['movement_direction'] !== 1 || core_storage_data['turn-angle'] === 1){
             player['movement_direction'] = 3;
         }
 
-    }else if(core_keys[core_storage_data['move-→']]['state']){
+    }else if(move_right){
         if(player['movement_direction'] !== 3 || core_storage_data['turn-angle'] === 1){
             player['movement_direction'] = 1;
         }
 
-    }else if(core_keys[core_storage_data['move-↓']]['state']){
+    }else if(move_down){
         if(player['movement_direction'] !== 0 || core_storage_data['turn-angle'] === 1){
             player['movement_direction'] = 2;
         }
 
-    }else if(core_keys[core_storage_data['move-↑']]['state']){
+    }else if(move_up){
         if(player['movement_direction'] !== 2 || core_storage_data['turn-angle'] === 1){
             player['movement_direction'] = 0;
         }
@@ -260,6 +291,9 @@ function repo_init(){
       },
       'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
+      'mousebinds': core_mobile
+        ? {}
+        : void 0,
       'storage': {
         'collision': 1,
         'height': 25,
