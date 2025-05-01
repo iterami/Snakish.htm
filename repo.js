@@ -48,18 +48,18 @@ function move_player(){
     if(core_mobile){
         if(core_mouse['down-0']){
             if(Math.abs(core_mouse['movement-y']) < 5){
-                if(core_mouse['movement-x'] > 5){
+                if(core_mouse['movement-x'] > 0){
                     move_right = true;
 
-                }else if(core_mouse['movement-x'] < -5){
+                }else if(core_mouse['movement-x'] < 0){
                     move_left = true;
                 }
 
             }else if(Math.abs(core_mouse['movement-x']) < 5){
-                if(core_mouse['movement-y'] > 5){
+                if(core_mouse['movement-y'] > 0){
                     move_down = true;
 
-                }else if(core_mouse['movement-y'] < -5){
+                }else if(core_mouse['movement-y'] < 0){
                     move_up = true;
                 }
             }
