@@ -10,14 +10,6 @@ function eat_purple_creature(){
     });
 
     let id = -1;
-    do{
-        id = core_random_integer({
-          'max': empty.length,
-        });
-    }while(empty[id] === player['y'] * 20 + player['x']);
-    core_elements[empty[id]].style.backgroundColor = color_negative;
-    core_elements[empty[id]].textContent = '+';
-
     let loop_counter = Math.floor(Math.min(
       core_storage_data['holes-point'] - 1,
       397
@@ -33,6 +25,14 @@ function eat_purple_creature(){
             core_elements[id].style.backgroundColor = color_obstacle;
         }while(loop_counter--);
     }
+
+    do{
+        id = core_random_integer({
+          'max': empty.length,
+        });
+    }while(empty[id] === player['y'] * 20 + player['x']);
+    core_elements[empty[id]].style.backgroundColor = color_negative;
+    core_elements[empty[id]].textContent = '+';
 }
 
 function move_player(){
