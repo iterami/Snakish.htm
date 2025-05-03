@@ -41,23 +41,27 @@ function move_player(){
     let move_up = false;
     if(core_mobile){
         if(core_mouse['down-0']){
-            const x = core_mouse['x'] / globalThis.innerWidth - .5;
-            const y = core_mouse['y'] / globalThis.innerHeight - .5;
-            if(x < 0){
-                 if(x < y){
-                     move_left = true;
+            const x = core_mouse['x'] / globalThis.innerWidth;
+            const y = core_mouse['y'] / globalThis.innerHeight;
+            if(x < .5){
+                 if(y < x){
+                     move_up = true;
+
+                 }else if(y > 1 - x){
+                     move_down = true;
 
                  }else{
-                     move_up = true;
+                     move_left = true;
                  }
+
+            }else if(x < y){
+                 move_down = true;
+
+            }else if(x < 1 - y){
+                 move_up = true;
 
             }else{
-                 if(x > y){
-                     move_right = true;
-
-                 }else{
-                     move_down = true;
-                 }
+                 move_right = true;
             }
         }
 
