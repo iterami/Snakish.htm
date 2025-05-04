@@ -14,9 +14,15 @@ function eat_purple_creature(){
       core_storage_data['holes-point'] - 1,
       397
     ));
+    const player_xy = player['y'] * 20 + player['x'];
     if(loop_counter >= 0){
         do{
-            core_elements[core_random_splice(empty)].style.backgroundColor = color_obstacle;
+            do{
+                id = core_random_integer({
+                  'max': empty.length,
+                });
+            }while(empty[id] === player_xy);
+            core_elements[empty.splice(id, 1)].style.backgroundColor = color_obstacle;
         }while(loop_counter--);
     }
 
@@ -24,7 +30,7 @@ function eat_purple_creature(){
         id = core_random_integer({
           'max': empty.length,
         });
-    }while(empty[id] === player['y'] * 20 + player['x']);
+    }while(empty[id] === player_xy);
     core_elements[empty[id]].style.backgroundColor = color_negative;
     core_elements[empty[id]].textContent = '+';
 }
@@ -337,13 +343,18 @@ function reset(){
     core_object_reset(empty);
     let loop_counter = 399;
     do{
-        empty.push(loop_counter);
-        core_elements[loop_counter] = document.getElementById(loop_counter);
-        core_elements[loop_counter].style.backgroundColor = '';
-        core_elements[loop_counter].style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
-        core_elements[loop_counter].style.height = core_storage_data['height'] + 'px';
-        core_elements[loop_counter].style.lineHeight = Math.ceil(core_storage_data['height'] / 2) + 'px';
-        core_elements[loop_counter].style.width = core_storage_data['width'] + 'px';
+        if(loop_counter !== 21 && loop_counter !== 378){
+            empty.push(loop_counter);
+        }
+        if(!core_elements[loop_counter]){
+            core_elements[loop_counter] = document.getElementById(loop_counter);
+        }
+        const style = core_elements[loop_counter].style;
+        style.backgroundColor = '';
+        style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
+        style.height = core_storage_data['height'] + 'px';
+        style.lineHeight = Math.ceil(core_storage_data['height'] / 2) + 'px';
+        style.width = core_storage_data['width'] + 'px';
         core_elements[loop_counter].textContent = '';
     }while(loop_counter--);
 
@@ -376,7 +387,13 @@ function start(){
           396
         ));
         do{
-            core_elements[core_random_splice(empty)].style.backgroundColor = color_obstacle;
+            const id = empty.splice(
+              core_random_integer({
+                'max': empty.length,
+              }),
+              1
+            );
+            core_elements[id].style.backgroundColor = color_obstacle;
         }while(loop_counter--);
     }
 
