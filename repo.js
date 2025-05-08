@@ -46,9 +46,9 @@ function move_player(){
     let move_right = false;
     let move_up = false;
     if(core_mobile){
-        if(core_mouse['down-0']){
-            const x = core_mouse['x'] / globalThis.innerWidth;
-            const y = core_mouse['y'] / globalThis.innerHeight;
+        if(core_pointer['down-0']){
+            const x = core_pointer['x'] / globalThis.innerWidth;
+            const y = core_pointer['y'] / globalThis.innerHeight;
             if(x < .5){
                  if(y < x){
                      move_up = true;
@@ -297,7 +297,7 @@ function repo_init(){
       },
       'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
-      'mousebinds': core_mobile
+      'pointerbinds': core_mobile
         ? {}
         : void 0,
       'storage': {
