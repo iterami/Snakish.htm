@@ -41,41 +41,33 @@ function move_player(){
     let dy = 0;
     let end_game = false;
 
-    let move_down = false;
-    let move_left = false;
-    let move_right = false;
-    let move_up = false;
-    if(core_mobile){
-        if(core_pointer['down-0']){
-            const x = core_pointer['x'] / globalThis.innerWidth;
-            const y = core_pointer['y'] / globalThis.innerHeight;
-            if(x < .5){
-                 if(y < x){
-                     move_up = true;
-
-                 }else if(y > 1 - x){
-                     move_down = true;
-
-                 }else{
-                     move_left = true;
-                 }
-
-            }else if(x < y){
-                 move_down = true;
-
-            }else if(x < 1 - y){
+    let move_down = core_keys[core_storage_data['move-↓']]['state'];
+    let move_left = core_keys[core_storage_data['move-←']]['state'];
+    let move_right = core_keys[core_storage_data['move-→']]['state'];
+    let move_up = core_keys[core_storage_data['move-↑']]['state'];
+    if(core_pointer['down-0']){
+        const x = core_pointer['x'] / globalThis.innerWidth;
+        const y = core_pointer['y'] / globalThis.innerHeight;
+        if(x < .5){
+             if(y < x){
                  move_up = true;
 
-            }else{
-                 move_right = true;
-            }
-        }
+             }else if(y > 1 - x){
+                 move_down = true;
 
-    }else{
-        move_down = core_keys[core_storage_data['move-↓']]['state'];
-        move_left = core_keys[core_storage_data['move-←']]['state'];
-        move_right = core_keys[core_storage_data['move-→']]['state'];
-        move_up = core_keys[core_storage_data['move-↑']]['state'];
+             }else{
+                 move_left = true;
+             }
+
+        }else if(x < y){
+             move_down = true;
+
+        }else if(x < 1 - y){
+             move_up = true;
+
+        }else{
+             move_right = true;
+        }
     }
 
     if(move_left){
@@ -297,9 +289,7 @@ function repo_init(){
       },
       'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
-      'pointerbinds': core_mobile
-        ? {}
-        : void 0,
+      'pointerbinds': {},
       'storage': {
         'collision': 1,
         'height': 25,
