@@ -46,27 +46,28 @@ function move_player(){
     let move_right = core_keys[core_storage_data['move-→']]['state'];
     let move_up = core_keys[core_storage_data['move-↑']]['state'];
     if(core_pointer['down-0']){
-        const x = core_pointer['x'] / globalThis.innerWidth;
-        const y = core_pointer['y'] / globalThis.innerHeight;
-        if(x < .5){
-             if(y < x){
-                 move_up = true;
+        const element = core_elements[player['y'] * 20 + player['x']];
+        const x = core_pointer['x'] - element.offsetLeft;
+        const y = core_pointer['y'] - element.offsetTop;
+        if(x < 0){
+            if(y < x){
+                move_up = true;
 
-             }else if(y > 1 - x){
-                 move_down = true;
+            }else if(y > globalThis.innerWidth - x){
+                move_down = true;
 
-             }else{
-                 move_left = true;
-             }
+            }else{
+                move_left = true;
+            }
 
         }else if(x < y){
-             move_down = true;
+            move_down = true;
 
-        }else if(x < 1 - y){
-             move_up = true;
+        }else if(x < globalThis.innerHeight - y){
+            move_up = true;
 
         }else{
-             move_right = true;
+            move_right = true;
         }
     }
 
