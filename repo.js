@@ -53,7 +53,7 @@ function move_player(){
             if(y < x){
                 move_up = true;
 
-            }else if(y > globalThis.innerWidth - x){
+            }else if(y > 0 && -y < x){
                 move_down = true;
 
             }else{
@@ -63,7 +63,7 @@ function move_player(){
         }else if(x < y){
             move_down = true;
 
-        }else if(x < globalThis.innerHeight - y){
+        }else if(y < 0 && -y > x){
             move_up = true;
 
         }else{
