@@ -18,18 +18,14 @@ function eat_purple_creature(){
     if(loop_counter >= 0){
         do{
             do{
-                id = core_random_integer({
-                  'max': empty.length,
-                });
+                id = core_random_integer(empty.length);
             }while(empty[id] === player_xy);
             core_elements[empty.splice(id, 1)].style.backgroundColor = color_obstacle;
         }while(loop_counter--);
     }
 
     do{
-        id = core_random_integer({
-          'max': empty.length,
-        });
+        id = core_random_integer(empty.length);
     }while(empty[id] === player_xy);
     core_elements[empty[id]].style.backgroundColor = color_negative;
     core_elements[empty[id]].textContent = '+';
@@ -386,9 +382,7 @@ function start(){
         ));
         do{
             const id = empty.splice(
-              core_random_integer({
-                'max': empty.length,
-              }),
+              core_random_integer(empty.length),
               1
             );
             core_elements[id].style.backgroundColor = color_obstacle;
