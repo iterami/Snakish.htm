@@ -315,12 +315,12 @@ function repo_init(){
         + '<tr><td><select id=wrap><option value=0>No<option value=1>X<option value=2>X+Y<option value=3>Y</select><td>Wrap</table>',
       'title': 'Snakish.htm',
       'ui-elements': [
-        'game-div',
+        'game',
       ],
     });
 
     let output = '';
-    core_elements['game-div'].style.minWidth = '560px';
+    core_elements['game'].style.minWidth = '560px';
 
     for(let loop_counter = 0; loop_counter < 400; loop_counter++){
         if(loop_counter % 20 === 0 && loop_counter !== 0){
@@ -329,7 +329,7 @@ function repo_init(){
 
         output += '<button class=gridbutton disabled id=' + loop_counter + ' type=button></button>';
     }
-    core_elements['game-div'].innerHTML = output + '<br>';
+    core_elements['game'].innerHTML = output + '<br>';
     reset();
 }
 
@@ -357,7 +357,7 @@ function reset(){
     core_elements[378].style.backgroundColor = color_negative;
     core_elements[378].textContent = '+';
 
-    core_elements['game-div'].style.lineHeight = core_storage_data['height'] + 'px';
+    core_elements['game'].style.lineHeight = core_storage_data['height'] + 'px';
     score = 0;
 
     player['movement_direction'] = 1; // 0=Up, 1=Right, 2=Down, 3=Left
