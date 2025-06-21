@@ -305,7 +305,7 @@ function repo_init(){
         'wrap': 0,
       },
       'storage_controls': true,
-      'storage-menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
+      'storage_menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
         + '<tr><td><input class=mini id=width min=1 step=any type=number><td>Button Width'
         + '<tr><td><select id=collision><option value=1>End Game<option value=0>Nothing<option value=2>Score-1</select><td>Collision'
         + '<tr><td><input class=mini id=holes_point min=0 step=1 type=number><td>Holes/Point'
