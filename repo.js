@@ -41,7 +41,7 @@ function move_player(){
     let move_left = core_keys[core_storage_data['move-←']].state;
     let move_right = core_keys[core_storage_data['move-→']].state;
     let move_up = core_keys[core_storage_data['move-↑']].state;
-    if(core_pointer['down-0']){
+    if(core_pointer.down_0){
         const element = core_elements[player.y * 20 + player.x];
         const x = core_pointer.x - element.offsetLeft;
         const y = core_pointer.y - element.offsetTop;
