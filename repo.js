@@ -275,7 +275,7 @@ function repo_init(){
         },
       },
       'events': {
-        'start-button': {
+        'start_button': {
           'onclick': start,
         },
       },
@@ -291,22 +291,22 @@ function repo_init(){
         },
         'score': 0,
       },
-      'info': '<button id=start-button type=button>Restart</button>',
+      'info': '<button id=start_button type=button>Restart</button>',
       'menu': true,
       'pointerbinds': {},
       'storage': {
         'collision': 1,
-        'height': 25,
+        'height': '25px',
         'holes_point': 1,
         'holes_start': 0,
         'ms_per_move': 125,
         'turn_angle': 0,
-        'width': 25,
+        'width': '25px',
         'wrap': 0,
       },
       'storage_controls': true,
-      'storage_menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
-        + '<tr><td><input class=mini id=width min=1 step=any type=number><td>Button Width'
+      'storage_menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
+        + '<tr><td><input class=mini id=width type=text><td>Button Width'
         + '<tr><td><select id=collision><option value=1>End Game<option value=0>Nothing<option value=2>Score-1</select><td>Collision'
         + '<tr><td><input class=mini id=holes_point min=0 step=1 type=number><td>Holes/Point'
         + '<tr><td><input class=mini id=holes_start min=0 step=1 type=number><td>Holes/Start'
@@ -320,8 +320,6 @@ function repo_init(){
     });
 
     let output = '';
-    core_elements.game.style.minWidth = '560px';
-
     for(let loop_counter = 0; loop_counter < 400; loop_counter++){
         if(loop_counter % 20 === 0 && loop_counter !== 0){
             output += '<br>';
@@ -345,11 +343,13 @@ function reset(){
         }
         const style = core_elements[loop_counter].style;
         style.backgroundColor = '';
-        style.fontSize = Math.ceil(core_storage_data.height / 2) + 'px';
-        style.height = core_storage_data.height + 'px';
-        style.lineHeight = Math.ceil(core_storage_data.height / 2) + 'px';
-        style.width = core_storage_data.width + 'px';
+        style.height = core_storage_data.height;
+        style.width = core_storage_data.width;
         core_elements[loop_counter].textContent = '';
+
+        const half = Math.ceil(core_elements[loop_counter].offsetWidth / 2) + 'px';
+        style.fontSize = half;
+        style.lineHeight = half;
     }while(loop_counter--);
 
     core_elements[21].style.backgroundColor = color_positive;
@@ -357,7 +357,8 @@ function reset(){
     core_elements[378].style.backgroundColor = color_negative;
     core_elements[378].textContent = '+';
 
-    core_elements.game.style.lineHeight = core_storage_data.height + 'px';
+    core_elements.game.style.lineHeight = core_storage_data.height;
+    core_elements.game.style.minWidth = (core_elements[0].offsetWidth * 20 + 40) + 'px';
     score = 0;
 
     player.movement_direction = 1; // 0=Up, 1=Right, 2=Down, 3=Left
