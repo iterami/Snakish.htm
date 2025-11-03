@@ -255,7 +255,7 @@ function move_player(){
 
     const element = core_elements[player.y * 20 + player.x];
     element.style.backgroundColor = color_positive;
-    element.textContent = '•';
+    element.textContent = ['↑', '→', '↓', '←',][player.movement_direction];
 }
 
 function repo_escape(){
@@ -353,7 +353,7 @@ function reset(){
     }while(loop_counter--);
 
     core_elements[21].style.backgroundColor = color_positive;
-    core_elements[21].textContent = '•';
+    core_elements[21].textContent = '→';
     core_elements[378].style.backgroundColor = color_negative;
     core_elements[378].textContent = '+';
 
