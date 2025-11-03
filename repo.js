@@ -332,6 +332,16 @@ function repo_init(){
 }
 
 function reset(){
+    score = 0;
+    core_ui_update({
+      'ids': {
+        'score': score,
+      },
+    });
+    player.movement_direction = 1; // 0=Up, 1=Right, 2=Down, 3=Left
+    player.x = 1;
+    player.y = 1;
+
     core_object_reset(empty);
     let loop_counter = 399;
     do{
@@ -351,7 +361,6 @@ function reset(){
         style.fontSize = half;
         style.lineHeight = half;
     }while(loop_counter--);
-
     core_elements[21].style.backgroundColor = color_positive;
     core_elements[21].textContent = '→';
     core_elements[378].style.backgroundColor = color_negative;
@@ -359,11 +368,6 @@ function reset(){
 
     core_elements.game.style.lineHeight = core_storage_data.height;
     core_elements.game.style.minWidth = (core_elements[0].offsetWidth * 20 + 40) + 'px';
-    score = 0;
-
-    player.movement_direction = 1; // 0=Up, 1=Right, 2=Down, 3=Left
-    player.x = 1;
-    player.y = 1;
 }
 
 function start(){
