@@ -37,56 +37,7 @@ function move_player(){
     let dy = 0;
     let end_game = false;
 
-    let move_down = core_keys[core_storage_data.move_down].state;
-    let move_left = core_keys[core_storage_data.move_left].state;
-    let move_right = core_keys[core_storage_data.move_right].state;
-    let move_up = core_keys[core_storage_data.move_up].state;
-    if(core_pointer.down_0){
-        const element = core_elements[player.y * 20 + player.x];
-        const x = core_pointer.x - element.offsetLeft;
-        const y = core_pointer.y - element.offsetTop;
-        if(x < 0){
-            if(y < x){
-                move_up = true;
-
-            }else if(y > 0 && -y < x){
-                move_down = true;
-
-            }else{
-                move_left = true;
-            }
-
-        }else if(x < y){
-            move_down = true;
-
-        }else if(y < 0 && -y > x){
-            move_up = true;
-
-        }else{
-            move_right = true;
-        }
-    }
-
-    if(move_left){
-        if(player.movement_direction !== 1 || core_storage_data.turn_angle === 1){
-            player.movement_direction = 3;
-        }
-
-    }else if(move_right){
-        if(player.movement_direction !== 3 || core_storage_data.turn_angle === 1){
-            player.movement_direction = 1;
-        }
-
-    }else if(move_down){
-        if(player.movement_direction !== 0 || core_storage_data.turn_angle === 1){
-            player.movement_direction = 2;
-        }
-
-    }else if(move_up){
-        if(player.movement_direction !== 2 || core_storage_data.turn_angle === 1){
-            player.movement_direction = 0;
-        }
-    }
+    player.movement_direction = player.requested_direction;
 
     if(player.movement_direction === 0){
         if(player.y - 1 >= 0){
@@ -235,6 +186,7 @@ function move_player(){
 
     if(end_game){
         if(core_storage_data.collision === 1){
+            core_mode = 0;
             core_interval_pause_all();
 
         }else if(core_storage_data.collision === 2){
@@ -255,7 +207,7 @@ function move_player(){
 
     const element = core_elements[player.y * 20 + player.x];
     element.style.backgroundColor = color_positive;
-    element.textContent = ['↑', '→', '↓', '←',][player.movement_direction];
+    update_arrow(player.movement_direction);
 }
 
 function repo_escape(){
@@ -287,6 +239,7 @@ function repo_init(){
         'empty': [],
         'player': {
           'movement_direction': 1,// 0=Up, 1=Right, 2=Down, 3=Left
+          'requested_direciton': 1,
           'x': 1,
           'y': 1,
         },
@@ -294,7 +247,43 @@ function repo_init(){
       },
       'info': '<button id=start_button type=button>Restart</button>',
       'menu': true,
-      'pointerbinds': {},
+      'pointerbinds': {
+        'pointermove': {
+          'todo': function(){
+              if(!core_mode
+                || !core_pointer.down_0){
+                  return;
+              }
+
+              const element = core_elements[player.y * 20 + player.x];
+              const x = core_pointer.x - element.offsetLeft;
+              const y = core_pointer.y - element.offsetTop;
+
+              let direction = player.requested_direction;
+              if(x < 0){
+                  if(y < x){
+                      direction = 0;
+
+                  }else if(y > 0 && -y < x){
+                      direction = 2;
+
+                  }else{
+                      direction = 3;
+                  }
+
+              }else if(x < y){
+                  direction = 2;
+
+              }else if(y < 0 && -y > x){
+                  direction = 0;
+
+              }else{
+                  direction = 1;
+              }
+              update_arrow(direction);
+          },
+        },
+      },
       'storage': {
         'collision': 1,
         'height': '25px',
@@ -305,7 +294,20 @@ function repo_init(){
         'width': '25px',
         'wrap': 0,
       },
-      'storage_controls': true,
+      'storage_controls': {
+        'move_down': {
+          'todo': update_direction,
+        },
+        'move_left': {
+          'todo': update_direction,
+        },
+        'move_right': {
+          'todo': update_direction,
+        },
+        'move_up': {
+          'todo': update_direction,
+        },
+      },
       'storage_menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
         + '<tr><td><input class=mini id=width type=text><td>Button Width'
         + '<tr><td><select id=collision><option value=1>End Game<option value=0>Nothing<option value=2>Score-1</select><td>Collision'
@@ -340,6 +342,7 @@ function reset(){
       },
     });
     player.movement_direction = 1; // 0=Up, 1=Right, 2=Down, 3=Left
+    player.requested_direction = 1;
     player.x = 1;
     player.y = 1;
 
@@ -369,6 +372,8 @@ function reset(){
 
     core_elements.game.style.lineHeight = core_storage_data.height;
     core_elements.game.style.minWidth = (core_elements[0].offsetWidth * 20 + 40) + 'px';
+
+    core_mode = 1;
 }
 
 function start(){
@@ -400,4 +405,49 @@ function start(){
       'interval': core_storage_data.ms_per_move,
       'todo': move_player,
     });
+}
+
+function update_arrow(direction){
+    if(direction === 0){
+        if(player.movement_direction !== 2 || core_storage_data.turn_angle === 1){
+            player.requested_direction = 0;
+        }
+
+    }else if(direction === 1){
+        if(player.movement_direction !== 3 || core_storage_data.turn_angle === 1){
+            player.requested_direction = 1;
+        }
+
+    }else if(direction === 2){
+        if(player.movement_direction !== 0 || core_storage_data.turn_angle === 1){
+            player.requested_direction = 2;
+        }
+
+    }else if(direction === 3){
+        if(player.movement_direction !== 1 || core_storage_data.turn_angle === 1){
+            player.requested_direction = 3;
+        }
+    }
+    core_elements[player.y * 20 + player.x].textContent = ['↑', '→', '↓', '←',][player.requested_direction];
+}
+
+function update_direction(event){
+    if(!core_mode){
+        return;
+    }
+
+    let direction = player.requested_direction;
+    if(event.code === core_storage_data.move_up){
+        direction = 0;
+
+    }else if(event.code === core_storage_data.move_right){
+        direction = 1;
+
+    }else if(event.code === core_storage_data.move_down){
+        direction = 2;
+
+    }else if(event.code === core_storage_data.move_left){
+        direction = 3;
+    }
+    update_arrow(direction);
 }
