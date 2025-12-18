@@ -228,7 +228,7 @@ function repo_init(){
         },
       },
       'events': {
-        'start_button': {
+        'restart': {
           'onclick': start,
         },
       },
@@ -245,7 +245,7 @@ function repo_init(){
         },
         'score': 0,
       },
-      'info': '<button id=start_button type=button>Restart</button>',
+      'info': '<button id=restart type=button>Restart</button>',
       'menu': true,
       'pointerbinds': {
         'pointermove': {
