@@ -408,25 +408,9 @@ function start(){
 }
 
 function update_arrow(direction){
-    if(direction === 0){
-        if(player.movement_direction !== 2 || core_storage_data.turn_angle === 1){
-            player.requested_direction = 0;
-        }
-
-    }else if(direction === 1){
-        if(player.movement_direction !== 3 || core_storage_data.turn_angle === 1){
-            player.requested_direction = 1;
-        }
-
-    }else if(direction === 2){
-        if(player.movement_direction !== 0 || core_storage_data.turn_angle === 1){
-            player.requested_direction = 2;
-        }
-
-    }else if(direction === 3){
-        if(player.movement_direction !== 1 || core_storage_data.turn_angle === 1){
-            player.requested_direction = 3;
-        }
+    if(core_storage_data.turn_angle === 1
+      || Math.abs(direction - player.movement_direction) !== 2){
+        player.requested_direction = direction;
     }
     core_elements[player.y * 20 + player.x].textContent = ['↑', '→', '↓', '←',][player.requested_direction];
 }
