@@ -296,16 +296,16 @@ function repo_init(){
       },
       'storage_controls': {
         'move_down': {
-          'todo': update_direction,
+          'down': update_direction,
         },
         'move_left': {
-          'todo': update_direction,
+          'down': update_direction,
         },
         'move_right': {
-          'todo': update_direction,
+          'down': update_direction,
         },
         'move_up': {
-          'todo': update_direction,
+          'down': update_direction,
         },
       },
       'storage_menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
