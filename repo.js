@@ -1,6 +1,6 @@
 'use strict';
 
-function eat_purple_creature(){
+function eat_creature(){
     audio_start('boop');
 
     core_ui_update({
@@ -20,14 +20,14 @@ function eat_purple_creature(){
             do{
                 id = core_random_integer(empty.length);
             }while(empty[id] === player_xy);
-            core_elements[empty.splice(id, 1)].style.backgroundColor = color_obstacle;
+            core_elements[empty.splice(id, 1)].style.backgroundColor = '#000';
         }while(loop_counter--);
     }
 
     do{
         id = core_random_integer(empty.length);
     }while(empty[id] === player_xy);
-    core_elements[empty[id]].style.backgroundColor = color_negative;
+    core_elements[empty[id]].style.backgroundColor = core_storage_data.creature_color;
     core_elements[empty[id]].textContent = '+';
 }
 
@@ -36,6 +36,9 @@ function move_player(){
     let dx = 0;
     let dy = 0;
     let end_game = false;
+    const obstacle_color = 'rgb(0, 0, 0)';
+    const rgb = core_hex_to_rgb(core_storage_data.creature_color);
+    const creature_color = 'rgb(' + rgb.red + ', ' + rgb.green + ', ' + rgb.blue + ')';
 
     player.movement_direction = player.requested_direction;
 
@@ -43,9 +46,9 @@ function move_player(){
         if(player.y - 1 >= 0){
             check_color = core_elements[(player.y - 1) * 20 + player.x].style.backgroundColor;
 
-            if(check_color !== color_obstacle){
-                if(check_color === color_negative){
-                    eat_purple_creature();
+            if(check_color !== obstacle_color){
+                if(check_color === creature_color){
+                    eat_creature();
                 }
 
                 player.y -= 1;
@@ -59,9 +62,9 @@ function move_player(){
           || core_storage_data.wrap === 3){
             check_color = core_elements[(player.y + 19) * 20 + player.x].style.backgroundColor;
 
-            if(check_color !== color_obstacle){
-                if(check_color === color_negative){
-                    eat_purple_creature();
+            if(check_color !== obstacle_color){
+                if(check_color === creature_color){
+                    eat_creature();
                 }
 
                 player.y = 19;
@@ -79,9 +82,9 @@ function move_player(){
         if(player.x + 1 <= 19){
             check_color = core_elements[player.y * 20 + player.x + 1].style.backgroundColor;
 
-            if(check_color !== color_obstacle){
-                if(check_color === color_negative){
-                    eat_purple_creature();
+            if(check_color !== obstacle_color){
+                if(check_color === creature_color){
+                    eat_creature();
                 }
 
                 player.x += 1;
@@ -95,9 +98,9 @@ function move_player(){
           || core_storage_data.wrap === 2){
             check_color = core_elements[player.y * 20 + player.x - 19].style.backgroundColor;
 
-            if(check_color !== color_obstacle){
-                if(check_color === color_negative){
-                    eat_purple_creature();
+            if(check_color !== obstacle_color){
+                if(check_color === creature_color){
+                    eat_creature();
                 }
 
                 player.x -= 19;
@@ -115,9 +118,9 @@ function move_player(){
         if(player.y + 1 <= 19){
             check_color = core_elements[(player.y + 1) * 20 + player.x].style.backgroundColor;
 
-            if(check_color !== color_obstacle){
-                if(check_color === color_negative){
-                    eat_purple_creature();
+            if(check_color !== obstacle_color){
+                if(check_color === creature_color){
+                    eat_creature();
                 }
 
                 player.y += 1;
@@ -131,9 +134,9 @@ function move_player(){
           || core_storage_data.wrap === 3){
             check_color = core_elements[(player.y - 19) * 20 + player.x].style.backgroundColor;
 
-            if(check_color !== color_obstacle){
-                if(check_color === color_negative){
-                    eat_purple_creature();
+            if(check_color !== obstacle_color){
+                if(check_color === creature_color){
+                    eat_creature();
                 }
 
                 player.y = 0;
@@ -151,9 +154,9 @@ function move_player(){
         if(player.x - 1 >= 0){
             check_color = core_elements[player.y * 20 + player.x - 1].style.backgroundColor;
 
-            if(check_color !== color_obstacle){
-                if(check_color === color_negative){
-                    eat_purple_creature();
+            if(check_color !== obstacle_color){
+                if(check_color === creature_color){
+                    eat_creature();
                 }
 
                 player.x -= 1;
@@ -167,9 +170,9 @@ function move_player(){
           || core_storage_data.wrap === 2){
             check_color = core_elements[player.y * 20 + player.x + 19].style.backgroundColor;
 
-            if(check_color !== color_obstacle){
-                if(check_color === color_negative){
-                    eat_purple_creature();
+            if(check_color !== obstacle_color){
+                if(check_color === creature_color){
+                    eat_creature();
                 }
 
                 player.x += 19;
@@ -206,7 +209,7 @@ function move_player(){
     }
 
     const element = core_elements[player.y * 20 + player.x];
-    element.style.backgroundColor = color_positive;
+    element.style.backgroundColor = core_storage_data.player_color;
     update_arrow(player.movement_direction);
 }
 
@@ -233,9 +236,6 @@ function repo_init(){
         },
       },
       'globals': {
-        'color_negative': 'rgb(102, 51, 102)',
-        'color_obstacle': 'rgb(0, 0, 0)',
-        'color_positive': '#206620',
         'empty': [],
         'player': {
           'movement_direction': 1,// 0=Up, 1=Right, 2=Down, 3=Left
@@ -286,10 +286,12 @@ function repo_init(){
       },
       'storage': {
         'collision': 1,
+        'creature_color': '#663366',
         'height': '25px',
         'holes_point': 1,
         'holes_start': 0,
         'ms_per_move': 125,
+        'player_color': '#206620',
         'turn_angle': 0,
         'width': '25px',
         'wrap': 0,
@@ -311,9 +313,11 @@ function repo_init(){
       'storage_menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
         + '<tr><td><input class=mini id=width type=text><td>Button Width'
         + '<tr><td><select id=collision><option value=1>End Game<option value=0>Nothing<option value=2>Score-1</select><td>Collision'
+        + '<tr><td><input id=creature_color type=color><td>Creature Color'
         + '<tr><td><input class=mini id=holes_point min=0 step=1 type=number><td>Holes/Point'
         + '<tr><td><input class=mini id=holes_start min=0 step=1 type=number><td>Holes/Start'
         + '<tr><td><input class=mini id=ms_per_move min=1 step=any type=number><td>ms/Move'
+        + '<tr><td><input id=player_color type=color><td>Player Color'
         + '<tr><td><select id=turn_angle><option value=0>90°<option value=1>any</select><td>Turn Angle'
         + '<tr><td><select id=wrap><option value=0>No<option value=1>X<option value=2>X+Y<option value=3>Y</select><td>Wrap</table>',
       'title': 'Snakish.htm',
@@ -365,9 +369,9 @@ function reset(){
         style.fontSize = half;
         style.lineHeight = half;
     }while(loop_counter--);
-    core_elements[21].style.backgroundColor = color_positive;
+    core_elements[21].style.backgroundColor = core_storage_data.player_color;
     core_elements[21].textContent = '→';
-    core_elements[378].style.backgroundColor = color_negative;
+    core_elements[378].style.backgroundColor = core_storage_data.creature_color;
     core_elements[378].textContent = '+';
 
     core_elements.game.style.lineHeight = core_storage_data.height;
@@ -396,7 +400,7 @@ function start(){
               core_random_integer(empty.length),
               1
             );
-            core_elements[id].style.backgroundColor = color_obstacle;
+            core_elements[id].style.backgroundColor = '#000';
         }while(loop_counter--);
     }
 
