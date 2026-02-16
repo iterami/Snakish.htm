@@ -385,10 +385,10 @@ function start(){
       && !globalThis.confirm('Start new game?')){
         return;
     }
+    reset();
     if(core_menu_open){
         core_escape();
     }
-    reset();
 
     if(core_storage_data.holes_start > 0){
         let loop_counter = Math.floor(Math.min(
