@@ -189,8 +189,7 @@ function move_player(){
 
     if(end_game){
         if(core_storage_data.collision === 1){
-            core_mode = 0;
-            core_interval_pause_all();
+            core_interval_lock('interval');
 
         }else if(core_storage_data.collision === 2){
             core_ui_update({
@@ -250,8 +249,8 @@ function repo_init(){
       'pointerbinds': {
         'pointermove': {
           'todo': function(){
-              if(!core_mode
-                || !core_pointer.down_0){
+              if(!core_pointer.down_0
+                || core_intervals.interval.paused){
                   return;
               }
 
@@ -376,8 +375,6 @@ function reset(){
 
     core_elements.game.style.lineHeight = core_storage_data.height;
     core_elements.game.style.minWidth = (core_elements[0].offsetWidth * 20 + 40) + 'px';
-
-    core_mode = 1;
 }
 
 function start(){
@@ -420,7 +417,7 @@ function update_arrow(direction){
 }
 
 function update_direction(event){
-    if(!core_mode){
+    if(core_intervals.interval.paused){
         return;
     }
 
