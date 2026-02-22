@@ -32,24 +32,18 @@ function eat_creature(){
 }
 
 function move_player(){
-    let check_color = 0;
     let dx = 0;
     let dy = 0;
     let end_game = false;
-    const obstacle_color = 'rgb(0, 0, 0)';
-    const rgb = core_hex_to_rgb(core_storage_data.creature_color);
-    const creature_color = 'rgb(' + rgb.red + ', ' + rgb.green + ', ' + rgb.blue + ')';
 
     player.movement_direction = player.requested_direction;
     if(player.movement_direction === 0){
         if(player.y - 1 >= 0){
-            check_color = core_elements[(player.y - 1) * 20 + player.x].style.backgroundColor;
-            dy += 1;
+            dy = 1;
 
         }else if(core_storage_data.wrap === 2
           || core_storage_data.wrap === 3){
-            check_color = core_elements[(player.y + 19) * 20 + player.x].style.backgroundColor;
-            dy -= 19;
+            dy = -19;
 
         }else{
             end_game = true;
@@ -57,13 +51,11 @@ function move_player(){
 
     }else if(player.movement_direction === 1){
         if(player.x + 1 <= 19){
-            check_color = core_elements[player.y * 20 + player.x + 1].style.backgroundColor;
-            dx -= 1;
+            dx = -1;
 
         }else if(core_storage_data.wrap === 1
           || core_storage_data.wrap === 2){
-            check_color = core_elements[player.y * 20 + player.x - 19].style.backgroundColor;
-            dx += 19;
+            dx = 19;
 
         }else{
             end_game = true;
@@ -71,13 +63,11 @@ function move_player(){
 
     }else if(player.movement_direction === 2){
         if(player.y + 1 <= 19){
-            check_color = core_elements[(player.y + 1) * 20 + player.x].style.backgroundColor;
-            dy -= 1;
+            dy = -1;
 
         }else if(core_storage_data.wrap === 2
           || core_storage_data.wrap === 3){
-            check_color = core_elements[(player.y - 19) * 20 + player.x].style.backgroundColor;
-            dy += 19;
+            dy = 19;
 
         }else{
             end_game = true;
@@ -85,21 +75,20 @@ function move_player(){
 
     }else if(player.movement_direction === 3){
         if(player.x - 1 >= 0){
-            check_color = core_elements[player.y * 20 + player.x - 1].style.backgroundColor;
-            dx += 1;
+            dx = 1;
 
         }else if(core_storage_data.wrap === 1
           || core_storage_data.wrap === 2){
-            check_color = core_elements[player.y * 20 + player.x + 19].style.backgroundColor;
-            dx -= 19;
+            dx = -19;
 
         }else{
             end_game = true;
         }
     }
 
+    const color = core_elements[(player.y - dy) * 20 + player.x - dx].style.backgroundColor;
     if(end_game
-      || check_color === obstacle_color){
+      || color === 'rgb(0, 0, 0)'){
         if(core_storage_data.collision === 1){
             core_interval_lock('interval');
 
@@ -111,9 +100,8 @@ function move_player(){
             });
         }
 
-    }else if(dx !== 0
-      || dy !== 0){
-        if(check_color === creature_color){
+    }else{
+        if(color === creature_color){
             eat_creature();
         }
 
@@ -153,6 +141,7 @@ function repo_init(){
         },
       },
       'globals': {
+        'creature_color': '',
         'empty': [],
         'player': {
           'movement_direction': 1,// 0=Up, 1=Right, 2=Down, 3=Left
@@ -288,6 +277,9 @@ function reset(){
     }while(loop_counter--);
     core_elements[21].style.backgroundColor = core_storage_data.player_color;
     core_elements[21].textContent = '→';
+
+    const rgb = core_hex_to_rgb(core_storage_data.creature_color);
+    creature_color = 'rgb(' + rgb.red + ', ' + rgb.green + ', ' + rgb.blue + ')';
     core_elements[378].style.backgroundColor = core_storage_data.creature_color;
     core_elements[378].textContent = '+';
 
