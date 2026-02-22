@@ -145,7 +145,7 @@ function repo_init(){
         'empty': [],
         'player': {
           'movement_direction': 1,// 0=Up, 1=Right, 2=Down, 3=Left
-          'requested_direciton': 1,
+          'requested_direction': 1,
           'x': 1,
           'y': 1,
         },
