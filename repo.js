@@ -143,12 +143,7 @@ function repo_init(){
       'globals': {
         'creature_color': '',
         'empty': [],
-        'player': {
-          'movement_direction': 1,// 0=Up, 1=Right, 2=Down, 3=Left
-          'requested_direction': 1,
-          'x': 1,
-          'y': 1,
-        },
+        'player': {},
         'score': 0,
       },
       'info': '<button class=medium id=start type=button>Start New Game</button>',
@@ -241,7 +236,6 @@ function repo_init(){
         output += '<button class=gridbutton disabled id=' + loop_counter + ' type=button></button>';
     }
     core_elements.game.innerHTML = output + '<br>';
-    reset();
 }
 
 function reset(){
