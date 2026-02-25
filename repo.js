@@ -9,26 +9,28 @@ function eat_creature(){
       },
     });
 
-    let id = -1;
-    let loop_counter = Math.floor(Math.min(
-      core_storage_data.holes_point - 1,
+    const player_xy = player.y * 20 + player.x;
+    const holescount = Math.floor(Math.min(
+      core_storage_data.holes_point,
       397
     ));
-    const player_xy = player.y * 20 + player.x;
-    if(loop_counter >= 0){
-        do{
-            do{
-                id = core_random_integer(empty.length);
-            }while(empty[id] === player_xy);
-            core_elements[empty.splice(id, 1)].style.backgroundColor = '#000';
-        }while(loop_counter--);
+    for(let i = 0; i < holescount; i++){
+        const choices = [...empty];
+        choices.splice(player_xy, 1);
+        const id = core_random_splice(choices);
+        for(const i in empty){
+            if(empty[i] === id){
+                empty.splice(i, 1);
+            }
+        }
+        core_elements[id].style.backgroundColor = '#000';
     }
 
-    do{
-        id = core_random_integer(empty.length);
-    }while(empty[id] === player_xy);
-    core_elements[empty[id]].style.backgroundColor = core_storage_data.creature_color;
-    core_elements[empty[id]].textContent = '+';
+    const choices = [...empty];
+    choices.splice(player_xy, 1);
+    const id = core_random_splice(choices);
+    core_elements[id].style.backgroundColor = core_storage_data.creature_color;
+    core_elements[id].textContent = '+';
 }
 
 function move_player(){
@@ -228,12 +230,12 @@ function repo_init(){
     });
 
     let output = '';
-    for(let loop_counter = 0; loop_counter < 400; loop_counter++){
-        if(loop_counter % 20 === 0 && loop_counter !== 0){
+    for(let i = 0; i < 400; i++){
+        if(i % 20 === 0 && i !== 0){
             output += '<br>';
         }
 
-        output += '<button class=gridbutton disabled id=' + loop_counter + ' type=button></button>';
+        output += '<button class=gridbutton disabled id=' + i + ' type=button></button>';
     }
     core_elements.game.innerHTML = output;
 }
@@ -251,24 +253,23 @@ function reset(){
     player.y = 1;
 
     core_object_reset(empty);
-    let loop_counter = 399;
-    do{
-        if(loop_counter !== 21 && loop_counter !== 378){
-            empty.push(loop_counter);
+    for(let i = 0; i < 400; i++){
+        if(i !== 21 && i !== 378){
+            empty.push(i);
         }
-        if(!core_elements[loop_counter]){
-            core_elements[loop_counter] = document.getElementById(loop_counter);
+        if(!core_elements[i]){
+            core_elements[i] = document.getElementById(i);
         }
-        const style = core_elements[loop_counter].style;
+        const style = core_elements[i].style;
         style.backgroundColor = '';
         style.height = core_storage_data.height;
         style.width = core_storage_data.width;
-        core_elements[loop_counter].textContent = '';
+        core_elements[i].textContent = '';
 
-        const half = Math.ceil(core_elements[loop_counter].offsetWidth / 2) + 'px';
+        const half = Math.ceil(core_elements[i].offsetWidth / 2) + 'px';
         style.fontSize = half;
         style.lineHeight = half;
-    }while(loop_counter--);
+    }
     core_elements[21].style.backgroundColor = core_storage_data.player_color;
     core_elements[21].textContent = '→';
 
@@ -291,18 +292,16 @@ function start(){
         core_escape();
     }
 
-    if(core_storage_data.holes_start > 0){
-        let loop_counter = Math.floor(Math.min(
-          core_storage_data.holes_start - 1,
-          396
-        ));
-        do{
-            const id = empty.splice(
-              core_random_integer(empty.length),
-              1
-            );
-            core_elements[id].style.backgroundColor = '#000';
-        }while(loop_counter--);
+    const holescount = Math.floor(Math.min(
+      core_storage_data.holes_start,
+      396
+    ));
+    for(let i = 0; i < holescount; i++){
+        const id = empty.splice(
+          core_random_integer(empty.length),
+          1
+        );
+        core_elements[id].style.backgroundColor = '#000';
     }
 
     core_interval_modify({
