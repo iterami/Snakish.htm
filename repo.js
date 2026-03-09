@@ -289,7 +289,7 @@ function start(){
     }
     reset();
     if(core_menu_open){
-        core_escape();
+        core_escape(false);
     }
 
     const holescount = Math.floor(Math.min(
