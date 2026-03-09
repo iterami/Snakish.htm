@@ -288,9 +288,7 @@ function start(){
         return;
     }
     reset();
-    if(core_menu_open){
-        core_escape(false);
-    }
+    core_escape(false);
 
     const holescount = Math.floor(Math.min(
       core_storage_data.holes_start,
