@@ -242,6 +242,8 @@ function repo_init(){
     for(let i = 0; i < 400; i++){
         core_elements[i] = document.getElementById(i);
     }
+
+    update_css();
 }
 
 function reset(){
@@ -279,8 +281,7 @@ function reset(){
     core_elements[378].style.backgroundColor = core_storage_data.creature_color;
     core_elements[378].textContent = '+';
 
-    core_elements.game.style.lineHeight = core_storage_data.height;
-    core_elements.game.style.minWidth = (core_elements[0].offsetWidth * 20 + 40) + 'px';
+    update_css();
 }
 
 function start(){
@@ -316,6 +317,11 @@ function update_arrow(direction){
         player.requested_direction = direction;
         core_elements[player.y * 20 + player.x].textContent = ['↑', '→', '↓', '←',][direction];
     }
+}
+
+function update_css(){
+    core_elements.game.style.lineHeight = core_storage_data.height;
+    core_elements.game.style.minWidth = (core_elements[0].offsetWidth * 20 + 40) + 'px';
 }
 
 function update_direction(event){
