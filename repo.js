@@ -238,6 +238,10 @@ function repo_init(){
         output += '<button class=gridbutton disabled id=' + i + ' type=button></button>';
     }
     core_elements.game.innerHTML = output;
+
+    for(let i = 0; i < 400; i++){
+        core_elements[i] = document.getElementById(i);
+    }
 }
 
 function reset(){
@@ -256,9 +260,6 @@ function reset(){
     for(let i = 0; i < 400; i++){
         if(i !== 21 && i !== 378){
             empty.push(i);
-        }
-        if(!core_elements[i]){
-            core_elements[i] = document.getElementById(i);
         }
         const style = core_elements[i].style;
         style.backgroundColor = '';
