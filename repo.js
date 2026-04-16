@@ -121,6 +121,8 @@ function move_player(){
 }
 
 function repo_escape(){
+    audio_state_all(!core_menu_open);
+
     if(!core_intervals.interval
       && !core_menu_open){
         start();
