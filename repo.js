@@ -226,6 +226,7 @@ function repo_init(){
         + '<tr><td><select id=turn_angle><option value=0>90°<option value=1>any</select><td>Turn Angle'
         + '<tr><td><select id=wrap><option value=0>No<option value=1>X<option value=2>X+Y<option value=3>Y</select><td>Wrap</table>',
       'title': 'Snakish.htm',
+      'ui': ' <span id=score></span>',
       'ui_elements': [
         'game',
       ],
