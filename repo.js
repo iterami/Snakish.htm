@@ -227,9 +227,7 @@ function repo_init(){
         + '<tr><td><select id=wrap><option value=0>No<option value=1>X<option value=2>X+Y<option value=3>Y</select><td>Wrap</table>',
       'title': 'Snakish.htm',
       'ui': ' <span id=score></span>',
-      'ui_elements': [
-        'game',
-      ],
+      'ui_elements': ['game'],
     });
 
     let output = '';
@@ -318,7 +316,7 @@ function update_arrow(direction){
     if(core_storage_data.turn_angle === 1
       || Math.abs(direction - player.movement_direction) !== 2){
         player.requested_direction = direction;
-        core_elements[player.y * 20 + player.x].textContent = ['↑', '→', '↓', '←',][direction];
+        core_elements[player.y * 20 + player.x].textContent = ['↑', '→', '↓', '←'][direction];
     }
 }
 
