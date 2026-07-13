@@ -131,13 +131,11 @@ function repo_escape(){
 
 function repo_init(){
     core_repo_init({
-      'beforeunload': {
-        'todo': function(event){
-            if(score !== 0){
-                core_escape(true);
-                event.preventDefault();
-            }
-        },
+      'beforeunload': function(event){
+          if(score !== 0){
+              core_escape(true);
+              event.preventDefault();
+          }
       },
       'events': {
         'start': {
@@ -153,40 +151,38 @@ function repo_init(){
       'info': '<button class=medium id=start type=button>Start New Game</button>',
       'menu': true,
       'pointerbinds': {
-        'pointermove': {
-          'todo': function(){
-              if(!core_pointer.down_0
-                || core_intervals.interval.paused){
-                  return;
-              }
+        'pointermove': function(){
+            if(!core_pointer.down_0
+              || core_intervals.interval.paused){
+                return;
+            }
 
-              const element = core_elements[player.y * 20 + player.x];
-              const x = core_pointer.x - element.offsetLeft;
-              const y = core_pointer.y - element.offsetTop;
+            const element = core_elements[player.y * 20 + player.x];
+            const x = core_pointer.x - element.offsetLeft;
+            const y = core_pointer.y - element.offsetTop;
 
-              let direction = player.requested_direction;
-              if(x < 0){
-                  if(y < x){
-                      direction = 0;
+            let direction = player.requested_direction;
+            if(x < 0){
+                if(y < x){
+                    direction = 0;
 
-                  }else if(y > 0 && -y < x){
-                      direction = 2;
+                }else if(y > 0 && -y < x){
+                    direction = 2;
 
-                  }else{
-                      direction = 3;
-                  }
+                }else{
+                    direction = 3;
+                }
 
-              }else if(x < y){
-                  direction = 2;
+            }else if(x < y){
+                direction = 2;
 
-              }else if(y < 0 && -y > x){
-                  direction = 0;
+            }else if(y < 0 && -y > x){
+                direction = 0;
 
-              }else{
-                  direction = 1;
-              }
-              update_arrow(direction);
-          },
+            }else{
+                direction = 1;
+            }
+            update_arrow(direction);
         },
       },
       'storage': {
